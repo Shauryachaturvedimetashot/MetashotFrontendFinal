@@ -1,0 +1,95 @@
+/* ScheduledInterviews.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f0fdf4; /* Match background color of mainContent in PastInterviews.module.css */
+  }
+  
+  .scheduledInterviewsList {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    background-color: white; /* Match background color of interviewsList in PastInterviews.module.css */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .scheduledInterviewCard {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .scheduledInterviewCard h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  
+  .detailsButton {
+    background-color: #10b981;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .detailsButton:hover {
+    background-color: #059669;
+  }
+  
+  .detailsModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure modal is on top of other content */
+  }
+  
+  .detailsContent {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    color: black;
+  }
+  
+  .detailsContent h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .detailsContent p {
+    margin-bottom: 10px;
+  }
+  
+  .detailsContent strong {
+    display: inline; /* Change to inline to align text next to it */
+    margin-right: 5px; /* Add some space after the label */
+    color: #374151;
+  }
+  
+  @media (max-width: 768px) {
+    .scheduledInterviewsList {
+      max-width: 100%;
+    }
+  }
+  

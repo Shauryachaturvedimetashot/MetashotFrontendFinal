@@ -1,0 +1,147 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  width: 100%;
+}
+
+.mainContent {
+  display: flex;
+  flex: 1;
+  background-color: #f0fdf4;
+}
+
+.sidebarN {
+  width: 250px;
+  background-color: #f4f4f4;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.createButton {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.createButton:hover {
+  background-color: #2563eb;
+}
+
+.interviewsList {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.interviewCard {
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.jobPosition {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.jobDescription {
+  margin-top: 5px;
+  color: #6b7280;
+}
+
+.detailsButton {
+  background-color: #10b981;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.detailsButton:hover {
+  background-color: #059669;
+}
+
+.detailsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailsContent {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  color: black;
+}
+
+.detailsContent h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.detailsContent p {
+  margin-bottom: 10px;
+}
+
+.detailsContent strong {
+  display: inline;
+  margin-right: 5px;
+  color: #374151;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.addCandidatesButton,
+.scheduledInterviewsButton {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.addCandidatesButton:hover,
+.scheduledInterviewsButton:hover {
+  background-color: #2563eb;
+}
