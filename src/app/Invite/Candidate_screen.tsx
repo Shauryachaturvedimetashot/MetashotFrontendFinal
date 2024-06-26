@@ -117,7 +117,7 @@ const handleModalClose=()=>{
 
   return (
 <>
-    <div className='content'>
+    <div className='content ml-8'>
     <div className='flex flex-row justify-between mt-6 md:col-span-1'>
         <button className='w-48 rounded-md bg-inherit invite_cand'> <FontAwesomeIcon icon={faCalendar} className="fas fa-check mr-2" style={{ color: "black" }} /> <select id="type" className='invite_cand'>
             <option value="invoice">Personal Calendar</option>

@@ -14,8 +14,8 @@ const Navbar:React.FC<NavbarProps>=(props)=>{
   }
 
     return (
-      <nav className="bg-white shadow-xl py-4 px-6 flex justify-between items-center navbar">
-        <div className="text-1xl font-bold">
+      <nav className="bg-white shadow-2xl py-4 px-6 flex justify-between items-center navbar">
+        <div className="text-1xl font-bold ml-6">
           <Link href="/">Interview.ai</Link>
         </div>
         <div className="flex items-center space-x-10 navcolor">
@@ -30,13 +30,13 @@ const Navbar:React.FC<NavbarProps>=(props)=>{
                 <a href="#">Link3</a>
               </div>
             </button> */}
-            {DropdownOpen && (
+            {/* {DropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-red border border-gray-200 rounded shadow-lg z-50">
                 <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Link1</a>
                 <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Link2</a>
                 <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Link3</a>
               </div>
-            )}
+            )} */}
             </div>
 
             <span className="text-gray-700">Hello <span className="font-bold ">{props.user_name}</span></span>
@@ -45,7 +45,7 @@ const Navbar:React.FC<NavbarProps>=(props)=>{
             
 
           </div>
-          <div className="ml-8 cursor-pointer">
+          <div className="ml-8 cursor-pointer px-2 mr-2">
           <FontAwesomeIcon icon={faRightFromBracket} className="fas fa-check" style={{ color: "black" }}/>
           </div>
         </div>

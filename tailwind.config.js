@@ -14,6 +14,9 @@ module.exports = {
         "custom-bg" : "#F8F8FB",
         "custom-bg2":"#EAFBEE",
     },
+    width:{
+      "20p" : "20%"
+    }
   },
 },
   plugins: [],
