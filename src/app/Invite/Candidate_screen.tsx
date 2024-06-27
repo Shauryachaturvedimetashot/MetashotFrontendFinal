@@ -3,9 +3,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown,faCalendar,faGlobe,faHourglassStart,faHourglassEnd} from "@fortawesome/free-solid-svg-icons";
-import Modal from '@/src/Components/Modal';
+import Modal from '../../Components/Modal';
 
 function Candidate_screen() {
+
+  interface Candidate{
+    name:string;
+    mail:string;
+    number:string;
+  }
+
+  interface FormErrors{
+    name:string;
+    mail:string;
+    number:string;
+  }
+
   const [startDate,setStartDate] = useState<Date|null>(new Date())
   const [endDate,setEndDate]=useState<Date|null>(new Date())
   const [startTime,setStartTime]=useState<Date|null>(new Date())
@@ -17,6 +30,15 @@ function Candidate_screen() {
   // Modal for Custom Message
   const[showModal2,setShowModal2]=useState<boolean>(false)
   const[toggleOn,setToggleOn] = useState<boolean>(false)
+
+  // Adding hooks for deleting / edting candidates
+  const [candidateName, setCandidateName] = useState<string>('');
+  const [candidateMail, setCandidateMail] = useState<string>('');
+  const [candidateNumber, setCandidateNumber] = useState<string>('');
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editIndex, setEditIndex] = useState<number| null>(null);
+  const [formErrors, setFormErrors] = useState<FormErrors>({ name: '', mail: '', number: '' });
 
 const handleToggleChange =()=>{
   if(!toggleOn){
@@ -41,12 +63,61 @@ const handleModalClose=()=>{
       setError("");
     }
   }}
+  
+  const validateForm = ():boolean=>{
+    const errors = {name:'',mail:'',number:''}
+    if(!candidateName) errors.name='Required'
+    if (!candidateMail) errors.mail = 'Required'
+    if (!candidateNumber) errors.number = 'Required'
+    setFormErrors(errors)
+    return !errors.name && !errors.mail && !errors.number
+  }
+
+  const handleAddCandidate = ():void=>{
+    if (validateForm()){
+      const newCandidate:Candidate = {name: candidateName,mail:candidateMail,number:candidateNumber}
+      if(isEditing){
+        const updatedCandidates = candidates.map((c,index)=>(index===editIndex?newCandidate : c))
+        setCandidates(updatedCandidates)
+        setIsEditing(false)
+        setEditIndex(null)
+      }
+      else{
+        setCandidates([...candidates,newCandidate])
+      }
+      setCandidateName('')
+      setCandidateMail('')
+      setCandidateNumber('')
+      // setShowModal(false)
+
+    }
+  }
+
+  const handleEditCandidate=(index:number):void=>{
+    const candidate = candidates[index]
+    setCandidateName(candidate.name)
+    setCandidateMail(candidate.mail)
+    setCandidateNumber(candidate.number)
+    setIsEditing(true)
+    setEditIndex(index)
+    setShowModal(true)
+  }
+
+  const handleDeleteCandidate = (index:number):void=>{
+    setCandidates(candidates.filter((_,i)=>i!==index))
+
+
+  }
+
   useEffect(()=>{
     validateDates();
   },[startDate, endDate, startTime, endTime])
+
+
+
   return (
 <>
-    <div className='content'>
+    <div className='content ml-8'>
     <div className='flex flex-row justify-between mt-6 md:col-span-1'>
         <button className='w-48 rounded-md bg-inherit invite_cand'> <FontAwesomeIcon icon={faCalendar} className="fas fa-check mr-2" style={{ color: "black" }} /> <select id="type" className='invite_cand'>
             <option value="invoice">Personal Calendar</option>
@@ -138,37 +209,68 @@ Review Job Description
     }} isCustomMsg={false}>
       <div className='bg-custom-bg2 rounded-xl'>
       <h2 className='text-left text-4xl font-bold pl-4 pt-4'> Add Candidate</h2>
+      <div className='flex flex-row'>
       <div className="w-full max-w-xs">
   <form className="bg-custom-bg2  rounded px-4 pt-2 pb-8 mb-2">
     <div className="mb-2 mt-2">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
         Candidate Name
       </label>
-      <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" />
+      <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" value={candidateName} onChange={(e)=>setCandidateName(e.target.value)} />
+      {formErrors.name && <p className="text-red-500 text-xs italic">{formErrors.name}</p>}
     </div>
     <div className="mb-2">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mail">
         Candidate Mail
       </label>
-      <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text"/>
-      
+      <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" value={candidateMail} onChange={(e) => setCandidateMail(e.target.value)}/>
+      {formErrors.mail && <p className="text-red-500 text-xs italic">{formErrors.mail}</p>}
     </div>
     <div className="mb-2">
-      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone" >
         Candidate Number
       </label>
-      <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" />
+      <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" value={candidateNumber} onChange={(e) => setCandidateNumber(e.target.value)} />
+      {formErrors.number && <p className="text-red-500 text-xs italic">{formErrors.number}</p>}
     </div>
     <div className="flex items-center justify-between">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-left" type="button">
-      ADD
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-left" type="button" onClick={handleAddCandidate}>
+
+      {isEditing? 'Update': 'Add'}
       </button>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={()=>setShowModal(false)}>
         Submit
       </button>
     </div>
   </form>
+  
+
+  </div>
  
+ <div className='max-h-60 overflow-y-auto'>
+    {candidates.map((candidate,index)=>(
+      <div key={index} className='flex p-2'>
+        <div className='flex-1'>{candidate.name}</div>
+        <div className='flex-none ml-2'>
+        <button
+          className="text-blue-500 hover:text-blue-700"
+          onClick={() => handleEditCandidate(index)}
+        >
+          Edit
+        </button>
+        </div>
+        <div className='flex-none'>
+        <button
+          className="text-red-500 hover:text-red-700 ml-2"
+          onClick={() => handleDeleteCandidate(index)}
+        >
+          Delete
+        </button>
+        </div>
+      </div>
+      
+    ))}
+</div>
 </div>
 </div>
     </Modal>

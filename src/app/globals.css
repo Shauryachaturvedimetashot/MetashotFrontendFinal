@@ -32,6 +32,9 @@ body {
     text-wrap: balance;
   }
 }
+.icon-hidden{
+  visibility: hidden;
+}
 .navbar{
   color: #586F55;
   font-family:'Lato',sans-serif ;
