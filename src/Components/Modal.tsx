@@ -19,7 +19,7 @@ const Modal:React.FC<ModalProps> = ({isVisible,onClose,children,isCustomMsg}) =>
     }
   return (
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center' id='wrapper' onClick={handleClose}>
-        <div className={`flex flex-col rounded-xl ${isCustomMsg?'w-[350px]':'w-[600px]'}`}>
+        <div className={`flex flex-col rounded-xl ${isCustomMsg?'w-[496px]':'w-[600px]'}`}>
             <button className='text-white text-xl place-self-end' onClick={onClose}>
             <FontAwesomeIcon icon={faXmark} className="fas fa-check mr-2" style={{ color: "black" }} />
             </button>
