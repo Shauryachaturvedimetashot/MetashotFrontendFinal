@@ -38,15 +38,15 @@
 }
 
 .createButton {
-  background-color: #3b82f6;
-  color: white;
+  background-color: rgb(65, 150, 65);
+  color: black;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
 }
 
 .createButton:hover {
-  background-color: #2563eb;
+  background-color: #25eb71;
 }
 
 .interviewsList {
@@ -133,8 +133,8 @@
 
 .addCandidatesButton,
 .scheduledInterviewsButton {
-  background-color: #3b82f6;
-  color: white;
+  background-color: green;
+  color: black;
   padding: 10px 20px;
   border-radius: 5px;
   margin-top: 20px;
@@ -143,5 +143,5 @@
 
 .addCandidatesButton:hover,
 .scheduledInterviewsButton:hover {
-  background-color: #2563eb;
+  background-color: #25eb60;
 }
