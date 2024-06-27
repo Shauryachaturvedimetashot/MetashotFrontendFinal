@@ -39,15 +39,6 @@ const Interviews: React.FC = () => {
     setSelectedInterview(interview);
   };
 
-  const handleAddCandidates = (interview: Interview) => {
-    const query = new URLSearchParams(interview as any).toString();
-    window.location.href = `/addCandidates?${query}`;
-  };
-
-  const handleSeeScheduledInterviews = (interview: Interview) => {
-    window.location.href = `/scheduledInterviews?interview=${interview._id}`;
-  };
-
   const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).className.includes('detailsModal')) {
       setSelectedInterview(null);
@@ -95,18 +86,12 @@ const Interviews: React.FC = () => {
             <p><strong>Skills Required:</strong> {selectedInterview.technicalSkills.join(", ")}</p>
             <p><strong>Date Created:</strong> {new Date(selectedInterview.createdAt).toLocaleString()}</p>
             <div className={styles.buttonGroup}>
-              <button
-                className={styles.addCandidatesButton}
-                onClick={() => handleAddCandidates(selectedInterview)}
-              >
-                Recreate this Interview
-              </button>
-              <button
-                className={styles.scheduledInterviewsButton}
-                onClick={() => handleSeeScheduledInterviews(selectedInterview)}
-              >
-                See Scheduled Interviews
-              </button>
+              <Link href={`/Invite?interview=${selectedInterview._id}`} legacyBehavior>
+                <a className={styles.addCandidatesButton}>Add New Candidates</a>
+              </Link>
+              <Link href={`/Candidates?interview=${selectedInterview._id}`} legacyBehavior>
+                <a className={styles.scheduledInterviewsButton}>View Candidates</a>
+              </Link>
             </div>
           </div>
         </div>
