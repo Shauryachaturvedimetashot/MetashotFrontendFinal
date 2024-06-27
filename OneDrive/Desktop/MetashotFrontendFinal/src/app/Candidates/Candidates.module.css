@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .mainContent {
+    display: flex;
+    flex: 1;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .sortButton {
+    padding: 10px 20px;
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .candidatesTable {
+    margin-bottom: 20px;
+  }
+  
+  .candidatesTable table {
+    width: 100%;
+    border-collapse: collapse;
+    color:black;
+  }
+  
+  .candidatesTable th, .candidatesTable td {
+    padding: 8px;
+    border: 1px solid black;
+    text-align: left;
+  }
+  
+  .candidatesTable th {
+    background-color: #f2f2f2;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .pagination span {
+    margin: 0 10px;
+    color: black;
+  }
+  
