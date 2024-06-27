@@ -2,8 +2,9 @@ import React,{useState,useEffect} from 'react'
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown,faCalendar,faGlobe,faHourglassStart,faHourglassEnd} from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown,faCalendar,faGlobe,faHourglassStart,faHourglassEnd,faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import Modal from '../../Components/Modal';
+import { time } from 'console';
 
 function Candidate_screen() {
 
@@ -60,7 +61,14 @@ const handleModalClose=()=>{
     if (endDate < startDate || (endDate.getTime() === startDate.getTime() && endTime < startTime)) {
       setError("End date/time must be later than start date/time");
     } else {
-      setError("");
+      const timeDiff = endDate.getTime() - startDate.getTime()
+      const daydiff = timeDiff/(3600*24*1000)
+      if(daydiff<3){
+        setError("Minimum 3 days required for the event")
+      }
+      else{
+        setError("")
+      }
     }
   }}
   
@@ -129,71 +137,106 @@ const handleModalClose=()=>{
           </select> </button>
     </div>
     <div className='text-5xl mt-4 font-semibold'> Interview Name</div>
-    <div className='flex flex-row '>
-    <div className='mt-8 max-w-2xl invite_cand h-24 rounded-md pr-2 pt-2'>
-{/* For first row */}
-    <div className='flex flex-row flex-grow'> 
+    <div className='flex flex-row'>
+  <div className='mt-8 max-w-2xl bg-[#E2F3E5] h-24 rounded-md pr-2 pt-2'>
+    {/* For first row */}
+    <div className='flex items-center justify-between'> 
       <div className='px-4 mr-10'>
-      <FontAwesomeIcon icon={faHourglassStart} className="fas fa-check mr-2" style={{ color: "black" }} />
-      Start
+        <FontAwesomeIcon icon={faHourglassStart} className="fas fa-check mr-2" style={{ color: "black" }} />
+        Start
       </div>
       <div className='px-10'>
-<DatePicker selected={startDate} dateFormat={"EEE/d-MMM"} onChange={(date)=>setStartDate(date)} className='text-center rounded-md invite_time'/>
+        <DatePicker
+          selected={startDate}
+          dateFormat={"EEE/d-MMM"}
+          onChange={(date) => setStartDate(date)}
+          className='text-center rounded-md invite_time'
+        />
       </div>
       <div>
-<DatePicker selected={startTime} onChange={(date)=>setStartTime(date)} showTimeSelect showTimeSelectOnly timeIntervals={15} timeCaption="Time" dateFormat="h:mm aa" className='text-center rounded-md invite_time'/>
+        <DatePicker
+          selected={startTime}
+          onChange={(date) => setStartTime(date)}
+          showTimeSelect
+          showTimeSelectOnly
+          timeIntervals={15}
+          timeCaption="Time"
+          dateFormat="h:mm aa"
+          className='text-center rounded-md bg-[#c5d8c5]'
+        />
       </div>
-
     </div>
     {/* Second row */}
-    <div className='flex flex-row mt-5 flex-grow'>
-<div className='px-4 mr-10'>
-<FontAwesomeIcon icon={faHourglassEnd} className="fas fa-check mr-2" style={{ color: "black" }} />
-Stop
-</div>
-<div className='px-10'>
-<DatePicker selected={endDate} dateFormat={"EEE/d-MMM"} onChange={(date)=>setEndDate(date)} className='text-center rounded-md invite_time'/>
-</div>
-<div>
-<DatePicker selected={endTime} onChange={(date)=>setEndTime(date)} showTimeSelect showTimeSelectOnly timeIntervals={15} timeCaption="Time" dateFormat="h:mm aa" className='text-center rounded-md invite_time'/>
-</div>
+    <div className='flex items-center mt-5 justify-between'>
+      <div className='px-4 mr-10'>
+        <FontAwesomeIcon icon={faHourglassEnd} className="fas fa-check mr-2" style={{ color: "black" }} />
+         Stop
+      </div>
+      <div className='px-10'>
+        <DatePicker
+          selected={endDate}
+          dateFormat={"EEE/d-MMM"}
+          onChange={(date) => setEndDate(date)}
+          className='text-center rounded-md bg-[#c5d8c5]'
+        />
+      </div>
+      <div>
+        <DatePicker
+          selected={endTime}
+          onChange={(date) => setEndTime(date)}
+          showTimeSelect
+          showTimeSelectOnly
+          timeIntervals={15}
+          timeCaption="Time"
+          dateFormat="h:mm aa"
+          className='text-center rounded-md invite_time'
+        />
+      </div>
     </div>
     {error && <div className='text-red-500 mt-4'>{error}</div>}
-    </div>
-    <div className='h-24 bg-slate-300 ml-10 mt-8 w-44 rounded-md px-2 pt-3 invite_cand'>
+  </div>
+  <div className='h-24 bg-slate-300 ml-10 mt-8 w-44 rounded-md px-2 pt-3 invite_cand'>
     <FontAwesomeIcon icon={faGlobe} className="fas fa-check mr-2" style={{ color: "black" }} /> 
-    <div>
-      GMT+05:30
-    </div>
-    <div>
-      Calcutta
-    </div>
-    </div>
+    <div>GMT+05:30</div>
+    <div>Calcutta</div>
+  </div>
+</div>
+
     
+    <div className='flex flex-col px-8'>
+  <button
+    className='max-w-md h-14 invite_cand mt-10 round rounded-md invitebtn btn_font hover:text-lg'
+    onClick={() => {
+      setShowModal(true);
+    }}
+  >
+    <div className='text-left ml-6'>
+      Add candidates
     </div>
-    
-    <div className='flex flex-col px-8 '>
-      <button className='max-w-md h-14 invite_cand mt-10 round rounded-md invitebtn btn_font hover:text-lg' onClick={()=>{
-        setShowModal(true)
-      }}>
-        Add candidates
-      </button>
-      <div className='w-72'>
-        
-<label className="inline-flex items-center cursor-pointer custom invite_cand mt-3 round h-14 custom rounded-md pl-36 invitebtn">
-  <input type="checkbox" value="" className="sr-only peer " onChange={handleToggleChange} checked={toggleOn}/>
+  </button>
   
-  <span className="ms-3 text-gray-900 dark:text-gray-300 text-center btn_font hover:text-lg hover:text-white"> Custom Message </span>
-  <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 ml-20"></div>
-</label>
-
+  <div className='w-72 mt-3'>
+    <label className="inline-flex items-center justify-between cursor-pointer custom invite_cand h-14 custom rounded-md invitebtn pl-6 pr-6">
+      <span className="text-gray-900 dark:text-gray-300 btn_font hover:text-lg hover:text-white text-left">Custom Message</span>
+      <input
+        type="checkbox"
+        value=""
+        className="sr-only peer"
+        onChange={handleToggleChange}
+        checked={toggleOn}
+      />
+      <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
       </div>
-      <button className='max-w-md invite_cand mt-3 rounded-md h-14 invitebtn btn_font hover:text-lg'>
-Review Job Description
-      </button>
-    
-
+    </label>
+  </div>
+  
+  <button className='max-w-md invite_cand mt-3 rounded-md h-14 invitebtn btn_font hover:text-lg'>
+    <div className='text-left ml-6'>
+      Review Job Description
     </div>
+  </button>
+</div>
+
 
     <div className='py-4 mt-16 ml-8 '>
       <button className=' w-full max-w-[700px] h-10 rounded-md invite_create_btn text-white font-semibold hover:text-lg hover:bg-opacity-70'>
@@ -276,10 +319,15 @@ Review Job Description
     </Modal>
   <Modal isVisible={showModal2} onClose={handleModalClose} isCustomMsg={true}>
     <div className='bg-custom-bg2 rounded-xl '>
-    <h2 className='text-left text-2xl font-bold pl-4 pt-4'> Custom Message </h2>
+      <div className='flex justify-between'>
+      <h2 className='text-left text-2xl font-bold pl-4 pt-4'> Custom Message </h2>
+      <div className='mt-5 mr-5'> <FontAwesomeIcon icon={faChevronRight} className="fas fa-check mr-2" style={{ color: "black" }} /></div>
+
+      </div>
+    
     <div className="p-4 flex justify-center">
   <textarea
-    className="resize-none w-[300px] h-[150px] p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-auto"
+    className="resize-none w-[435px] h-[159px] p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-auto"
     style={{ caretColor: "white" }}
     placeholder="Type here..."
   ></textarea>
