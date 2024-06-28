@@ -167,7 +167,7 @@ const renderedQuestions = selectedCategory !== null
 
   return (
     <div className="bg-green-100 min-h-screen">
-      <Navbarn />
+      <Navbarn company="Metashot" user_name="XYZ" />
       <div className="flex">
         <Sidebarn />
         <div className="flex-1 p-4">
