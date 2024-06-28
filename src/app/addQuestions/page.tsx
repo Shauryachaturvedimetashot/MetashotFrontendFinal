@@ -160,9 +160,10 @@ const AskQuestions = () => {
   };
 
   // Render questions based on selectedCategory or all categories
-  const renderedQuestions = selectedCategory !== null
-    ? categories.find(cat => cat.name === selectedCategory)?.questions || []
-    : categories.reduce((acc, cat) => [...acc, ...cat.questions], []);
+const renderedQuestions = selectedCategory !== null
+  ? categories.find(cat => cat.name === selectedCategory)?.questions || []
+  : categories.reduce((acc: string[], cat) => [...acc, ...cat.questions], []);
+
 
   return (
     <div className="bg-green-100 min-h-screen">
