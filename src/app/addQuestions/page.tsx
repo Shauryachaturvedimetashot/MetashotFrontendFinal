@@ -148,7 +148,8 @@ const AskQuestions = () => {
 
       if (response.status === 200) {
         console.log("Interview created successfully:", response.data);
-        window.location.href = "/Invite";
+        const interviewId = response.data._id; // Extract interview ID from response
+        window.location.href = `/Invite?interview=${interviewId}`; // Redirect to CandidateScreen with interview ID
       } else {
         console.error("Failed to create interview:", response.data);
       }
@@ -159,13 +160,14 @@ const AskQuestions = () => {
   };
 
   // Render questions based on selectedCategory or all categories
-  const renderedQuestions = selectedCategory !== null
-    ? categories.find(cat => cat.name === selectedCategory)?.questions || []
-    : categories.reduce((acc, cat) => [...acc, ...cat.questions], []);
+const renderedQuestions = selectedCategory !== null
+  ? categories.find(cat => cat.name === selectedCategory)?.questions || []
+  : categories.reduce((acc: string[], cat) => [...acc, ...cat.questions], []);
+
 
   return (
     <div className="bg-green-100 min-h-screen">
-      <Navbarn />
+      <Navbarn company="Metashot" user_name="XYZ" />
       <div className="flex">
         <Sidebarn />
         <div className="flex-1 p-4">
