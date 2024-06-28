@@ -1,5 +1,4 @@
-"use client"
-// Form.tsx
+"use client";
 import React, { useState, ChangeEvent } from "react";
 import Link from "next/link";
 
@@ -95,7 +94,7 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
         />
 
         <button
-          className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 w-full mt-2 cursor-pointer text-center"
+          className="bg-green-600 text-black text-bold px-3 py-2 rounded hover:bg-green-400 w-full mt-2 cursor-pointer text-center"
           onClick={handleSubmit}
         >
           Go to Add Questions
@@ -106,9 +105,3 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
 };
 
 export default Form;
-
-
-
-
-
-
