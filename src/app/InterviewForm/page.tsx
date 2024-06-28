@@ -1,19 +1,23 @@
-// page.tsx
 "use client";
 import React, { useState } from "react";
 import Form from "./Form";
-
+import Sidebarn from "../../Components/SidebarN"; 
+import Navbarn from "../../Components/Navbarn"; 
 const InterviewPage = () => {
-  const [interviewName, setInterviewName] = useState("Dynamic Interview Name");
+  const [interviewName, setInterviewName] = useState("Your job title");
 
   const handleJobPositionChange = (jobPosition: string) => {
     setInterviewName(jobPosition);
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="w-full max-w-screen-md h-full flex flex-col p-4">
-        <Form interviewName={interviewName} onJobPositionChange={handleJobPositionChange} />
+    <div className="min-h-screen bg-green-100 flex flex-col">
+      <Navbarn company="Your Company" user_name="Username" /> {/* Include Navbarn component at the top */}
+      <div className="flex flex-1">
+        <Sidebarn />
+        <div className="w-full max-w-screen-md h-full flex flex-col p-4">
+          <Form interviewName={interviewName} onJobPositionChange={handleJobPositionChange} />
+        </div>
       </div>
     </div>
   );
