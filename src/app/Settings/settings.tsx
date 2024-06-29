@@ -2,6 +2,7 @@ import React, { useState,ChangeEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../../Components/Modal'
+import styles from './Settings.module.css'
 
 const Settings_content:React.FC = () => {
   const [exportCandidateList, setExportCandidateList] = useState<boolean>(false);
@@ -53,17 +54,28 @@ const Settings_content:React.FC = () => {
     setter(event.target.value);
   };
 
+
+    //Handling Button Click
+    const handleButtonClick =()=>{
+      const fileInput = document.getElementById('fileInput')
+      if(fileInput){
+        fileInput.click()
+      }
+    }
   
 
   return (
     <>
-    <div className="flex flex-col items-center mt-8 rounded-xl text-xs shadow-md" style={{ width: '1000px', height: '610px', backgroundColor: '#F8F8FB', fontFamily: 'Inter',color:'#3C3C3C' }}>
+    <div className={`flex flex-col items-center mt-8 rounded-xl text-xs shadow-md ${styles['container']}`}>
       <div className="w-full px-6 ">
         <h2 className="text-xl font-semibold mb-8 mt-6 ml-5">Settings</h2>
         
         <div className="mb-1 flex justify-start ml-20">
-          <label className="block mb-2 font-bold">Profile picture</label>
-          <input type="file" className="block mb-2 ml-10" onChange={handleFileChange} />
+        <label className="block mb-2 font-bold items-center mt-3">Profile picture</label>
+          <input type="file" id='fileInput' className="hidden" onChange={handleFileChange} />
+          <button className='bg-[#FFFFFF] ml-10 p-3 font-bold rounded-xl shadow-lg' style={{color:'#3D8A3C',fontFamily:'inter'}} onClick={handleButtonClick}>
+CHOOSE FILE
+          </button>
           
         </div>
         {!fileSelected && fileError.length===0 && (
@@ -81,25 +93,25 @@ const Settings_content:React.FC = () => {
 
         <div className="mb-4 flex justify-start items-center mt-5">
           <label className="  font-bold ml-32 text-right flex justify-center">Name</label>
-          <input type="text" className="p-2 border rounded-md ml-10" style={{width:'282px'}} value={name} onChange={handleChange(setName)} />
+          <input type="text" className={`p-2 border rounded-md ${styles['box']}`} style={{marginLeft:'38px'}} value={name} onChange={handleChange(setName)} />
         </div>
 
         <div className="mb-4 flex justify-start items-center">
           <label className="block  font-bold text-right " style={{marginLeft:"70px"}}>Company Name</label>
-          <input type="text" className="p-2 border rounded-md" value={companyName} style={{width:'282px',marginLeft:'38px'}} onChange={handleChange(setCompanyName)} />
+          <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={companyName} style={{marginLeft:'38px'}} onChange={handleChange(setCompanyName)} />
         </div>
 
         <div className="mb-4 flex justify-start items-center">
           <label className="block font-bold text-right ml-16">Company Details</label>
-          <input type="text" className=" p-2 border rounded-md" style={{width:'282px',marginLeft:'38px'}} value={companyDetails} onChange={handleChange(setCompanyDetails)} />
+          <input type="text" className={`p-2 border rounded-md ${styles['box']}`} style={{marginLeft:'38px'}} value={companyDetails} onChange={handleChange(setCompanyDetails)} />
         </div>
 
         <div className=" flex justify-start items-center">
           <label className="block font-bold text-right ml-32 ">Email</label>
-          <input type="email" className="w-full p-2 border rounded-md " style={{width:'282px',marginLeft:'40px'}} value={email} onChange={handleChange(setEmail)} />
+          <input type="email" className={`p-2 border rounded-md ${styles['box']}`} style={{marginLeft:'40px'}} value={email} onChange={handleChange(setEmail)} />
           
         </div>
-        <div style={{marginLeft:'350px'}}>
+        <div className={`${styles['email']}`}>
         <small className="text-red-500">Email not verified. <a href="#" className="text-blue-500 underline">Verify now</a></small>
         </div>
 

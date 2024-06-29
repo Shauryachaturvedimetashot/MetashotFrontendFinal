@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import styles from './Jobs.module.css'
 
 interface CentreProps {
   company: string;
@@ -8,7 +9,7 @@ interface CentreProps {
 const Centre: React.FC<CentreProps> = (props) => {
   return (
     <>
-      <div className="w-1/2">
+      <div className={`w-1/2 ${styles['container']}`}>
         <h1 className="text-2xl mb-4 font-black mt-12 ml-2" style={{ fontFamily: 'Lato', color: '#274C77' }}>
           WELCOME, {props.company}
         </h1>

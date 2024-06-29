@@ -17,7 +17,7 @@ const Home:React.FC=()=> {
   return (
     <>
     <Navbar user_name="Iman" company="XYZ Company"/>
-    <div className="flex h-screen">
+    <div className="flex ">
       <Sidebarn/>
       
       <Centre company="XYZ Company"/>

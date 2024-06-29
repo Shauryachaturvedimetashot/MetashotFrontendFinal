@@ -7,6 +7,7 @@ import Modal from '../../Components/Modal';
 import Link from 'next/link';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
+import styles from './Invite.module.css'
 
 interface Candidate {
   name: string;
@@ -167,7 +168,7 @@ function CandidateScreen() {
               <option value="payment">Public Calendar</option>
             </select>
           </button>
-          <button className='w-48 rounded-md mr-72 invite_cand'>
+          <button className={`w-48 rounded-md mr-72 invite_cand ${styles['align1']}`}>
             <FontAwesomeIcon icon={faGlobe} className="fas fa-check mr-2" style={{ color: "black" }} />
             <select id="type" className='invite_cand text-black font-semibold'>
               <option value="invoice">Public</option>
@@ -177,9 +178,9 @@ function CandidateScreen() {
         </div>
         <div className='text-5xl mt-4 font-semibold text-black'> Interview Name</div>
         <div className='flex flex-row text-black'>
-          <div className='mt-8 max-w-2xl bg-[#E2F3E5] h-24 rounded-md pr-2 pt-2'>
+          <div className={`mt-8  bg-[#E2F3E5] h-24 rounded-md pr-2 pt-2 ${styles['main_box']} `} >
             {/* For first row */}
-            <div className='flex items-center justify-between'>
+            <div className={`flex ${styles['box2']}`}>
               <div className='px-4 mr-10'>
                 <FontAwesomeIcon icon={faHourglassStart} className="fas fa-check mr-2 text-black" />
                 Start
@@ -206,7 +207,7 @@ function CandidateScreen() {
               </div>
             </div>
             {/* Second row */}
-            <div className='flex items-center mt-5 justify-between text-black'>
+            <div className={`flex items-center mt-5 justify-between text-black ${styles['box3']}`}>
               <div className='px-4 mr-10'>
                 <FontAwesomeIcon icon={faHourglassEnd} className="fas fa-check mr-2" style={{ color: "black" }} />
                 Stop
@@ -234,11 +235,11 @@ function CandidateScreen() {
             </div>
             {error && <div className='text-red-500 mt-4'>{error}</div>}
           </div>
-          <div className='h-24 bg-slate-300 ml-10 mt-8 w-44 rounded-md px-2 pt-3'>
-            <div className='text-lg'>Kindly note:</div>
-            <div className='text-sm'>Events set to Public</div>
-            <div className='text-sm'>will be open for anyone</div>
-            <div className='text-sm'>to join.</div>
+          <div className={`h-24 bg-slate-300 ml-10 mt-8 w-44 rounded-md px-2 pt-3 ${styles['main_box2']}`}>
+            <div className={`text-lg ${styles['main_box2']}`}>Kindly note:</div>
+            <div className={`text-sm ${styles['main_box2']}`}>Events set to Public</div>
+            <div className={`text-sm ${styles['main_box2']}`}>will be open for anyone</div>
+            <div className={`text-sm ${styles['main_box2']}`}>to join.</div>
           </div>
         </div>
         <div className='mt-8'>
