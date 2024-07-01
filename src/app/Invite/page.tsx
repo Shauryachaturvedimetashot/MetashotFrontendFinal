@@ -8,7 +8,7 @@ const Invite = () => {
   return (
     <div>
       <Navbar user_name="Iman" company="XYZ Company" />
-      <div className='flex h-screen'>
+      <div className='flex'>
         <Sidebarn />
         <Suspense fallback={<div>Loading...</div>}>
           <Candidate_screen />
