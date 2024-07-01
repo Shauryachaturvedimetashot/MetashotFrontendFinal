@@ -43,12 +43,12 @@ const Centre: React.FC<CentreProps> = (props) => {
               POST A JOB
             </div>
           </Link>
-          <div className="mb-4 bg-[#F8F8FB] h-80 rounded-2xl shadow-lg mt-20">
+          <div className={`mb-4 bg-[#F8F8FB] h-auto pb-2 rounded-2xl shadow-lg mt-20 ${styles['miniContainer']}`}>
             <div className="font-[800] text-2xl pl-3 pt-6" style={{  color: '#274C77' }}>
               ALL LISTED JOBS
             </div>
             <div className="ml-4 mr-4 mt-4 flex flex-col">
-              <div className="flex items-center font-[600] text-[#274C77] ">
+              <div className={`flex items-center font-[600] text-[#274C77] ${styles['headMini']}`}>
                 <div className="w-64 justify-start">
                   Interview Name
                 </div>
@@ -67,7 +67,7 @@ const Centre: React.FC<CentreProps> = (props) => {
               </div>
               {/* Start adding the Interview Details below */}
               {interviews.map((interview,index)=>( 
-              <div key={index} className="flex items-center font-[200] text-[#274C77] mt-2">
+              <div key={index} className={`flex items-center font-[200] text-[#274C77] mt-2 ${styles['textMini']}`}>
                 <div className="w-64 justify-start hover:font-[500] ">
                   {interview.name}
                 </div>
