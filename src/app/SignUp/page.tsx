@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router"; // Changed from 'next/navigation' to 'next/router'
+iimport { useRouter } from "next/navigation"; // Changed from 'next/navigation' to 'next/router'
 import apiClient from "../../utils/axiosSetup"; // Assuming axios setup is correctly imported
 
 const LoginSignUpPage = () => {
