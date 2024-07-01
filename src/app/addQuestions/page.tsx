@@ -122,6 +122,8 @@ const AskQuestions = () => {
     try {
       const formData = JSON.parse(localStorage.getItem("formData") || "{}");
       const technicalSkills = formData.technicalSkills || categories.map(cat => cat.name);
+      const jobDescription = formData.jobDescription || "";
+      localStorage.setItem("jobDescription", jobDescription);
 
       const payload = {
         jobPosition: formData.jobPosition || "",
@@ -166,7 +168,7 @@ const renderedQuestions = selectedCategory !== null
 
 
   return (
-    <div className="bg-green-100 min-h-screen">
+    <div className="min-h-screen bg-green-100">
       <Navbarn company="Metashot" user_name="XYZ" />
       <div className="flex">
         <Sidebarn />
@@ -174,9 +176,9 @@ const renderedQuestions = selectedCategory !== null
           <div className="mb-4">
             <div className="flex">
               <div className="w-1/2 pr-4">
-                <h2 className="text-lg font-semibold mb-2 text-black">Add Specific Questions</h2>
+                <h2 className="mb-2 text-lg font-semibold text-black">Add Specific Questions</h2>
                 <textarea
-                  className="border border-gray-300 rounded px-3 py-2 mb-2 w-full focus:outline-none focus:border-blue-400 text-black"
+                  className="w-full px-3 py-2 mb-2 text-black border border-gray-300 rounded focus:outline-none focus:border-blue-400"
                   value={newQuestion}
                   onChange={(e) => setNewQuestion(e.target.value)}
                   placeholder="Type your question here..."
@@ -184,7 +186,7 @@ const renderedQuestions = selectedCategory !== null
                 <div className="mb-2">
                   <label className="text-sm font-semibold text-black">Select or Add Skill:</label>
                   <select
-                    className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:border-blue-400 text-black"
+                    className="w-full px-3 py-2 text-black border border-gray-300 rounded focus:outline-none focus:border-blue-400"
                     value={selectedCategory || "__all__"}
                     onChange={(e) => handleCategorySelection(e.target.value)}
                   >
@@ -195,7 +197,7 @@ const renderedQuestions = selectedCategory !== null
                   </select>
                   <input
                     type="text"
-                    className="border border-gray-300 rounded px-3 py-2 mt-2 w-full focus:outline-none focus:border-blue-400 text-black"
+                    className="w-full px-3 py-2 mt-2 text-black border border-gray-300 rounded focus:outline-none focus:border-blue-400"
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
                     placeholder="New Skill Name"
@@ -204,10 +206,10 @@ const renderedQuestions = selectedCategory !== null
               </div>
               <div className="w-1/2 pl-4">
                 <div className="mb-4">
-                  <h2 className="text-lg font-semibold mb-2 text-black">Added Questions</h2>
+                  <h2 className="mb-2 text-lg font-semibold text-black">Added Questions</h2>
                   <ul>
                     {renderedQuestions.map((question, index) => (
-                      <li key={index} className="border border-gray-300 rounded px-3 py-2 mb-2 text-black">
+                      <li key={index} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
                         {question}
                         {selectedCategory !== null && (
                           <>
@@ -230,18 +232,18 @@ const renderedQuestions = selectedCategory !== null
                   </ul>
                 </div>
                 {showDeleteConfirmation && (
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white p-4 rounded shadow-lg text-center">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="p-4 text-center bg-white rounded shadow-lg">
                       <p className="mb-4">Are you sure you want to delete {categoryToDelete}?</p>
                       <div>
                         <button
-                          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mr-2"
+                          className="px-4 py-2 mr-2 text-white bg-red-500 rounded hover:bg-red-600"
                           onClick={handleConfirmDelete}
                         >
                           Yes
                         </button>
                         <button
-                          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2"
+                          className="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600"
                           onClick={handleCancelDelete}
                         >
                           No
@@ -252,21 +254,21 @@ const renderedQuestions = selectedCategory !== null
                 )}
               </div>
             </div>
-            <div className="mt-4 flex items-center">
+            <div className="flex items-center mt-4">
               <button
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 mr-2"
+                className="px-4 py-2 mr-2 text-white bg-green-600 rounded hover:bg-green-500"
                 onClick={addOrUpdateQuestion}
               >
                 {editIndex !== null ? "Update Question" : "Add Question"}
               </button>
               <button
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 mr-2"
+                className="px-4 py-2 mr-2 text-white bg-green-600 rounded hover:bg-green-500"
                 onClick={handleGenerateQuestions}
               >
                 Generate Using AI
               </button>
               <button
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500"
+                className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-500"
                 onClick={handleAddCategory}
               >
                 Add Skill
@@ -274,7 +276,7 @@ const renderedQuestions = selectedCategory !== null
             </div>
             <div className="mt-4">
               <button
-                className="bg-green-600 text-white px-4 py-2 mt-8 rounded hover:bg-green-600 text-center"
+                className="px-4 py-2 mt-8 text-center text-white bg-green-600 rounded hover:bg-green-600"
                 onClick={handleFinishButtonClick}
               >
                 Finish
