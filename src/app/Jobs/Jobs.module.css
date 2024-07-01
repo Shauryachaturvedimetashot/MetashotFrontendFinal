@@ -1,5 +1,15 @@
-@media (max-width:1000px){
+@media (max-width:600px){
     .container{
-        margin-left: 25px;
+        margin-left: 40px;
+    }
+    .miniContainer{
+        width: 130%;
+        height: auto;
+    }
+    .headMini{
+        font-size: small;
+    }
+    .textMini{
+        font-size: smaller;
     }
 }
