@@ -207,30 +207,28 @@ const renderedQuestions = selectedCategory !== null
                 </div>
               </div>
               <div className="w-1/2 pl-4">
-                <div className="mb-4">
+                <div className="h-64 mb-4 overflow-y-auto"> {/* Added fixed height and scrollable */}
                   <h2 className="mb-2 text-lg font-semibold text-black">Added Questions</h2>
                   <ul>
-                    {renderedQuestions.map((question, index) => (
-                      <li key={index} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
-                        {question}
-                        {selectedCategory !== null && (
-                          <>
-                            <button
-                              className="ml-2 text-sm text-red-600"
-                              onClick={() => handleQuestionDelete(selectedCategory!, index)}
-                            >
-                              Delete
-                            </button>
-                            <button
-                              className="ml-2 text-sm text-blue-600"
-                              onClick={() => handleEditClick(selectedCategory!, index)}
-                            >
-                              Edit
-                            </button>
-                          </>
-                        )}
-                      </li>
-                    ))}
+                    {categories.flatMap((cat, catIndex) =>
+                      cat.questions.map((question, index) => (
+                        <li key={`${catIndex}-${index}`} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
+                          {question} ({cat.name})
+                          <button
+                            className="ml-2 text-sm text-red-600"
+                            onClick={() => handleQuestionDelete(cat.name, index)}
+                          >
+                            Delete
+                          </button>
+                          <button
+                            className="ml-2 text-sm text-blue-600"
+                            onClick={() => handleEditClick(cat.name, index)}
+                          >
+                            Edit
+                          </button>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
                 {showDeleteConfirmation && (
