@@ -235,12 +235,12 @@ function CandidateScreen() {
 
         <div className="mt-6">
           <button
-            className={`w-8/12 px-4 py-2 text-white bg-green-600 rounded-md ${(!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || error) && "opacity-50 cursor-not-allowed"}`}
-            onClick={handleCreateEvent}
-            disabled={!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || error}
-          >
-            Create Event
-          </button>
+  className={`w-8/12 px-4 py-2 text-white bg-green-600 rounded-md ${(!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || !!error) && "opacity-50 cursor-not-allowed"}`}
+  onClick={handleCreateEvent}
+  disabled={!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || !!error}
+>
+  Create Event
+</button>
           {error && <div className="mt-2 text-red-600">{error}</div>}
         </div>
 
