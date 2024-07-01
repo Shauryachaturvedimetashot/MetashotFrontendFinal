@@ -124,6 +124,8 @@ const AskQuestions = () => {
       const technicalSkills = formData.technicalSkills || categories.map(cat => cat.name);
       const jobDescription = formData.jobDescription || "";
       localStorage.setItem("jobDescription", jobDescription);
+      const jobPosition = formData.jobPosition || "";
+      localStorage.setItem("jobPosition", jobPosition);
 
       const payload = {
         jobPosition: formData.jobPosition || "",
