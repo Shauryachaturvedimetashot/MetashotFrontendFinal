@@ -24,7 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
-    background: #EAFBEE;;
+    background: #EAFBEE;
 }
 
 @layer utilities {
@@ -39,7 +39,10 @@ body {
   color: #586F55;
   font-family:'Lato',sans-serif ;
   background-color: #F8F8FB;
-  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: visible;
+  /* overflow: hidden; */
 
 }
 .navcolor{

@@ -10,7 +10,7 @@ const Setting=()=>{
     return(
         <>
         <Navbar user_name="Raees" company="XYZ Company"/>
-        <div className='flex h-screen'>
+        <div className='flex'>
         <Sidebarn/>
         <Settings_content/>
         
