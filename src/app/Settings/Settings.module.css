@@ -6,27 +6,45 @@
     color:'#3C3C3C';
     margin-right: 10px;
 }
-
 .box{
-    width:282px;
+    width: 282px;
 }
+
+
 .email{
     margin-left: 350px;
 }
 
 
-@media (max-width:900px){
+@media (max-width:600px){
     .container{
-        width: 600px !important;
-        margin-left: 30px;
+        /* width: auto !important; */
+        margin-left: 40px;
         margin-right: 10px;
+        height: auto;
 
     }
     .box{
         width: 150px;
+        margin-left: 20px !important;
     }
     .email{
         margin-left: 180px;
 
+    }
+    .inputBar{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        margin-left: 20px !important;
+        
+    }
+    .inputBar button{
+        padding: 1px;
+        width: 80px;
+    }
+    .left{
+        text-align: left;
+        margin-left: 20px;
     }
 }

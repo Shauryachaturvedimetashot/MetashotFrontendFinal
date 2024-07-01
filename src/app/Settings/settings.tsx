@@ -66,20 +66,24 @@ const Settings_content:React.FC = () => {
 
   return (
     <>
-    <div className={`flex flex-col items-center mt-8 rounded-xl text-xs shadow-md ${styles['container']}`}>
-      <div className="w-full px-6 ">
+    <div className={`flex flex-col mt-8 rounded-xl text-xs shadow-md ${styles['container']}`}>
+      <div className="w-3/4">
         <h2 className="text-xl font-semibold mb-8 mt-6 ml-5">Settings</h2>
         
-        <div className="mb-1 flex justify-start ml-20">
-        <label className="block mb-2 font-bold items-center mt-3">Profile picture</label>
-          <input type="file" id='fileInput' className="hidden" onChange={handleFileChange} />
-          <button className='bg-[#FFFFFF] ml-10 p-3 font-bold rounded-xl shadow-lg' style={{color:'#3D8A3C',fontFamily:'inter'}} onClick={handleButtonClick}>
+        <div className={`flex ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+Profile Picture
+        </div>
+        <div className='ml-10 w-28 h-6 flex items-center justify-start'>
+        <input type="file" id='fileInput' className="hidden" onChange={handleFileChange} />
+          <button className='bg-[#FFFFFF] p-3 font-bold rounded-xl shadow-lg w-32 h-10' style={{color:'#3D8A3C',fontFamily:'inter'}} onClick={handleButtonClick}>
 CHOOSE FILE
           </button>
           
         </div>
-        {!fileSelected && fileError.length===0 && (
-        <div className='ml-52'>
+      </div>
+      {!fileSelected && fileError.length===0 && (
+        <div className={`ml-56 mt-3 ${styles['left']}`}>
         <small className="text-gray-500">no file selected</small><br />
         <small className="text-gray-500">maximum image size is 1 MB</small>
 
@@ -91,31 +95,50 @@ CHOOSE FILE
         )}
         
 
-        <div className="mb-4 flex justify-start items-center mt-5">
-          <label className="  font-bold ml-32 text-right flex justify-center">Name</label>
-          <input type="text" className={`p-2 border rounded-md ${styles['box']}`} style={{marginLeft:'38px'}} value={name} onChange={handleChange(setName)} />
+        <div className={`flex mt-5 mb-4 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+          Name
+        </div>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={name} onChange={handleChange(setName)} />
         </div>
 
-        <div className="mb-4 flex justify-start items-center">
-          <label className="block  font-bold text-right " style={{marginLeft:"70px"}}>Company Name</label>
-          <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={companyName} style={{marginLeft:'38px'}} onChange={handleChange(setCompanyName)} />
+        </div>
+        
+        <div className={`flex mt-5 mb-4 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        Company Name
+        </div>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={companyName} onChange={handleChange(setCompanyName)} />
         </div>
 
-        <div className="mb-4 flex justify-start items-center">
-          <label className="block font-bold text-right ml-16">Company Details</label>
-          <input type="text" className={`p-2 border rounded-md ${styles['box']}`} style={{marginLeft:'38px'}} value={companyDetails} onChange={handleChange(setCompanyDetails)} />
         </div>
 
-        <div className=" flex justify-start items-center">
-          <label className="block font-bold text-right ml-32 ">Email</label>
-          <input type="email" className={`p-2 border rounded-md ${styles['box']}`} style={{marginLeft:'40px'}} value={email} onChange={handleChange(setEmail)} />
-          
+      <div className={`flex mt-5 mb-4 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        Company Details
         </div>
-        <div className={`${styles['email']}`}>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={companyDetails} onChange={handleChange(setCompanyDetails)} />
+        </div>
+
+        </div>
+
+        <div className={`flex mt-5 mb-4 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        Email
+        </div>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <input type="email" className={`p-2 border rounded-md ${styles['box']}`} value={email} onChange={handleChange(setEmail)} />
+        </div>
+
+        </div>
+        <div className={`${styles['email']} ${styles['left']}`}>
         <small className="text-red-500">Email not verified. <a href="#" className="text-blue-500 underline">Verify now</a></small>
         </div>
 
-        <div className="flex items-center mb-4">
+        {/* <div className="flex items-center mb-4">
           <span className="mr-4 font-bold text-right ml-10">Export candidate list</span>
           <FontAwesomeIcon 
             icon={exportCandidateList ? faToggleOn : faToggleOff} 
@@ -125,9 +148,26 @@ CHOOSE FILE
                 setShowModal1(true)
             }}
           />
+        </div> */}
+
+        <div className={`flex mt-5 mb-2 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        Export Candidate List
+        </div>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <FontAwesomeIcon 
+            icon={exportCandidateList ? faToggleOn : faToggleOff} 
+            className={`text-2xl cursor-pointer ${exportCandidateList ? 'text-green-500' : ''} `} 
+            
+            onClick={() => {handleToggle(setExportCandidateList)
+                setShowModal1(true)
+            }}
+          />
         </div>
 
-        <div className="flex items-center mb-4">
+        </div>
+
+        {/* <div className="flex items-center mb-4">
           <span className="mr-4 font-bold text-right ml-16 ">Remove listings</span>
           <FontAwesomeIcon 
             icon={removeListings ? faToggleOn : faToggleOff} 
@@ -136,9 +176,25 @@ CHOOSE FILE
                 setShowModal2(true)
             }}
           />
+        </div> */}
+
+        <div className={`flex mt-2 mb-2 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        Remove listings
+        </div>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <FontAwesomeIcon 
+            icon={removeListings ? faToggleOn : faToggleOff} 
+            className={`text-2xl cursor-pointer ${removeListings ? 'text-green-500' : ''}`}
+            onClick={() => {handleToggle(setRemoveListings)
+                setShowModal2(true)
+            }}
+          />
         </div>
 
-        <div className="flex items-center mb-4">
+        </div>
+
+        {/* <div className="flex items-center mb-4">
           <span className="mr-4 font-bold text-right" style={{marginLeft:'88px'}}>Delete Data</span>
           <FontAwesomeIcon 
             icon={deleteData ? faToggleOn : faToggleOff} 
@@ -148,18 +204,40 @@ CHOOSE FILE
                 setShowModal3(true)
             }}
           />
+        </div> */}
+
+        <div className={`flex mt-2 mb-2 ${styles['inputBar']}`}>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        Delete Data
         </div>
-        <div className='ml-52 font-bold' style={{color:'#AFAFAF'}}>
-            <a href='#'>LOGOUT</a>
+        <div className='ml-10 h-6 flex items-center justify-start w-72'>
+        <FontAwesomeIcon 
+            icon={deleteData ? faToggleOn : faToggleOff} 
+            className={`text-2xl cursor-pointer ${deleteData ? 'text-green-500' : ''}`}
+            
+            onClick={() => {handleToggle(setDeleteData)
+                setShowModal3(true)
+            }}
+          />
         </div>
-        <div className='ml-52 font-bold mt-3' style={{color:'#3D8A3C'}}>
-           <a href = '#'> DELETE MY ACCOUNT</a> 
+
         </div>
+        <div className={`flex flex-col ml-52 w-40 ${styles['left']}`}>
+          <div className='font-bold' style={{color:'#AFAFAF'}}>
+            LOGOUT
+          </div>
+          <div className='font-bold mt-3' style={{color:'#3D8A3C'}}>
+            DELETE MY ACCOUNT
+          </div>
+
+        </div>
+        
 
         {/* <button className="w-full py-2 mt-4 bg-red-500 text-white rounded-md">LOGOUT</button> */}
 
         {/* <button className="w-full py-2 mt-4 text-red-500 rounded-md">DELETE MY ACCOUNT</button> */}
       </div>
+     
     </div>
     <Modal isVisible={showModal1} onClose={()=>{
         setShowModal1(false);
