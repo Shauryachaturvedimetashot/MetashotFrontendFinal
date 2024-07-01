@@ -30,6 +30,12 @@ function CandidateScreen() {
   const [redirect, setRedirect] = useState<boolean>(false);
   const [showCandidateForm, setShowCandidateForm] = useState<boolean>(false);
 
+  const [customMessage, setCustomMessage] = useState<string>("");
+  const [showCustomMessageForm, setShowCustomMessageForm] = useState<boolean>(false);
+
+  const [jobDescription, setJobDescription] = useState<string>("");
+  const [showJobDescriptionForm, setShowJobDescriptionForm] = useState<boolean>(false);
+
   const searchParams = useSearchParams();
   const interviewId = searchParams.get("interview");
 
@@ -133,6 +139,8 @@ function CandidateScreen() {
       start: startDate.toISOString(),
       end: endDate.toISOString(),
       candidates: candidates.map((candidate) => candidate.mail),
+      customMessage,
+      jobDescription,
     };
 
     try {
@@ -228,25 +236,46 @@ function CandidateScreen() {
         </div>
 
         <div className="mt-6">
-          <button className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button" onClick={() => setShowCandidateForm(true)}>
+          <button
+            className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button"
+            onClick={() => setShowCandidateForm(true)}
+          >
             Add Candidate
           </button>
         </div>
 
         <div className="mt-6">
           <button
-  className={`w-8/12 px-4 py-2 text-white bg-green-600 rounded-md ${(!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || !!error) && "opacity-50 cursor-not-allowed"}`}
-  onClick={handleCreateEvent}
-  disabled={!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || !!error}
->
-  Create Event
-</button>
-          {error && <div className="mt-2 text-red-600">{error}</div>}
+            className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button"
+            onClick={() => setShowCustomMessageForm(true)}
+          >
+            Custom Message
+          </button>
         </div>
 
-        {redirect && (
-          <Link href="/PastInterviews" className="text-black">Event created successfully. Click here to view past interviews.</Link>
-        )}
+        <div className="mt-6">
+          <button
+            className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button"
+            onClick={() => setShowJobDescriptionForm(true)}
+          >
+            Review Job Description
+          </button>
+        </div>
+
+        <div className="mt-6">
+          <button
+              className={`w-8/12 px-4 py-2 text-white bg-green-600 rounded-md ${(!startDate || !endDate || !startTime || !endTime || candidates.length === 0 || !!error) && "opacity-50 cursor-not-allowed"}`}
+
+            onClick={handleCreateEvent}
+          >
+            Schedule Interview
+          </button>
+          {redirect && (
+            <Link href="/PastInterviews" className="block mt-4 text-blue-500">
+              Interview scheduled successfully! Click here to view past interviews.
+            </Link>
+          )}
+        </div>
       </div>
 
       {showCandidateForm && (
@@ -286,8 +315,19 @@ function CandidateScreen() {
                   {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
                 </div>
                 <div className="flex justify-end mt-4">
-                  <button className="px-4 py-2 mr-2 bg-gray-200 rounded-md hover:bg-gray-300" onClick={() => setShowCandidateForm(false)}>Finish</button>
-                  <button className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700" onClick={handleAddCandidate}>
+                  <button
+                    className="px-4 py-2 mr-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                    onClick={() => {
+                      handleModalClose();
+                      setShowCandidateForm(false);
+                    }}
+                  >
+                    Finish
+                  </button>
+                  <button
+                    className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                    onClick={handleAddCandidate}
+                  >
                     {isEditing ? "Save Changes" : "Add Candidate"}
                   </button>
                 </div>
@@ -298,12 +338,80 @@ function CandidateScreen() {
                   <div key={index} className="flex items-center justify-between p-2 mb-2 bg-gray-100 rounded-md">
                     <div className="text-lg font-bold">{candidate.name}</div>
                     <div>
-                      <button className="mr-2 text-blue-600" onClick={() => handleEditCandidate(index)}>Edit</button>
-                      <button className="text-red-600" onClick={() => handleDeleteCandidate(index)}>Delete</button>
+                      <button className="mr-2 text-blue-600" onClick={() => handleEditCandidate(index)}>
+                        Edit
+                      </button>
+                      <button className="text-red-600" onClick={() => handleDeleteCandidate(index)}>
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showCustomMessageForm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+          <div className="p-6 text-black bg-green-300 rounded-md shadow-md w-[800px] mt-4">
+            <h2 className="mb-4 text-xl font-bold">Custom Message</h2>
+            <div className="col-span-1">
+              <div>
+                <label className="block mb-1 text-sm font-medium">Message</label>
+                <textarea
+                  value={customMessage}
+                  onChange={(e) => setCustomMessage(e.target.value)}
+                  className="w-full h-24 px-3 py-1 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 mr-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                onClick={() => setShowCustomMessageForm(false)}
+              >
+                Finish
+              </button>
+              <button
+                className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                onClick={() => setShowCustomMessageForm(false)}
+              >
+                Save Message
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showJobDescriptionForm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+          <div className="p-6 text-black bg-green-300 rounded-md shadow-md w-[800px] mt-4">
+            <h2 className="mb-4 text-xl font-bold">Review Job Description</h2>
+            <div className="col-span-1">
+              <div>
+                <label className="block mb-1 text-sm font-medium">Job Description</label>
+                <textarea
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  className="w-full h-24 px-3 py-1 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 mr-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                onClick={() => setShowJobDescriptionForm(false)}
+              >
+                Finish
+              </button>
+              <button
+                className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                onClick={() => setShowJobDescriptionForm(false)}
+              >
+                Save Job Description
+              </button>
             </div>
           </div>
         </div>
