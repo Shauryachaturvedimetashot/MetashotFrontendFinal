@@ -6,7 +6,7 @@ import styles from './Sidebar.module.css';
 
 const Sidebarn: React.FC = () => {
   return (
-    <div className='w-1/4 h-3/4'>
+    <div className={`w-1/5 h-3/4 ${styles['container']}`}>
       <div className='flex flex-col'>
         <div className='flex flex-col py-10 items-start sidebarN'>
           <Link href="/Jobs">

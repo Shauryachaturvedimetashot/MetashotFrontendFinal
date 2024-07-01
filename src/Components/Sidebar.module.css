@@ -1,4 +1,7 @@
 @media (max-width: 1000px) {
+  .container{
+    margin-right: 10px;
+  }
     .sidebar-button {
       padding-top: 0.5rem !important; /* py-2 */
       padding-left: 1rem !important; /* pl-4 */
