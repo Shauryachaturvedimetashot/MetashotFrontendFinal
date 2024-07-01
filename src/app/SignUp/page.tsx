@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import apiClient from "../../utils/axiosSetup"; // Importing axios setup
+import { useRouter } from "next/router"; // Changed from 'next/navigation' to 'next/router'
+import apiClient from "../../utils/axiosSetup"; // Assuming axios setup is correctly imported
 
 const LoginSignUpPage = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -14,16 +14,16 @@ const LoginSignUpPage = () => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
+    const email = e.currentTarget.email.value;
+    const password = e.currentTarget.password.value;
     let companyname = "";
     let type = "";
 
     if (isSignUp) {
-      companyname = e.target[2].value;
-      type = e.target[3].value;
+      companyname = e.currentTarget.companyname.value;
+      type = e.currentTarget.userType.value;
     }
 
     if (!isValidEmail(email)) {
@@ -36,7 +36,7 @@ const LoginSignUpPage = () => {
     }
 
     try {
-      const res = await apiClient.post(/user/${isSignUp ? "register" : "login"}, {
+      const res = await apiClient.post(`/user/${isSignUp ? "register" : "login"}`, {
         email,
         password,
         ...(isSignUp && { name: companyname, type }),
@@ -60,7 +60,7 @@ const LoginSignUpPage = () => {
   return (
     <div className="flex min-h-screen bg-green-700 items-center">
       <div className="flex flex-wrap justify-between items-center p-8 w-full max-w-screen-xl mx-auto">
-        <div className="flex-1 flex flex-col justify-center items-start p-4 md:p-8 max-w-lg"> {/* Adjusted padding from p-8 to p-4 on small screens and p-8 on medium and larger screens */}
+        <div className="flex-1 flex flex-col justify-center items-start p-4 md:p-8 max-w-lg">
           <img
             src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600"
             alt="Descriptive Alt Text"
@@ -74,17 +74,19 @@ const LoginSignUpPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center p-4 md:p-8 bg-white rounded-lg shadow-md w-full max-w-md"> {/* Adjusted padding from p-8 to p-4 on small screens and p-8 on medium and larger screens */}
+        <div className="flex flex-col justify-center items-center p-4 md:p-8 bg-white rounded-lg shadow-md w-full max-w-md">
           <h1 className="text-3xl text-center font-semibold mb-8 text-black">{isSignUp ? "SignUp" : "Log in to your account"}</h1>
           <form onSubmit={handleSubmit} className="flex flex-col w-full">
             <input
               type="text"
+              name="email" // Added name attribute for form field
               className="w-full border border-gray-300 text-black bg-white rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400"
               placeholder="Email"
               required
             />
             <input
               type="password"
+              name="password" // Added name attribute for form field
               className="w-full border border-gray-300 text-black bg-white rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400"
               placeholder="Password"
               required
@@ -93,6 +95,7 @@ const LoginSignUpPage = () => {
               <>
                 <input
                   type="text"
+                  name="companyname" // Added name attribute for form field
                   className="w-full border border-gray-300 text-black bg-white rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400"
                   placeholder="Name of the company"
                   required
@@ -134,14 +137,14 @@ const LoginSignUpPage = () => {
             >
               {isSignUp ? "SignUp" : "Login"}
             </button>
-            <p className="text-red-600 text-[16px] mt-2"> {error && error} </p> {/* Adjusted margin to mt-2 */}
+            <p className="text-red-600 text-[16px] mt-2"> {error && error} </p>
           </form>
           <div className="text-center text-gray-500 mt-4">-OR-</div>
           <button
             onClick={() => setIsSignUp(!isSignUp)}
             className="block text-center text-blue-500 hover:underline mt-2"
           >
-            {isSignUp ? "Login with an existing account" : "New user?  Sign up Here"}
+            {isSignUp ? "Login with an existing account" : "New user? Sign up Here"}
           </button>
         </div>
       </div>
