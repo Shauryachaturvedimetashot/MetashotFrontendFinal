@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -58,25 +58,19 @@ const LoginSignUpPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-green-700 items-center">
-      <div className="flex flex-wrap justify-between items-center p-8 w-full max-w-screen-xl mx-auto">
-        <div className="flex-1 flex flex-col justify-center items-start p-4 md:p-8 max-w-lg"> {/* Adjusted padding from p-8 to p-4 on small screens and p-8 on medium and larger screens */}
-          <img
-            src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Descriptive Alt Text"
-            className="mb-4 rounded"
-            style={{ width: "100%", height: "auto", objectFit: "cover" }}
-          />
-          <div className="text-white text-left">
-            <h1 className="text-3xl font-bold">The Smartest AI Interviewer</h1>
-            <p className="mt-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col justify-center items-center p-4 md:p-8 bg-white rounded-lg shadow-md w-full max-w-md"> {/* Adjusted padding from p-8 to p-4 on small screens and p-8 on medium and larger screens */}
-          <h1 className="text-3xl text-center font-semibold mb-8 text-black">{isSignUp ? "SignUp" : "Log in to your account"}</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col w-full">
+    <div className="flex min-h-screen bg-green-700">
+      <div className="flex-1 flex flex-col justify-center items-center p-8">
+        <img
+          src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Descriptive Alt Text"
+          className="w-full h-auto mb-4 rounded"
+          style={{ maxHeight: "80vh", objectFit: "cover" }}
+        />
+      </div>
+      <div className="flex flex-col justify-center items-center p-8" style={{ flex: "0 0 auto", width: "400px", marginRight: "10px" }}>
+        <div className="bg-white p-8 rounded-lg shadow-md w-full h-full flex flex-col justify-between">
+          <h1 className="text-3xl text-center font-semibold mb-8 text-black">{isSignUp ? "SignUp" : "Login"}</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <input
               type="text"
               className="w-full border border-gray-300 text-black bg-white rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400"
@@ -106,7 +100,7 @@ const LoginSignUpPage = () => {
                     className="mr-2"
                   />
                   <label htmlFor="company" className="text-black mr-4">
-                    Company
+                    company
                   </label>
                   <input
                     type="radio"
@@ -134,14 +128,14 @@ const LoginSignUpPage = () => {
             >
               {isSignUp ? "SignUp" : "Login"}
             </button>
-            <p className="text-red-600 text-[16px] mt-2"> {error && error} </p> {/* Adjusted margin to mt-2 */}
+            <p className="text-red-600 text-[16px] mb-4"> {error && error} </p>
           </form>
           <div className="text-center text-gray-500 mt-4">-OR-</div>
           <button
             onClick={() => setIsSignUp(!isSignUp)}
             className="block text-center text-blue-500 hover:underline mt-2"
           >
-            {isSignUp ? "Login with an existing account" : "New user?  Sign up Here"}
+            {isSignUp ? "Login with an existing account" : "Create a new account"}
           </button>
         </div>
       </div>
@@ -150,4 +144,3 @@ const LoginSignUpPage = () => {
 };
 
 export default LoginSignUpPage;
-
