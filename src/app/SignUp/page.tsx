@@ -36,7 +36,7 @@ const LoginSignUpPage = () => {
     }
 
     try {
-      const res = await apiClient.post(`/user/${isSignUp ? "register" : "login"}`, {
+      const res = await apiClient.post(/user/${isSignUp ? "register" : "login"}, {
         email,
         password,
         ...(isSignUp && { name: companyname, type }),
@@ -47,13 +47,8 @@ const LoginSignUpPage = () => {
       } else if (res.status === 201 || res.status === 200) {
         setError("");
         // Assuming the token is returned in the response
-        const { token, user } = res.data;
+        const token = res.data.token;
         localStorage.setItem('token', token);
-        if (!isSignUp && user && user.name) {
-          localStorage.setItem('companyName', user.name);
-        } else if (isSignUp) {
-          localStorage.setItem('companyName', companyname);
-        }
         router.push("/Jobs");
       }
     } catch (err) {
