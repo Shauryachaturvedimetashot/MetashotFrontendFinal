@@ -280,7 +280,7 @@ function CandidateScreen() {
 
       {showCandidateForm && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
-          <div className="p-6 text-black bg-green-300 rounded-md shadow-md w-[800px]">
+          <div className="p-6 text-black bg-green-200 rounded-md shadow-md w-[800px]">
             <h2 className="mb-4 text-xl font-bold">{isEditing ? "Edit Candidate" : "Add Candidate"}</h2>
             <div className="grid grid-cols-2 gap-8">
               <div className="col-span-1">
