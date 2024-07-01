@@ -47,8 +47,13 @@ const LoginSignUpPage = () => {
       } else if (res.status === 201 || res.status === 200) {
         setError("");
         // Assuming the token is returned in the response
-        const token = res.data.token;
+        const { token, user } = res.data;
         localStorage.setItem('token', token);
+        if (!isSignUp && user && user.name) {
+          localStorage.setItem('companyName', user.name);
+        } else if (isSignUp) {
+          localStorage.setItem('companyName', companyname);
+        }
         router.push("/Jobs");
       }
     } catch (err) {
@@ -150,4 +155,3 @@ const LoginSignUpPage = () => {
 };
 
 export default LoginSignUpPage;
-
