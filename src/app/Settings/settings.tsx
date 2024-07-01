@@ -66,12 +66,12 @@ const Settings_content:React.FC = () => {
 
   return (
     <>
-    <div className={`flex flex-col mt-8 rounded-xl text-xs shadow-md ${styles['container']}`}>
+    <div className={`flex flex-col mt-8 rounded-xl text-xs shadow-md ${styles['container']} text-black`}>
       <div className="w-3/4">
         <h2 className="text-xl font-semibold mb-8 mt-6 ml-5">Settings</h2>
         
         <div className={`flex ${styles['inputBar']}`}>
-        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold'>
+        <div className=' ml-5 w-36 h-6 flex items-center justify-end  font-bold w-'>
 Profile Picture
         </div>
         <div className='ml-10 w-28 h-6 flex items-center justify-start'>
