@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faGlobe, faHourglassStart, faHourglassEnd, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
-import Modal from '../../Components/Modal';
-import Link from 'next/link';
-import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
-import styles from './Invite.module.css'
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendar,
+  faGlobe,
+  faHourglassStart,
+  faHourglassEnd,
+  faChevronRight,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+import Modal from "../../Components/Modal";
+import Link from "next/link";
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
+import styles from "./Invite.module.css";
 
 interface Candidate {
   name: string;
@@ -26,23 +33,27 @@ function CandidateScreen() {
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState<Date | null>(new Date());
   const [endTime, setEndTime] = useState<Date | null>(new Date());
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showModal2, setShowModal2] = useState<boolean>(false);
 
-  const [candidateName, setCandidateName] = useState<string>('');
-  const [candidateMail, setCandidateMail] = useState<string>('');
-  const [candidateNumber, setCandidateNumber] = useState<string>('');
+  const [candidateName, setCandidateName] = useState<string>("");
+  const [candidateMail, setCandidateMail] = useState<string>("");
+  const [candidateNumber, setCandidateNumber] = useState<string>("");
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [formErrors, setFormErrors] = useState<FormErrors>({ name: '', mail: '', number: '' });
+  const [formErrors, setFormErrors] = useState<FormErrors>({
+    name: "",
+    mail: "",
+    number: "",
+  });
 
   const [redirect, setRedirect] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
-  const interviewId = searchParams.get('interview');
+  const interviewId = searchParams.get("interview");
 
   const handleToggleChange = () => {
     if (!showModal2) {
@@ -59,44 +70,53 @@ function CandidateScreen() {
 
   const validateDates = () => {
     if (startDate && endDate && endTime && startTime) {
-      if (endDate < startDate || (endDate.getTime() === startDate.getTime() && endTime < startTime)) {
-        setError('End date/time must be later than start date/time');
+      if (
+        endDate < startDate ||
+        (endDate.getTime() === startDate.getTime() && endTime < startTime)
+      ) {
+        setError("End date/time must be later than start date/time");
       } else {
         const timeDiff = endDate.getTime() - startDate.getTime();
         const dayDiff = timeDiff / (3600 * 24 * 1000);
         if (dayDiff < 3) {
-          setError('Minimum 3 days required for the event');
+          setError("Minimum 3 days required for the event");
         } else {
-          setError('');
+          setError("");
         }
       }
     }
   };
 
   const validateForm = (): boolean => {
-    const errors = { name: '', mail: '', number: '' };
-    if (!candidateName) errors.name = 'Required';
-    if (!candidateMail) errors.mail = 'Required';
-    if (!candidateNumber) errors.number = 'Required';
+    const errors = { name: "", mail: "", number: "" };
+    if (!candidateName) errors.name = "Required";
+    if (!candidateMail) errors.mail = "Required";
+    if (!candidateNumber) errors.number = "Required";
     setFormErrors(errors);
     return !errors.name && !errors.mail && !errors.number;
   };
 
   const handleAddCandidate = (): void => {
     if (validateForm()) {
-      const newCandidate: Candidate = { name: candidateName, mail: candidateMail, number: candidateNumber };
+      const newCandidate: Candidate = {
+        name: candidateName,
+        mail: candidateMail,
+        number: candidateNumber,
+      };
       if (isEditing) {
-        const updatedCandidates = candidates.map((c, index) => (index === editIndex ? newCandidate : c));
+        const updatedCandidates = candidates.map((c, index) =>
+          index === editIndex ? newCandidate : c
+        );
         setCandidates(updatedCandidates);
         setIsEditing(false);
         setEditIndex(null);
       } else {
         setCandidates([...candidates, newCandidate]);
       }
-      setCandidateName('');
-      setCandidateMail('');
-      setCandidateNumber('');
-      //setShowModal(false);
+      setCandidateName("");
+      setCandidateMail("");
+      setCandidateNumber("");
+      setShowModal(false);
     }
   };
 
@@ -116,7 +136,7 @@ function CandidateScreen() {
 
   const handleCreateEvent = async () => {
     if (!interviewId) {
-      setError('Interview ID is missing');
+      setError("Interview ID is missing");
       return;
     }
 
@@ -124,18 +144,18 @@ function CandidateScreen() {
       interview: interviewId,
       start: startDate?.toISOString(),
       end: endDate?.toISOString(),
-      candidates: candidates.map(candidate => candidate.mail),
+      candidates: candidates.map((candidate) => candidate.mail),
     };
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        setError('Authorization token is missing');
+        setError("Authorization token is missing");
         return;
       }
 
       const response = await axios.post(
-        'https://metashotbackend.azurewebsites.net/interview/schedule',
+        "https://metashotbackend.azurewebsites.net/interview/schedule",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -145,11 +165,11 @@ function CandidateScreen() {
       if (response.status === 200) {
         setRedirect(true);
       } else {
-        setError('Failed to schedule the interview');
+        setError("Failed to schedule the interview");
       }
     } catch (error) {
-      console.error('Error scheduling the interview:', error);
-      setError('An error occurred while scheduling the interview');
+      console.error("Error scheduling the interview:", error);
+      setError("An error occurred while scheduling the interview");
     }
   };
 
@@ -159,41 +179,59 @@ function CandidateScreen() {
 
   return (
     <>
-      <div className='content ml-8'>
-        <div className='flex flex-row justify-between mt-6 md:col-span-1'>
-          <button className='w-48 rounded-md bg-inherit invite_cand'>
-            <FontAwesomeIcon icon={faCalendar} className="fas fa-check mr-2" style={{ color: "black" }} />
-            <select id="type" className='invite_cand text-black font-semibold'>
+      <div className="ml-8 content">
+        {/* <div className="flex flex-row justify-between mt-6 md:col-span-1">
+          <button className="w-48 rounded-md bg-inherit invite_cand">
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="mr-2 fas fa-check"
+              style={{ color: "black" }}
+            />
+            <select id="type" className="font-semibold text-black invite_cand">
               <option value="invoice">Personal Calendar</option>
               <option value="payment">Public Calendar</option>
             </select>
           </button>
-          <button className={`w-48 rounded-md mr-72 invite_cand ${styles['align1']}`}>
-            <FontAwesomeIcon icon={faGlobe} className="fas fa-check mr-2" style={{ color: "black" }} />
-            <select id="type" className='invite_cand text-black font-semibold'>
+          <button
+            className={`w-48 rounded-md mr-72 invite_cand ${styles["align1"]}`}
+          >
+            <FontAwesomeIcon
+              icon={faGlobe}
+              className="mr-2 fas fa-check"
+              style={{ color: "black" }}
+            />
+            <select id="type" className="font-semibold text-black invite_cand">
               <option value="invoice">Public</option>
               <option value="payment">Private</option>
             </select>
           </button>
+        </div> */}
+        <div className="mt-4 text-5xl font-semibold text-black">
+          {" "}
+          Interview Name
         </div>
-        <div className='text-5xl mt-4 font-semibold text-black'> Interview Name</div>
-        <div className='flex flex-row text-black'>
-          <div className={`mt-8  bg-[#E2F3E5] h-24 rounded-md pr-2 pt-2 ${styles['main_box']} `} >
+        <div className="flex flex-row text-black">
+          <div
+            className={`mt-8  bg-[#E2F3E5] h-24 rounded-md pr-2 pt-2 ${styles["main_box"]} `}
+          >
             {/* For first row */}
-            <div className={`flex ${styles['box2']}`}>
-              <div className='px-4 mr-10'>
-                <FontAwesomeIcon icon={faHourglassStart} className="fas fa-check mr-2 text-black" />
+            <div className={`flex ${styles["box2"]}`}>
+              <div className="px-4 mr-10">
+                <FontAwesomeIcon
+                  icon={faHourglassStart}
+                  className="mr-2 text-black fas fa-check"
+                />
                 Start
               </div>
-              <div className='px-10 text-black'>
+              <div className="px-10 text-black">
                 <DatePicker
                   selected={startDate}
                   dateFormat={"EEE/d-MMM"}
                   onChange={(date) => setStartDate(date)}
-                  className='text-center rounded-md invite_time'
+                  className="text-center rounded-md invite_time"
                 />
               </div>
-              <div className='text-black'>
+              <div className="text-black">
                 <DatePicker
                   selected={startTime}
                   onChange={(date) => setStartTime(date)}
@@ -202,22 +240,28 @@ function CandidateScreen() {
                   timeIntervals={15}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
-                  className='text-center rounded-md bg-[#c5d8c5]'
+                  className="text-center rounded-md bg-[#c5d8c5]"
                 />
               </div>
             </div>
             {/* Second row */}
-            <div className={`flex items-center mt-5 justify-between text-black ${styles['box3']}`}>
-              <div className='px-4 mr-10'>
-                <FontAwesomeIcon icon={faHourglassEnd} className="fas fa-check mr-2" style={{ color: "black" }} />
+            <div
+              className={`flex items-center mt-5 justify-between text-black ${styles["box3"]}`}
+            >
+              <div className="px-4 mr-10">
+                <FontAwesomeIcon
+                  icon={faHourglassEnd}
+                  className="mr-2 fas fa-check"
+                  style={{ color: "black" }}
+                />
                 Stop
               </div>
-              <div className='px-10'>
+              <div className="px-10">
                 <DatePicker
                   selected={endDate}
                   dateFormat={"EEE/d-MMM"}
                   onChange={(date) => setEndDate(date)}
-                  className='text-center rounded-md bg-[#c5d8c5]'
+                  className="text-center rounded-md bg-[#c5d8c5]"
                 />
               </div>
               <div>
@@ -229,106 +273,152 @@ function CandidateScreen() {
                   timeIntervals={15}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
-                  className='text-center rounded-md invite_time'
+                  className="text-center rounded-md invite_time"
                 />
               </div>
             </div>
-            {error && <div className='text-red-500 mt-4'>{error}</div>}
-          </div>
-          <div className={`h-24 bg-slate-300 ml-10 mt-8 w-44 rounded-md px-2 pt-3 ${styles['main_box2']}`}>
-            <div className={`text-lg ${styles['main_box2']}`}>Kindly note:</div>
-            <div className={`text-sm ${styles['main_box2']}`}>Events set to Public</div>
-            <div className={`text-sm ${styles['main_box2']}`}>will be open for anyone</div>
-            <div className={`text-sm ${styles['main_box2']}`}>to join.</div>
+            {error && <div className="mt-4 text-red-600">{error}</div>}
           </div>
         </div>
-        <div className='mt-8'>
-          <button className='rounded-md px-5 py-2 bg-inherit border-inherit text-black color-green' onClick={() => setShowModal(true)}>
-            <FontAwesomeIcon icon={faChevronRight} className="fas fa-check mr-2" style={{ color: "black" }} />
-            Invite Candidates
+
+        <div className="mt-6">
+          <button
+            className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button"
+            onClick={() => setShowModal(true)}
+          >
+            Add Candidate
           </button>
         </div>
-        <Modal isVisible={showModal} onClose={() => setShowModal(false)} isCustomMsg={false}>
-          <div className='flex flex-col justify-between'>
-            <div className='flex flex-row items-center'>
-              <h1 className='text-xl font-semibold mb-2 flex-grow'>{isEditing ? 'Edit' : 'Add'} Candidate</h1>
-              <button className='bg-red-500 text-white px-4 py-2 rounded-md' onClick={() => setShowModal(false)}>
-                <FontAwesomeIcon icon={faTimes} className="fas fa-check mr-2" style={{ color: "white" }} />
-                Close
-              </button>
-            </div>
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>Candidate Name</label>
-              <input
-                type='text'
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                value={candidateName}
-                onChange={(e) => setCandidateName(e.target.value)}
-              />
-              {formErrors.name && <span className='text-red-500'>{formErrors.name}</span>}
-            </div>
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>Candidate Mail</label>
-              <input
-                type='email'
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                value={candidateMail}
-                onChange={(e) => setCandidateMail(e.target.value)}
-              />
-              {formErrors.mail && <span className='text-red-500'>{formErrors.mail}</span>}
-            </div>
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>Candidate Number</label>
-              <input
-                type='text'
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                value={candidateNumber}
-                onChange={(e) => setCandidateNumber(e.target.value)}
-              />
-              {formErrors.number && <span className='text-red-500'>{formErrors.number}</span>}
-            </div>
-            <div className='flex justify-end'>
-              <button className='bg-blue-500 text-white px-4 py-2 rounded-md' onClick={handleAddCandidate}>
-                {isEditing ? 'Update' : 'Add'}
-              </button>
-            </div>
-          </div>
-        </Modal>
-        <Modal isVisible={showModal2} onClose={() => setShowModal2(false)} isCustomMsg={true}>
-          <h1 className='text-xl font-semibold mb-2'>Candidates List</h1>
-          {candidates.length === 0 ? (
-            <p>No candidates added yet.</p>
-          ) : (
-            candidates.map((candidate, index) => (
-              <div key={index} className='mb-4'>
-                <div className='flex justify-between'>
-                  <div>
-                    <p>Name: {candidate.name}</p>
-                    <p>Email: {candidate.mail}</p>
-                    <p>Number: {candidate.number}</p>
-                  </div>
-                  <div>
-                    <button className='bg-yellow-500 text-white px-2 py-1 rounded-md mr-2' onClick={() => handleEditCandidate(index)}>Edit</button>
-                    <button className='bg-red-500 text-white px-2 py-1 rounded-md' onClick={() => handleDeleteCandidate(index)}>Delete</button>
-                  </div>
-                </div>
+
+        <div className="mt-6">
+          <button
+            className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button"
+            onClick={() => setShowModal(true)}
+          >
+            Add cutsom message
+          </button>
+        </div>
+
+        <div className="mt-6">
+          <button
+            className="rounded-md bg-[#E2F3E5] text-black font-semibold w-96 py-2 px-4 invite_button"
+            onClick={() => setShowModal(true)}
+          >
+            Review job description
+          </button>
+        </div>
+
+        <div className="mt-6">
+          {candidates.map((candidate, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between p-4 mb-2 bg-gray-100 rounded-md"
+            >
+              <div>
+                <div className="text-lg font-bold">{candidate.name}</div>
+                <div>{candidate.mail}</div>
+                <div>{candidate.number}</div>
               </div>
-            ))
-          )}
-        </Modal>
-        <div className='mt-4'>
-          <button className='bg-green-500 text-white px-4 py-2 rounded-md' onClick={handleCreateEvent}>
+              <div>
+                <button
+                  className="mr-2 text-blue-600"
+                  onClick={() => handleEditCandidate(index)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="text-red-600"
+                  onClick={() => handleDeleteCandidate(index)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <button
+            className="w-8/12 px-4 py-2 text-white bg-green-600 rounded-md"
+            onClick={handleCreateEvent}
+          >
             Create Event
           </button>
         </div>
+
         {redirect && (
-          <p className='text-green-500'>Interview scheduled successfully!{' '}
-            <Link href="/PastInterviews">
-              <span className='cursor-pointer'>Click here to view past interviews.</span>
-            </Link>
-          </p>
+          <Link href="/EventCreated">
+            Event created successfully. Click here to proceed.
+          </Link>
         )}
       </div>
+
+      <Modal
+        isVisible={showModal}
+        onClose={handleModalClose}
+        isCustomMsg={false}
+      >
+        <div>
+          <h2 className="mb-4 text-xl font-bold">
+            {isEditing ? "Edit Candidate" : "Add Candidate"}
+          </h2>
+          <div className="mb-4">
+            <label className="block mb-1 text-sm font-medium">Name</label>
+            <input
+              type="text"
+              className="w-full px-3 py-2 border rounded-md"
+              value={candidateName}
+              onChange={(e) => setCandidateName(e.target.value)}
+            />
+            {formErrors.name && (
+              <div className="text-red-600">{formErrors.name}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-sm font-medium">Email</label>
+            <input
+              type="email"
+              className="w-full px-3 py-2 border rounded-md"
+              value={candidateMail}
+              onChange={(e) => setCandidateMail(e.target.value)}
+            />
+            {formErrors.mail && (
+              <div className="text-red-600">{formErrors.mail}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1 text-sm font-medium">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              className="w-full px-3 py-2 border rounded-md"
+              value={candidateNumber}
+              onChange={(e) => setCandidateNumber(e.target.value)}
+            />
+            {formErrors.number && (
+              <div className="text-red-600">{formErrors.number}</div>
+            )}
+          </div>
+          <button
+            className="px-4 py-2 text-white bg-blue-600 rounded-md"
+            onClick={handleAddCandidate}
+          >
+            {isEditing ? "Update Candidate" : "Add Candidate"}
+          </button>
+        </div>
+      </Modal>
+
+      <Modal
+        isVisible={showModal2}
+        onClose={handleModalClose}
+        isCustomMsg={true}
+      >
+        <div>
+          <h2 className="mb-4 text-xl font-bold">Custom Message</h2>
+          <p>This is a custom message modal.</p>
+        </div>
+      </Modal>
     </>
   );
 }
