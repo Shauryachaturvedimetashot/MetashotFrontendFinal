@@ -97,25 +97,34 @@ const AskQuestions = () => {
     setCategoryToDelete("");
   };
 
-  const handleGenerateQuestions = () => {
-    const generatedData = [
-      { skill: "Java", question: "What is a constructor in Java?" },
-      { skill: "Python", question: "How do you define a function in Python?" },
-      { skill: "JavaScript", question: "What is a closure in JavaScript?" },
-    ];
+  const handleGenerateQuestions = async () => {
+    if (!selectedCategory) return;
 
-    const updatedCategories = [...categories];
+    try {
+      const formData = JSON.parse(localStorage.getItem("formData") || "{}");
+      const jobRole = formData.jobPosition || "Job Role Not Defined"; // Fallback if jobPosition is not set
 
-    generatedData.forEach((data) => {
-      const categoryIndex = updatedCategories.findIndex((cat) => cat.name === data.skill);
-      if (categoryIndex !== -1) {
-        updatedCategories[categoryIndex].questions.push(data.question);
+      const response = await axios.post("https://metashotbackend.azurewebsites.net/ai/generateQuestion", {
+        jobRole,
+        topic: selectedCategory,
+      });
+
+      if (response.status === 200 && response.data.question) {
+        const updatedCategories = [...categories];
+        const categoryIndex = updatedCategories.findIndex((cat) => cat.name === selectedCategory);
+        if (categoryIndex !== -1) {
+          updatedCategories[categoryIndex].questions.push(response.data.question);
+        } else {
+          updatedCategories.push({ name: selectedCategory, questions: [response.data.question] });
+        }
+        setCategories(updatedCategories);
       } else {
-        updatedCategories.push({ name: data.skill, questions: [data.question] });
+        console.error("Failed to generate question:", response.data);
       }
-    });
-
-    setCategories(updatedCategories);
+    } catch (error) {
+      console.error("Error generating question:", error);
+      alert("Error generating question. Please try again.");
+    }
   };
 
   const handleFinishButtonClick = async () => {
@@ -164,10 +173,9 @@ const AskQuestions = () => {
   };
 
   // Render questions based on selectedCategory or all categories
-const renderedQuestions = selectedCategory !== null
-  ? categories.find(cat => cat.name === selectedCategory)?.questions || []
-  : categories.reduce((acc: string[], cat) => [...acc, ...cat.questions], []);
-
+  const renderedQuestions = selectedCategory !== null
+    ? categories.find(cat => cat.name === selectedCategory)?.questions || []
+    : categories.reduce((acc: string[], cat) => [...acc, ...cat.questions], []);
 
   return (
     <div className="min-h-screen bg-green-100">
@@ -207,7 +215,7 @@ const renderedQuestions = selectedCategory !== null
                 </div>
               </div>
               <div className="w-1/2 pl-4">
-                <div className="h-64 mb-4 overflow-y-auto"> {/* Added fixed height and scrollable */}
+                <div className="mb-4 overflow-y-auto h-80"> {/* Increased height to 80px */}
                   <h2 className="mb-2 text-lg font-semibold text-black">Added Questions</h2>
                   <ul>
                     {categories.flatMap((cat, catIndex) =>
@@ -215,13 +223,13 @@ const renderedQuestions = selectedCategory !== null
                         <li key={`${catIndex}-${index}`} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
                           {question} ({cat.name})
                           <button
-                            className="ml-2 text-sm text-red-600"
+                            className="ml-2 text-red-500"
                             onClick={() => handleQuestionDelete(cat.name, index)}
                           >
                             Delete
                           </button>
                           <button
-                            className="ml-2 text-sm text-blue-600"
+                            className="ml-2 text-blue-500"
                             onClick={() => handleEditClick(cat.name, index)}
                           >
                             Edit
@@ -231,52 +239,31 @@ const renderedQuestions = selectedCategory !== null
                     )}
                   </ul>
                 </div>
-                {showDeleteConfirmation && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="p-4 text-center bg-white rounded shadow-lg">
-                      <p className="mb-4">Are you sure you want to delete {categoryToDelete}?</p>
-                      <div>
-                        <button
-                          className="px-4 py-2 mr-2 text-white bg-red-500 rounded hover:bg-red-600"
-                          onClick={handleConfirmDelete}
-                        >
-                          Yes
-                        </button>
-                        <button
-                          className="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-                          onClick={handleCancelDelete}
-                        >
-                          No
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
-            <div className="flex items-center mt-4">
+            <div className="flex items-center">
               <button
-                className="px-4 py-2 mr-2 text-white bg-green-600 rounded hover:bg-green-500"
+                className="px-4 py-2 mr-2 text-white bg-green-500 rounded hover:bg-green-600"
                 onClick={addOrUpdateQuestion}
               >
                 {editIndex !== null ? "Update Question" : "Add Question"}
               </button>
               <button
-                className="px-4 py-2 mr-2 text-white bg-green-600 rounded hover:bg-green-500"
-                onClick={handleGenerateQuestions}
-              >
-                Generate Using AI
-              </button>
-              <button
-                className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-500"
+                className="px-4 py-2 mr-2 text-white bg-green-500 rounded hover:bg-green-600"
                 onClick={handleAddCategory}
               >
                 Add Skill
               </button>
-            </div>
-            <div className="mt-4">
               <button
-                className="px-4 py-2 mt-8 text-center text-white bg-green-600 rounded hover:bg-green-600"
+                className="px-4 py-2 mr-2 text-white bg-green-500 rounded hover:bg-green-600"
+                onClick={handleGenerateQuestions}
+              >
+                Generate Using AI
+              </button>
+            </div>
+            <div className="flex items-center mt-4">
+              <button
+                className="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600"
                 onClick={handleFinishButtonClick}
               >
                 Finish
@@ -285,6 +272,28 @@ const renderedQuestions = selectedCategory !== null
           </div>
         </div>
       </div>
+
+      {showDeleteConfirmation && (
+        <div className="fixed top-0 left-0 right-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+          <div className="p-6 bg-white rounded shadow-md">
+            <p>Are you sure you want to delete the skill "{categoryToDelete}"?</p>
+            <div className="mt-4">
+              <button
+                className="px-4 py-2 mr-2 text-white bg-red-500 rounded hover:bg-red-600"
+                onClick={handleConfirmDelete}
+              >
+                Delete
+              </button>
+              <button
+                className="px-4 py-2 text-white bg-gray-500 rounded hover:bg-gray-600"
+                onClick={handleCancelDelete}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
