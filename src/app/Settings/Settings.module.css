@@ -17,12 +17,13 @@
 }
 
 
-@media (max-width:600px){
+@media (max-width:768px){
     .container{
         /* width: auto !important; */
         margin-left: 40px;
         margin-right: 10px;
         height: auto;
+        
 
     }
     .box{

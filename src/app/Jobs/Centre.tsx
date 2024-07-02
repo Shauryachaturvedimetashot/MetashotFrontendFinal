@@ -66,19 +66,19 @@ const Centre: React.FC<CentreProps> = (props) => {
             </div>
             <div className="ml-4 mr-4 mt-4 flex flex-col">
               <div className={`flex items-center font-[600] text-[#274C77] ${styles['headMini']}`}>
-                <div className={`w-64 justify-start ${styles['nameCol']}`}>
+                <div className={`w-30p justify-start ${styles['nameCol']}`}>
                   Interview Name
                 </div>
-                <div className="w-36 justify-start">
+                <div className="w-21p justify-start">
                   No: of Candidates
                 </div>
-                <div className={`w-28 ml-3 justify-start ${styles['fromCol']}`}>
+                <div className={`w-15p  justify-start ${styles['fromCol']}`}>
                   From
                 </div>
-                <div className={`w-28 justify-start ${styles['toCol']}`}>
+                <div className={`w-15p justify-start ${styles['toCol']}`}>
                   To
                 </div>
-                <div className={`justify-start ${styles['statusCol']}`}>
+                <div className={`w-16p justify-start ${styles['statusCol']}`}>
                   Status
                 </div>
               </div>
@@ -86,19 +86,19 @@ const Centre: React.FC<CentreProps> = (props) => {
               {interviews.map((interview,index)=>( 
               <div key={index} className={`flex items-center font-[200] text-[#274C77] mt-2 ${styles['textMini']}`}
               onClick={()=>{isMobile?()=>setSelectedInterview(interview):undefined}}>
-                <div className={`w-64 justify-start hover:font-[500] ${styles['nameCol']}`}>
+                <div className={`w-30p justify-start hover:font-[500] ${styles['nameCol']}`}>
                   {interview.name}
                 </div>
-                <div className="w-36 text-center">
+                <div className="w-21p text-center">
                   {interview.candidates}
                 </div>
-                <div className={`w-28 ml-3 justify-start ${styles['fromCol']}`}>
+                <div className={`w-15p justify-start text-left ${styles['fromCol']}`}>
                   {interview.from}
                 </div>
-                <div className={`w-28 justify-start ${styles['toCol']}`}>
+                <div className={`w-15p justify-start ${styles['toCol']}`}>
                   {interview.to}
                 </div>
-                <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-2/12 text-center' : 'bg-green-500 text-white w-2/12 text-center'} ${styles['statusCol']}`}>
+                <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-17p text-center' : 'bg-green-500 text-white w-17p text-center'} ${styles['statusCol']}`}>
                   {interview.status}
                 </div>
               </div>
