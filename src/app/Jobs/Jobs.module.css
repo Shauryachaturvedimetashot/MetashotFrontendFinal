@@ -1,4 +1,4 @@
-@media (max-width:600px){
+@media (max-width:1024px){
     .container{
         margin-left: 40px;
     }
@@ -12,4 +12,22 @@
     .textMini{
         font-size: smaller;
     }
+}
+
+@media (max-width:426px){
+    .miniContainer{
+        overflow-x: auto;
+        /* font-size:; */
+    }
+    .fromCol,
+    .toCol{
+        display: none;
+    }
+    .statusCol{
+        width:auto;
+        justify-content: end;
+
+
+    }
+
 }
