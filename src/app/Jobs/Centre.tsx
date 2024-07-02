@@ -98,7 +98,7 @@ const Centre: React.FC<CentreProps> = (props) => {
                 <div className={`w-28 justify-start ${styles['toCol']}`}>
                   {interview.to}
                 </div>
-                <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-24 text-center' : 'bg-green-500 text-white w-24 text-center'} ${styles['statusCol']}`}>
+                <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-2/12 text-center' : 'bg-green-500 text-white w-2/12 text-center'} ${styles['statusCol']}`}>
                   {interview.status}
                 </div>
               </div>
