@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbarn from "../../Components/Navbarn";
@@ -144,7 +144,7 @@ const AskQuestions = () => {
       }
 
       const headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: Bearer ${token},
         "Content-Type": "application/json",
       };
 
@@ -153,7 +153,7 @@ const AskQuestions = () => {
       if (response.status === 200) {
         console.log("Interview created successfully:", response.data);
         const interviewId = response.data._id; // Extract interview ID from response
-        window.location.href = `/Invite?interview=${interviewId}`; // Redirect to CandidateScreen with interview ID
+        window.location.href = /Invite?interview=${interviewId}; // Redirect to CandidateScreen with interview ID
       } else {
         console.error("Failed to create interview:", response.data);
       }
@@ -171,10 +171,7 @@ const renderedQuestions = selectedCategory !== null
 
   return (
     <div className="min-h-screen bg-green-100">
-      <Navbarn
-        company={localStorage.getItem("name") || "Guest"}
-        user_name={localStorage.getItem("name") || "Guest"}
-      />
+      <Navbarn company="Metashot" user_name="XYZ" />
       <div className="flex">
         <Sidebarn />
         <div className="flex-1 p-4">
@@ -215,7 +212,7 @@ const renderedQuestions = selectedCategory !== null
                   <ul>
                     {categories.flatMap((cat, catIndex) =>
                       cat.questions.map((question, index) => (
-                        <li key={`${catIndex}-${index}`} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
+                        <li key={${catIndex}-${index}} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
                           {question} ({cat.name})
                           <button
                             className="ml-2 text-sm text-red-600"
