@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbarn from "../../Components/Navbarn";
@@ -144,18 +144,16 @@ const AskQuestions = () => {
       }
 
       const headers = {
-  Authorization: `Bearer ${token}`,
-  "Content-Type": "application/json",
-};
-
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
 
       const response = await axios.post("https://metashotbackend.azurewebsites.net/interview/create", payload, { headers });
 
       if (response.status === 200) {
         console.log("Interview created successfully:", response.data);
         const interviewId = response.data._id; // Extract interview ID from response
-        window.location.href = `/Invite?interview=${interviewId}`; 
- // Redirect to CandidateScreen with interview ID
+        window.location.href = `/Invite?interview=${interviewId}`; // Redirect to CandidateScreen with interview ID
       } else {
         console.error("Failed to create interview:", response.data);
       }
@@ -214,7 +212,7 @@ const renderedQuestions = selectedCategory !== null
                   <ul>
                     {categories.flatMap((cat, catIndex) =>
                       cat.questions.map((question, index) => (
-                        <li key={${catIndex}-${index}} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
+                        <li key={`${catIndex}-${index}`} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
                           {question} ({cat.name})
                           <button
                             className="ml-2 text-sm text-red-600"
