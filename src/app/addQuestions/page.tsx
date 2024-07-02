@@ -172,8 +172,8 @@ const renderedQuestions = selectedCategory !== null
   return (
     <div className="min-h-screen bg-green-100">
       <Navbarn
-        company="Metashot"
-        user_name={localStorage.getItem("userName") || "Guest"}
+        company={localStorage.getItem("name") || "Guest"}
+        user_name={localStorage.getItem("name") || "Guest"}
       />
       <div className="flex">
         <Sidebarn />
