@@ -35,7 +35,7 @@ const Centre: React.FC<CentreProps> = (props) => {
     <>
       <div className={`w-1/2 ${styles['container']}`}>
         <h1 className="text-2xl mb-4 font-[700] mt-12 ml-2" style={{  color: '#274C77' }}>
-          WELCOME, {props.company}
+          WELCOME, {localStorage.getItem("name") || "Guest"}
         </h1>
         <div>
           <Link href="/InterviewForm">
