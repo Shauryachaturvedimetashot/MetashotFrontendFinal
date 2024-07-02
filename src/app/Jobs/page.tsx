@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 const Home:React.FC=()=> {
   return (
     <>
-    <Navbar user_name="Iman" company="XYZ Company"/>
+    <Navbar user_name="Iman" company={localStorage.getItem("name") || "Guest"}/>
     <div className="flex ">
       <Sidebarn/>
       
