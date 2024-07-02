@@ -154,7 +154,8 @@ const AskQuestions = () => {
       if (response.status === 200) {
         console.log("Interview created successfully:", response.data);
         const interviewId = response.data._id; // Extract interview ID from response
-        window.location.href = /Invite?interview=${interviewId}; // Redirect to CandidateScreen with interview ID
+        window.location.href = `/Invite?interview=${interviewId}`; 
+ // Redirect to CandidateScreen with interview ID
       } else {
         console.error("Failed to create interview:", response.data);
       }
