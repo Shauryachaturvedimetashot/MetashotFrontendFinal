@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from "react";
 import Link from "next/link";
 import styles from './Jobs.module.css'
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 interface CentreProps {
   company: string;
@@ -30,6 +31,22 @@ const Centre: React.FC<CentreProps> = (props) => {
     fetchInterviews()
   },[])
 
+  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 425);
+  }
+  useEffect(()=>{
+    handleResize(); // Check initial screen size
+    window.addEventListener('resize', handleResize)
+    return ()=>window.removeEventListener('resize', handleResize)
+  },[])
+
+  const closeModal = () => {
+    setSelectedInterview(null);
+  }
+
 
   return (
     <>
@@ -55,10 +72,10 @@ const Centre: React.FC<CentreProps> = (props) => {
                 <div className="w-36 justify-start">
                   No: of Candidates
                 </div>
-                <div className="w-28 ml-3 justify-start">
+                <div className={`w-28 ml-3 justify-start ${styles['fromCol']}`}>
                   From
                 </div>
-                <div className="w-28 justify-start">
+                <div className={`w-28 justify-start ${styles['toCol']}`}>
                   To
                 </div>
                 <div className="justify-start">
@@ -67,20 +84,21 @@ const Centre: React.FC<CentreProps> = (props) => {
               </div>
               {/* Start adding the Interview Details below */}
               {interviews.map((interview,index)=>( 
-              <div key={index} className={`flex items-center font-[200] text-[#274C77] mt-2 ${styles['textMini']}`}>
+              <div key={index} className={`flex items-center font-[200] text-[#274C77] mt-2 ${styles['textMini']}`}
+              onClick={()=>{isMobile?()=>setSelectedInterview(interview):undefined}}>
                 <div className="w-64 justify-start hover:font-[500] ">
                   {interview.name}
                 </div>
                 <div className="w-36 text-center">
                   {interview.candidates}
                 </div>
-                <div className="w-28 ml-3 justify-start">
+                <div className={`w-28 ml-3 justify-start ${styles['fromCol']}`}>
                   {interview.from}
                 </div>
-                <div className="w-28 justify-start">
+                <div className={`w-28 justify-start ${styles['toCol']}`}>
                   {interview.to}
                 </div>
-                <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-24 text-center' : 'bg-green-500 text-white w-24 text-center'}`}>
+                <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-24 text-center' : 'bg-green-500 text-white w-24 text-center'} ${styles['statusCol']}`}>
                   {interview.status}
                 </div>
               </div>
@@ -90,6 +108,25 @@ const Centre: React.FC<CentreProps> = (props) => {
 
 
             </div>
+
+            {selectedInterview && isMobile && (
+               <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+               <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
+                 <h2 className="text-2xl font-bold mb-4">Interview Details</h2>
+                 <p><strong>Name:</strong> {selectedInterview.name}</p>
+                 <p><strong>No: of Candidates:</strong> {selectedInterview.candidates}</p>
+                 <p><strong>From:</strong> {selectedInterview.from}</p>
+                 <p><strong>To:</strong> {selectedInterview.to}</p>
+                 <p><strong>Status:</strong> {selectedInterview.status}</p>
+                 <button
+                   className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                   onClick={closeModal}
+                 >
+                   Close
+                 </button>
+               </div>
+             </div>
+            )}
 
           </div>
         </div>
