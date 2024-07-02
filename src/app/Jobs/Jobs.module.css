@@ -1,9 +1,12 @@
+.miniContainer{
+    width: 100%;
+}
 @media (max-width:1024px){
     .container{
         margin-left: 40px;
     }
     .miniContainer{
-        width: 130%;
+        /* width: 130%; */
         height: auto;
     }
     .headMini{
@@ -12,10 +15,10 @@
     .textMini{
         font-size: smaller;
     }
-    .nameCol{
+    /* .nameCol{
         width:192px !important;
 
-    }
+    } */
     .candidateCol{
 
     }
@@ -29,12 +32,12 @@
         overflow-x: auto;
         /* font-size:; */
     }
-    .fromCol,
+    /* .fromCol,
     .toCol{
         display: none;
-    }
+    } */
     .statusCol{
-        width:84px !important;
+        width:23% !important;
         justify-content: end;
 
 
@@ -47,7 +50,7 @@
         /* font-size:; */
     }
     .statusCol{
-        width: auto !important;
+        width:10% !important;
         justify-content: start;
         
     }
