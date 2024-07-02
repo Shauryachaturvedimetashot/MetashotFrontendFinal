@@ -118,51 +118,50 @@ const AskQuestions = () => {
     setCategories(updatedCategories);
   };
 
- const handleFinishButtonClick = async () => {
-  try {
-    const formData = JSON.parse(localStorage.getItem("formData") || "{}");
-    const technicalSkills = formData.technicalSkills || categories.map(cat => cat.name);
-    const jobDescription = formData.jobDescription || "";
-    localStorage.setItem("jobDescription", jobDescription);
-    const jobPosition = formData.jobPosition || "";
-    localStorage.setItem("jobPosition", jobPosition);
+  const handleFinishButtonClick = async () => {
+    try {
+      const formData = JSON.parse(localStorage.getItem("formData") || "{}");
+      const technicalSkills = formData.technicalSkills || categories.map(cat => cat.name);
+      const jobDescription = formData.jobDescription || "";
+      localStorage.setItem("jobDescription", jobDescription);
+      const jobPosition = formData.jobPosition || "";
+      localStorage.setItem("jobPosition", jobPosition);
 
-    const payload = {
-      jobPosition: formData.jobPosition || "",
-      yearsOfExperience: formData.yearsOfExperience || "",
-      jobDescription: formData.jobDescription || "",
-      technicalSkills,
-      questions: categories.map((cat) => ({
-        skill: cat.name,
-        questions: cat.questions,
-      })),
-    };
+      const payload = {
+        jobPosition: formData.jobPosition || "",
+        yearsOfExperience: formData.yearsOfExperience || "",
+        jobDescription: formData.jobDescription || "",
+        technicalSkills,
+        questions: categories.map((cat) => ({
+          skill: cat.name,
+          questions: cat.questions,
+        })),
+      };
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      throw new Error("Authorization token not found.");
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Authorization token not found.");
+      }
+
+      const headers = {
+        Authorization: Bearer ${token},
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.post("https://metashotbackend.azurewebsites.net/interview/create", payload, { headers });
+
+      if (response.status === 200) {
+        console.log("Interview created successfully:", response.data);
+        const interviewId = response.data._id; // Extract interview ID from response
+        window.location.href = /Invite?interview=${interviewId}; // Redirect to CandidateScreen with interview ID
+      } else {
+        console.error("Failed to create interview:", response.data);
+      }
+    } catch (error) {
+      console.error("Error creating interview:", error);
+      alert("Error creating interview. Please fill out the details correctly.");
     }
-
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    };
-
-    const response = await axios.post("https://metashotbackend.azurewebsites.net/interview/create", payload, { headers });
-
-    if (response.status === 200) {
-      console.log("Interview created successfully:", response.data);
-      const interviewId = response.data._id; // Extract interview ID from response
-      window.location.href = `/Invite?interview=${interviewId}`; // Redirect to CandidateScreen with interview ID
-    } else {
-      console.error("Failed to create interview:", response.data);
-    }
-  } catch (error) {
-    console.error("Error creating interview:", error);
-    alert("Error creating interview. Please fill out the details correctly.");
-  }
-};
-
+  };
 
   // Render questions based on selectedCategory or all categories
 const renderedQuestions = selectedCategory !== null
