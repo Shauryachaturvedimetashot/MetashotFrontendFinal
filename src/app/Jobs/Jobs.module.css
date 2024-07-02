@@ -12,9 +12,19 @@
     .textMini{
         font-size: smaller;
     }
+    .nameCol{
+        width:192px !important;
+
+    }
+    .candidateCol{
+
+    }
+    .statusCol{
+
+    }
 }
 
-@media (max-width:426px){
+@media (max-width:768px){
     .miniContainer{
         overflow-x: auto;
         /* font-size:; */
@@ -24,10 +34,22 @@
         display: none;
     }
     .statusCol{
-        width:auto;
+        width:84px !important;
         justify-content: end;
 
 
     }
 
+}
+@media screen and (max-width:425px) {
+    .miniContainer{
+        overflow-x: auto;
+        /* font-size:; */
+    }
+    .statusCol{
+        width: auto !important;
+        justify-content: start;
+        
+    }
+    
 }
