@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -36,10 +36,10 @@ const LoginSignUpPage = () => {
     }
 
     try {
-      const res = await apiClient.post(/user/${isSignUp ? "register" : "login"}, {
+      const res = await apiClient.post(`/user/${isSignUp ? "register" : "login"}`, { // Corrected the template literal usage
         email,
         password,
-        ...(isSignUp && { name: companyname, type }),
+        ...(isSignUp && { name: companyname, type }), // Spread operator usage corrected
       });
 
       if (res.status === 400) {
