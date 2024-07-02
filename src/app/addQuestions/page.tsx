@@ -144,9 +144,10 @@ const AskQuestions = () => {
       }
 
       const headers = {
-        Authorization: Bearer ${token},
-        "Content-Type": "application/json",
-      };
+  Authorization: `Bearer ${token}`,
+  "Content-Type": "application/json",
+};
+
 
       const response = await axios.post("https://metashotbackend.azurewebsites.net/interview/create", payload, { headers });
 
