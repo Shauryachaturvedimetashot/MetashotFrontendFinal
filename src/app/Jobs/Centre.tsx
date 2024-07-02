@@ -66,7 +66,7 @@ const Centre: React.FC<CentreProps> = (props) => {
             </div>
             <div className="ml-4 mr-4 mt-4 flex flex-col">
               <div className={`flex items-center font-[600] text-[#274C77] ${styles['headMini']}`}>
-                <div className="w-64 justify-start">
+                <div className={`w-64 justify-start ${styles['nameCol']}`}>
                   Interview Name
                 </div>
                 <div className="w-36 justify-start">
@@ -78,7 +78,7 @@ const Centre: React.FC<CentreProps> = (props) => {
                 <div className={`w-28 justify-start ${styles['toCol']}`}>
                   To
                 </div>
-                <div className="justify-start">
+                <div className={`justify-start ${styles['statusCol']}`}>
                   Status
                 </div>
               </div>
@@ -86,7 +86,7 @@ const Centre: React.FC<CentreProps> = (props) => {
               {interviews.map((interview,index)=>( 
               <div key={index} className={`flex items-center font-[200] text-[#274C77] mt-2 ${styles['textMini']}`}
               onClick={()=>{isMobile?()=>setSelectedInterview(interview):undefined}}>
-                <div className="w-64 justify-start hover:font-[500] ">
+                <div className={`w-64 justify-start hover:font-[500] ${styles['nameCol']}`}>
                   {interview.name}
                 </div>
                 <div className="w-36 text-center">
