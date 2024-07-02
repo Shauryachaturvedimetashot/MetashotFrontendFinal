@@ -36,7 +36,7 @@ const LoginSignUpPage = () => {
     }
 
     try {
-      const res = await apiClient.post(`/user/${isSignUp ? "register" : "login"}`, {
+      const res = await apiClient.post(/user/${isSignUp ? "register" : "login"}, {
         email,
         password,
         ...(isSignUp && { name: companyname, type }),
