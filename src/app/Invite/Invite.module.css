@@ -1,27 +1,18 @@
-.main_box{
-    width: 650px;
-    height: 96px;
+.container{
+
 }
 
-@media (max-width:900px){
-.align1{
-    margin-right: 4px;
+@media (max-width:768px){
+    .dtContainer{
+        font-size: smaller;
+    }
 }
 
-.main_box{
-   
-    font-size: smaller;
-    
-}
-.main_box2{
-    font-size:10px;
-}
-.box2{
-    display: flex;
-    justify-content: space-evenly;
-    
-}
-.box3{
-    margin-top: 1px;
-}
+@media (max-width:426px){
+    .container{
+        margin-left:10%;
+        overflow-x: scroll;
+
+    }
+
 }

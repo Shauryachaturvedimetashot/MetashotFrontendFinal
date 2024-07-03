@@ -50,7 +50,7 @@ const Centre: React.FC<CentreProps> = (props) => {
 
   return (
     <>
-      <div className={`w-1/2 ${styles['container']}`}>
+      <div className={`w-1/2 h-auto ${styles['container']}`}>
         <h1 className="text-2xl mb-4 font-[700] mt-12 ml-2" style={{  color: '#274C77' }}>
           WELCOME, Metashot
         </h1>
@@ -92,10 +92,10 @@ const Centre: React.FC<CentreProps> = (props) => {
                 <div className="w-21p text-center">
                   {interview.candidates}
                 </div>
-                <div className={`w-15p justify-start text-left ${styles['fromCol']}`}>
+                <div className={`w-15p justify-start text-left ${styles['fromCol1']}`}>
                   {interview.from}
                 </div>
-                <div className={`w-15p justify-start ${styles['toCol']}`}>
+                <div className={`w-15p justify-start ${styles['toCol1']}`}>
                   {interview.to}
                 </div>
                 <div className={`px-2 py-1 rounded-2xl ${interview.status==='Active'?'bg-red-500 text-white w-17p text-center' : 'bg-green-500 text-white w-17p text-center'} ${styles['statusCol']}`}>
