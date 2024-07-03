@@ -6,6 +6,7 @@ interface CentreProps {
   company: string;
 }
 interface Interview {
+  _id: string; // Add this property to store the interview ID
   name: string;
   candidates: number;
   from: string;
@@ -40,6 +41,7 @@ const Centre: React.FC<CentreProps> = (props) => {
         const status = new Date(toTime) > new Date() ? 'Active' : 'Completed';
 
         return {
+          _id: interview._id, // Store the interview ID
           name: interview.jobPosition,
           candidates: scheduleData.reduce((acc: number, schedule: any) => acc + schedule.candidates.length, 0),
           from: new Date(interview.createdAt).toLocaleDateString(),
@@ -106,7 +108,9 @@ const Centre: React.FC<CentreProps> = (props) => {
                 <div key={index} className={`flex items-center font-[200] text-[#274C77] mt-2 ${styles['textMini']}`}
                   onClick={() => { isMobile ? setSelectedInterview(interview) : undefined }}>
                   <div className={`w-30p justify-start hover:font-[500] ${styles['nameCol']}`}>
-                    {interview.name}
+                    <Link href={`/Candidates?interview=${interview._id}`}>
+                      {interview.name}
+                    </Link>
                   </div>
                   <div className="text-center w-21p">
                     {interview.candidates}
