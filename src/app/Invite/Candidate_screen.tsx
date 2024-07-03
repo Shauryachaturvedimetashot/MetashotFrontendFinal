@@ -6,7 +6,7 @@ import { faHourglassStart, faHourglassEnd } from "@fortawesome/free-solid-svg-ic
 import Link from "next/link";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-
+import styles from "./Invite.module.css"
 interface Candidate {
   name: string;
   mail: string;
@@ -175,13 +175,13 @@ function CandidateScreen() {
 
   return (
     <>
-      <div className="ml-8 content">
-        <div className="mt-4 text-5xl font-semibold text-black">Interview Name</div>
-        <div className="flex flex-row text-black">
-          <div className={`mt-8 bg-[#E2F3E5] h-24 rounded-md pr-2 pt-2 `}>
-            <div className={`flex `}>
-              <div className="px-4 mr-10">
-                <FontAwesomeIcon icon={faHourglassStart} className="mr-2 text-black fas fa-check" />
+      <div className={`ml-8 w-80p ${styles['container']}`}>
+        <div className="mt-4 text-4xl font-semibold text-black">Interview Name</div>
+        <div className="flex flex-row text-black ">
+          <div className={`mt-8 bg-[#E2F3E5]  rounded-md pr-2 pt-2 h-30p w-50p pb-2 ${styles['dtContainer']}`}>
+            <div className={`flex justify-start `}>
+              <div className="px-4 mr-10 w-10p">
+                <FontAwesomeIcon icon={faHourglassStart} className="mr-2 text-black fas fa-check mb:hidden" />
                 Start
               </div>
               <div className="px-10 text-black">
@@ -205,7 +205,7 @@ function CandidateScreen() {
                 />
               </div>
             </div>
-            <div className={`flex items-center mt-5 justify-between text-black `}>
+            <div className={`flex items-center mt-5 justify-start text-black `}>
               <div className="px-4 mr-10">
                 <FontAwesomeIcon icon={faHourglassEnd} className="mr-2 fas fa-check" style={{ color: "black" }} />
                 Stop
@@ -231,9 +231,10 @@ function CandidateScreen() {
                 />
               </div>
             </div>
-            {error && <div className="mt-4 text-red-600">{error}</div>}
+            
           </div>
         </div>
+        {error && <div className=" text-red-600">{error}</div>}
 
         <div className="mt-6">
           <button

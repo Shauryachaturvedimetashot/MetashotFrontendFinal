@@ -1,6 +1,9 @@
 .miniContainer{
     width: 100%;
 }
+.fromCol1 , .toCol1{
+    font-size: smaller;
+}
 @media (max-width:1024px){
     .container{
         margin-left: 40px;
@@ -28,14 +31,18 @@
 }
 
 @media (max-width:768px){
+    
     .miniContainer{
         overflow-x: auto;
         /* font-size:; */
     }
-    /* .fromCol,
+    .fromCol,
     .toCol{
         display: none;
-    } */
+    }
+    .fromCol1 , .toCol1{
+        display: none;
+    }
     .statusCol{
         width:23% !important;
         justify-content: end;
