@@ -215,13 +215,14 @@ const AskQuestions = () => {
                 </div>
               </div>
               <div className="w-1/2 pl-4">
-                <div className="mb-4 overflow-y-auto h-80"> {/* Increased height to 80px */}
+                <div className="mb-4 overflow-y-auto max-h-96"> {/* Increased height to 80px */}
                   <h2 className="mb-2 text-lg font-semibold text-black">Added Questions</h2>
                   <ul>
                     {categories.flatMap((cat, catIndex) =>
                       cat.questions.map((question, index) => (
                         <li key={`${catIndex}-${index}`} className="px-3 py-2 mb-2 text-black border border-gray-300 rounded">
-                          {question} ({cat.name})
+                          (<span style={{ fontWeight: '600' }}>{cat.name}</span>
+                          ) {question} 
                           <button
                             className="ml-2 text-red-500"
                             onClick={() => handleQuestionDelete(cat.name, index)}
@@ -241,7 +242,7 @@ const AskQuestions = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex">
               <button
                 className="px-4 py-2 mr-2 text-white bg-green-500 rounded hover:bg-green-600"
                 onClick={addOrUpdateQuestion}
@@ -260,8 +261,6 @@ const AskQuestions = () => {
               >
                 Generate Using AI
               </button>
-            </div>
-            <div className="flex items-center mt-4">
               <button
                 className="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600"
                 onClick={handleFinishButtonClick}
@@ -276,7 +275,7 @@ const AskQuestions = () => {
       {showDeleteConfirmation && (
         <div className="fixed top-0 left-0 right-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
           <div className="p-6 bg-white rounded shadow-md">
-<p>Are you sure you want to delete the skill &quot;{categoryToDelete}&quot;?</p>
+            <p>Are you sure you want to delete the skill &quot;{categoryToDelete}&quot;?</p>
             <div className="mt-4">
               <button
                 className="px-4 py-2 mr-2 text-white bg-red-500 rounded hover:bg-red-600"
@@ -299,3 +298,4 @@ const AskQuestions = () => {
 };
 
 export default AskQuestions;
+
