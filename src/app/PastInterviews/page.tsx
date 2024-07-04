@@ -13,25 +13,26 @@ interface Interview {
   yearsOfExperience: number;
   technicalSkills: string[];
   createdAt: string;
+  status: string;
 }
 
 const Interviews: React.FC = () => {
   const [interviews, setInterviews] = useState<Interview[]>([]);
   const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null);
 
-  useEffect(() => {
-    const fetchInterviews = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("https://metashotbackend.azurewebsites.net/interview/getAll", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setInterviews(response.data);
-      } catch (error) {
-        console.error("Error fetching interviews:", error);
-      }
-    };
+  const fetchInterviews = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("https://metashotbackend.azurewebsites.net/interview/getAll", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setInterviews(response.data);
+    } catch (error) {
+      console.error("Error fetching interviews:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchInterviews();
   }, []);
 
@@ -42,6 +43,22 @@ const Interviews: React.FC = () => {
   const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).className.includes('detailsModal')) {
       setSelectedInterview(null);
+    }
+  };
+
+  const handleStatusToggle = async (interviewId: string, currentStatus: string) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `https://metashotbackend.azurewebsites.net/interview/changeStatus`,
+        { interviewId, status: currentStatus === "active" ? "deactive" : "active" },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      await fetchInterviews(); // Refresh the interviews list after status change
+    } catch (error) {
+      console.error("Error toggling interview status:", error);
     }
   };
 
@@ -65,6 +82,13 @@ const Interviews: React.FC = () => {
                 <div key={interview._id} className={styles.interviewCard}>
                   <h2 className={styles.jobPosition}>{interview.jobPosition} - {interview.yearsOfExperience} years experience</h2>
                   <p className={styles.jobDescription}>{interview.jobDescription}</p>
+                  <p className={styles.status}>Status: {interview.status}</p>
+                  <button
+                    className={interview.status === "active" ? styles.deactivateButton : styles.activateButton}
+                    onClick={() => handleStatusToggle(interview._id, interview.status)}
+                  >
+                    {interview.status === "active" ? "Deactivate it" : "Activate it"}
+                  </button>
                   <button
                     className={styles.detailsButton}
                     onClick={() => handleShowDetails(interview)}
