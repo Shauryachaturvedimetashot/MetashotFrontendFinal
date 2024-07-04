@@ -82,7 +82,7 @@ const Centre: React.FC<CentreProps> = (props) => {
               Post a job
             </div>
           </Link>
-          <div className={`mb-4 bg-[#F8F8FB] h-auto pb-2 rounded-2xl shadow-lg mt-20 ${styles['miniContainer']}`}>
+          <div className={`mb-4 bg-[#F8F8FB] h-auto pb-2 rounded-2xl shadow-lg ${styles['miniContainer']}`}>
             <div className="font-[800] text-2xl pl-3 pt-6" style={{ color: '#274C77' }}>
               Recent jobs
             </div>

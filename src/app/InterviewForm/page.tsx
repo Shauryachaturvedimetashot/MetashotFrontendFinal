@@ -11,7 +11,7 @@ const InterviewPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-green-100 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbarn company="Your Company" user_name="Username" /> {/* Include Navbarn component at the top */}
       <div className="flex flex-1">
         <Sidebarn />

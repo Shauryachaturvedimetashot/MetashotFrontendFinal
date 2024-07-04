@@ -175,7 +175,7 @@ function CandidateScreen() {
 
   return (
     <>
-      <div className={`ml-8 w-80p ${styles['container']}`}>
+      <div className={`w-80p ${styles['container']}`}>
         <div className="mt-4 text-4xl font-semibold text-black">Interview Name</div>
         <div className="flex flex-row text-black ">
           <div className={`mt-8 bg-[#E2F3E5]  rounded-md pr-2 pt-2 h-30p w-50p pb-2 ${styles['dtContainer']}`}>

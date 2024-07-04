@@ -1,4 +1,6 @@
 .container{
+    margin-left: 3%;
+   
 
 }
 
@@ -10,7 +12,6 @@
 
 @media (max-width:426px){
     .container{
-        margin-left:10%;
         overflow-x: scroll;
 
     }
