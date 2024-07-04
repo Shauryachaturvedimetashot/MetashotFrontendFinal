@@ -1,6 +1,6 @@
 @media (max-width: 768px) {
   .container{
-    margin-right: 10px;
+    margin-right:5%;
   }
     .sidebar-button {
       padding-top: 0.5rem !important; /* py-2 */

@@ -44,7 +44,7 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
   };
 
   return (
-    <div className="bg-green-100 p-4 h-full flex flex-col overflow-hidden">
+    <div className="p-4 h-full flex flex-col overflow-hidden">
       <h1 className="text-2xl font-semibold mb-4 text-center text-black">{interviewName}</h1>
       <form className="flex flex-col flex-1 overflow-y-auto" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="jobPosition" className="text-black mb-2">

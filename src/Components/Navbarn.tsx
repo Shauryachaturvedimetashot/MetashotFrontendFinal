@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
   };
 
   return (
-    <nav className={`bg-white shadow-2xl py-4 px-6 flex justify-between items-center navbar ${styles['navbar']}`}>
+    <nav className={`bg-white py-4 px-6 flex justify-between items-center navbar ${styles['navbar']}`}>
       <div className="text-1xl font-bold ml-6">
         <Link href="/">MetaShot</Link>
       </div>
