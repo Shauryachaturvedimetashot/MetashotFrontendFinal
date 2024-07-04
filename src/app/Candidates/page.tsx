@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, Suspense } from "react";
 import axios from "axios";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 
 import NavbarN from "../../Components/Navbarn";
 import SidebarN from "../../Components/SidebarN";
@@ -37,110 +37,117 @@ interface Report {
 
 const mockReport: Report[] = [
   {
-    "Topic": "Security",
-    "Scores": [
+    Topic: "Security",
+    Scores: [
       {
-        "Relevance": "10",
-        "Clarity": "12",
-        "Depth": "20",
-        "Coherence": "8",
-        "Language": "8",
-        "TechnicalAccuracy": "42",
-        "Creativity": "10"
-      }
-    ]
+        Relevance: "10",
+        Clarity: "12",
+        Depth: "20",
+        Coherence: "8",
+        Language: "8",
+        TechnicalAccuracy: "42",
+        Creativity: "10",
+      },
+    ],
   },
   {
-    "Topic": "Operating Systems",
-    "Scores": [
+    Topic: "Operating Systems",
+    Scores: [
       {
-        "Relevance": "9",
-        "Clarity": "12",
-        "Depth": "22",
-        "Coherence": "8",
-        "Language": "7",
-        "TechnicalAccuracy": "42",
-        "Creativity": "10"
-      }
-    ]
+        Relevance: "9",
+        Clarity: "12",
+        Depth: "22",
+        Coherence: "8",
+        Language: "7",
+        TechnicalAccuracy: "42",
+        Creativity: "10",
+      },
+    ],
   },
   {
-    "Topic": "Databases",
-    "Scores": [
+    Topic: "Databases",
+    Scores: [
       {
-        "Relevance": "10",
-        "Clarity": "10",
-        "Depth": "20",
-        "Coherence": "8",
-        "Language": "7",
-        "TechnicalAccuracy": "40",
-        "Creativity": "10"
-      }
-    ]
+        Relevance: "10",
+        Clarity: "10",
+        Depth: "20",
+        Coherence: "8",
+        Language: "7",
+        TechnicalAccuracy: "40",
+        Creativity: "10",
+      },
+    ],
   },
   {
-    "Topic": "Mobile Development",
-    "Scores": [
+    Topic: "Mobile Development",
+    Scores: [
       {
-        "Relevance": "10",
-        "Clarity": "7",
-        "Depth": "15",
-        "Coherence": "6",
-        "Language": "6",
-        "TechnicalAccuracy": "35",
-        "Creativity": "10"
-      }
-    ]
+        Relevance: "10",
+        Clarity: "7",
+        Depth: "15",
+        Coherence: "6",
+        Language: "6",
+        TechnicalAccuracy: "35",
+        Creativity: "10",
+      },
+    ],
   },
   {
-    "Topic": "Testing",
-    "Scores": [
+    Topic: "Testing",
+    Scores: [
       {
-        "Relevance": "0",
-        "Clarity": "1",
-        "Depth": "2",
-        "Coherence": "1",
-        "Language": "3",
-        "TechnicalAccuracy": "0",
-        "Creativity": "2"
-      }
-    ]
+        Relevance: "0",
+        Clarity: "1",
+        Depth: "2",
+        Coherence: "1",
+        Language: "3",
+        TechnicalAccuracy: "0",
+        Creativity: "2",
+      },
+    ],
   },
   {
-    "Topic": "Testing  ",
-    "Scores": [
+    Topic: "Testing  ",
+    Scores: [
       {
-        "Relevance": "2",
-        "Clarity": "3",
-        "Depth": "1",
-        "Coherence": "2",
-        "Language": "3",
-        "TechnicalAccuracy": "1",
-        "Creativity": "1"
-      }
-    ]
-  }
+        Relevance: "2",
+        Clarity: "3",
+        Depth: "1",
+        Coherence: "2",
+        Language: "3",
+        TechnicalAccuracy: "1",
+        Creativity: "1",
+      },
+    ],
+  },
 ];
 
 const CandidatesPage: React.FC = () => {
-  const [scheduledInterviews, setScheduledInterviews] = useState<ScheduledInterview[]>([]);
+  const [scheduledInterviews, setScheduledInterviews] = useState<
+    ScheduledInterview[]
+  >([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [candidatesPerPage] = useState(8);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCandidateReport, setSelectedCandidateReport] = useState<Report[]>([]);
+  const [selectedCandidateReport, setSelectedCandidateReport] = useState<
+    Report[]
+  >([]);
 
   const CandidatesContent = () => {
     const searchParams = useSearchParams();
-    const interviewId = searchParams.get('interview');
+    const interviewId = searchParams.get("interview");
 
     useEffect(() => {
       const fetchScheduledInterviews = async () => {
         try {
           const token = localStorage.getItem("token");
           if (interviewId && token) {
-            const response = await axios.get(`https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interviewId}`, {
-              headers: { Authorization: `Bearer ${token}` },
-            });
+            const response = await axios.get(
+              `https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interviewId}`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
             setScheduledInterviews(response.data);
           } else {
             console.log("No interview ID or token provided.");
@@ -158,6 +165,51 @@ const CandidatesPage: React.FC = () => {
       setIsModalVisible(true);
     };
 
+    const handleDeleteCandidate = async (email: string) => {
+      try {
+        const token = localStorage.getItem("token");
+        if (interviewId && token) {
+          // Find the scheduled interview containing the candidate
+          const scheduledInterview = scheduledInterviews.find(interview =>
+            interview.candidates.includes(email)
+          );
+    
+          if (scheduledInterview) {
+            // Extract the scheduled interview ID
+            const { _id: interviewScheduleId } = scheduledInterview;
+    
+            // Call the API to delete the candidate
+            await axios.put(
+              "https://metashotbackend.azurewebsites.net/interview/schedule/candidates",
+              {
+                interviewScheduleId,
+                candidate: email,
+              },
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
+    
+            // After deletion, fetch updated scheduled interviews
+            const response = await axios.get(
+              `https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interviewId}`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
+            setScheduledInterviews(response.data);
+          } else {
+            console.log("Scheduled interview not found for candidate:", email);
+          }
+        } else {
+          console.log("No interview ID or token provided.");
+        }
+      } catch (error) {
+        console.error("Error deleting candidate:", error);
+      }
+    };
+    
+
     const handleClickOutside = (event: React.MouseEvent) => {
       if ((event.target as Element).classList.contains(styles.modalOverlay)) {
         setIsModalVisible(false);
@@ -165,11 +217,11 @@ const CandidatesPage: React.FC = () => {
     };
 
     // Flattening candidates from scheduled interviews
-    const candidates = scheduledInterviews.flatMap(interview => 
-      interview.candidates.map(candidate => ({
+    const candidates = scheduledInterviews.flatMap((interview) =>
+      interview.candidates.map((candidate) => ({
         email: candidate,
         start: interview.start,
-        end: interview.end
+        end: interview.end,
       }))
     );
 
@@ -177,7 +229,10 @@ const CandidatesPage: React.FC = () => {
     const totalPages = Math.ceil(candidates.length / candidatesPerPage);
     const indexOfLastCandidate = currentPage * candidatesPerPage;
     const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
-    const currentCandidates = candidates.slice(indexOfFirstCandidate, indexOfLastCandidate);
+    const currentCandidates = candidates.slice(
+      indexOfFirstCandidate,
+      indexOfLastCandidate
+    );
 
     // Handlers for pagination
     const nextPage = () => {
@@ -208,40 +263,62 @@ const CandidatesPage: React.FC = () => {
                 <th>Review Interview</th>
                 <th>Start Time</th>
                 <th>End Time</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {currentCandidates.length > 0 ? (
-                currentCandidates.map(candidate => (
+                currentCandidates.map((candidate) => (
                   <tr key={candidate.email}>
                     <td>{candidate.email}</td>
                     <td>
-                      <button onClick={() => handleViewScores(mockReport)}>View Scores</button>
+                      <button onClick={() => handleViewScores(mockReport)}>
+                        View Scores
+                      </button>
                     </td>
                     <td>--</td>
                     <td>--</td>
                     <td>{new Date(candidate.start).toLocaleString()}</td>
                     <td>{new Date(candidate.end).toLocaleString()}</td>
+                    <td>
+                      <button
+                        onClick={() => handleDeleteCandidate(candidate.email)}
+                        className={styles.deleteButton}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6}>No candidates found.</td>
+                  <td colSpan={7}>No candidates found.</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
         <div className={styles.pagination}>
-          <button onClick={prevPage} disabled={currentPage === 1}>&lt;</button>
-          <span>Page: {currentPage}/{totalPages}</span>
-          <button onClick={nextPage} disabled={currentPage === totalPages}>&gt;</button>
+          <button onClick={prevPage} disabled={currentPage === 1}>
+            &lt;
+          </button>
+          <span>
+            Page: {currentPage}/{totalPages}
+          </span>
+          <button onClick={nextPage} disabled={currentPage === totalPages}>
+            &gt;
+          </button>
         </div>
-        
+
         {isModalVisible && (
           <div className={styles.modalOverlay} onClick={handleClickOutside}>
             <div className={styles.modalContent}>
-              <button className={styles.closeButton} onClick={() => setIsModalVisible(false)}>X</button>
+              <button
+                className={styles.closeButton}
+                onClick={() => setIsModalVisible(false)}
+              >
+                X
+              </button>
               <h2 className={styles.modalTitle}>Candidate Scores</h2>
               <div className={styles.modalBody}>
                 {selectedCandidateReport.map((topicReport, index) => (
@@ -250,9 +327,11 @@ const CandidatesPage: React.FC = () => {
                     <table className={styles.scoreTable}>
                       <thead>
                         <tr>
-                          {Object.keys(topicReport.Scores[0]).map((scoreKey, idx) => (
-                            <th key={idx}>{scoreKey}</th>
-                          ))}
+                          {Object.keys(topicReport.Scores[0]).map(
+                            (scoreKey, idx) => (
+                              <th key={idx}>{scoreKey}</th>
+                            )
+                          )}
                         </tr>
                       </thead>
                       <tbody>
