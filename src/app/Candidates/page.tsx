@@ -133,8 +133,8 @@ const CandidatesPage: React.FC = () => {
     Report[]
   >([]);
 
-  const CandidatesContent = () => {
-    const searchParams = useSearchParams();
+
+  const searchParams = useSearchParams();
     const interviewId = searchParams.get("interview");
 
     useEffect(() => {
@@ -159,6 +159,9 @@ const CandidatesPage: React.FC = () => {
 
       fetchScheduledInterviews();
     }, [interviewId]);
+    
+  const CandidatesContent = () => {
+    
 
     const handleViewScores = (report: Report[]) => {
       setSelectedCandidateReport(report);
