@@ -146,3 +146,25 @@
 .scheduledInterviewsButton:hover {
   background-color: #25eb60;
 }
+
+/* PastInterviews.module.css */
+
+.activateButton {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.deactivateButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+/* existing styles */

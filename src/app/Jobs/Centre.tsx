@@ -11,7 +11,7 @@ interface Interview {
   candidates: number;
   from: string;
   to: string;
-  status: 'Active' | 'Completed';
+  status: 'Active' | 'Deactive'; // Updated to include 'Deactive'
 }
 
 const Centre: React.FC<CentreProps> = (props) => {
@@ -38,7 +38,6 @@ const Centre: React.FC<CentreProps> = (props) => {
         const scheduleData = await scheduleResponse.json();
         const recentSchedule = scheduleData.sort((a: any, b: any) => new Date(b.end).getTime() - new Date(a.end).getTime())[0];
         const toTime = recentSchedule ? recentSchedule.end : interview.updatedAt;
-        const status = new Date(toTime) > new Date() ? 'Active' : 'Completed';
 
         return {
           _id: interview._id, // Store the interview ID
@@ -46,7 +45,7 @@ const Centre: React.FC<CentreProps> = (props) => {
           candidates: scheduleData.reduce((acc: number, schedule: any) => acc + schedule.candidates.length, 0),
           from: new Date(interview.createdAt).toLocaleDateString(),
           to: new Date(toTime).toLocaleDateString(),
-          status
+          status: interview.status === 'active' ? 'Active' : 'Deactive' // Use the status field from the response
         };
       }));
 
@@ -74,7 +73,7 @@ const Centre: React.FC<CentreProps> = (props) => {
     <>
       <div className={`w-1/2 h-auto ${styles['container']}`}>
         <h1 className="text-2xl mb-4 font-[700] mt-12 ml-2" style={{ color: '#274C77' }}>
-          Welcome, Metashot
+          Welcome, {props.company}
         </h1>
         <div>
           <Link href="/InterviewForm">
@@ -121,7 +120,7 @@ const Centre: React.FC<CentreProps> = (props) => {
                   <div className={`w-15p justify-start ${styles['toCol1']}`}>
                     {interview.to}
                   </div>
-                  <div className={`px-2 py-1 rounded-2xl ${interview.status === 'Active' ? 'bg-red-500 text-white w-17p text-center' : 'bg-green-500 text-white w-17p text-center'} ${styles['statusCol']}`}>
+                  <div className={`px-2 py-1 rounded-2xl ${interview.status === 'Active' ? 'bg-green-500 text-white w-17p text-center' : 'bg-red-500 text-white w-17p text-center'} ${styles['statusCol']}`}>
                     {interview.status}
                   </div>
                 </div>
