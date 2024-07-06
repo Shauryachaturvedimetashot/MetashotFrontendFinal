@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
@@ -62,6 +62,16 @@ const Interviews: React.FC = () => {
     }
   };
 
+  const handleAddCandidates = (interviewId: string, status: string) => {
+    if (status === "active") {
+      // Navigate to the Invite page
+      window.location.href = `/Invite?interview=${interviewId}`;
+    } else {
+      // Show alert if interview is inactive
+      alert("You need to activate the interview to add more candidates.");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <NavbarN company="Metashot" user_name="Metashot" />
@@ -94,6 +104,12 @@ const Interviews: React.FC = () => {
                     onClick={() => handleShowDetails(interview)}
                   >
                     Show Details
+                  </button>
+                  <button
+                    className={styles.addCandidatesButton}
+                    onClick={() => handleAddCandidates(interview._id, interview.status)}
+                  >
+                    Add New Candidates
                   </button>
                 </div>
               ))
