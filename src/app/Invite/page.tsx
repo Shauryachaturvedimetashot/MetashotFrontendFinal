@@ -7,7 +7,7 @@ import Candidate_screen from './Candidate_screen';
 const Invite = () => {
   return (
     <div>
-      <Navbar user_name="Iman" company="XYZ Company" />
+      <Navbar user_name="Metashot" company="Metashot" />
       <div className='flex'>
         <Sidebarn />
         <Suspense fallback={<div>Loading...</div>}>
