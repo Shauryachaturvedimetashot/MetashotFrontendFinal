@@ -359,7 +359,7 @@ const CandidatesPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <NavbarN company="Your Company" user_name="User Name" />
+      <NavbarN company="Metashot" user_name="Metashot" />
       <div className={styles.mainContent}>
         <SidebarN />
         <Suspense fallback={<div>Loading...</div>}>
