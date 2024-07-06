@@ -73,6 +73,11 @@
 .jobDescription {
   margin-top: 5px;
   color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
 }
 
 .detailsButton {
