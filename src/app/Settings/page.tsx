@@ -9,7 +9,7 @@ import Settings_content from './settings'
 const Setting=()=>{
     return(
         <>
-        <Navbar user_name="Raees" company="XYZ Company"/>
+        <Navbar user_name="Metashot" company="Metashot"/>
         <div className='flex'>
         <Sidebarn/>
         <Settings_content/>
