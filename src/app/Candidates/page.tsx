@@ -201,10 +201,13 @@ const CandidatesPage: React.FC = () => {
   };
 
   const handleClickOutside = (event: React.MouseEvent) => {
-    if ((event.target as Element).classList.contains(styles.modalOverlay)) {
+    if (event.target instanceof Element && event.target.closest(`.${styles.modalOverlay}`)) {
       setIsModalVisible(false);
     }
   };
+  
+  
+  
 
   const candidates = scheduledInterviews.flatMap((interview) =>
     interview.candidates.map((candidate) => ({
@@ -315,24 +318,30 @@ const CandidatesPage: React.FC = () => {
                   <h2 className={styles.modalTitle}>Candidate Scores</h2>
                   <div className={styles.modalBody}>
                     {selectedCandidateReport.map((topicReport, index) => (
-                      <div key={index} className={styles.topic}>
-                        <h3 className={styles.topicTitle}>{topicReport.Topic}</h3>
-                        <table className={styles.scoreTable}>
+                      <div key={index} className={styles.topicReport}>
+                        <h3>{topicReport.Topic}</h3>
+                        <table className={styles.scoresTable}>
                           <thead>
                             <tr>
-                              {Object.keys(topicReport.Scores[0]).map(
-                                (scoreKey, idx) => (
-                                  <th key={idx}>{scoreKey}</th>
-                                )
-                              )}
+                              <th>Relevance</th>
+                              <th>Clarity</th>
+                              <th>Depth</th>
+                              <th>Coherence</th>
+                              <th>Language</th>
+                              <th>Technical Accuracy</th>
+                              <th>Creativity</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {topicReport.Scores.map((score, idx) => (
-                              <tr key={idx}>
-                                {Object.values(score).map((scoreValue, i) => (
-                                  <td key={i}>{scoreValue}</td>
-                                ))}
+                            {topicReport.Scores.map((score, scoreIndex) => (
+                              <tr key={scoreIndex}>
+                                <td>{score.Relevance}</td>
+                                <td>{score.Clarity}</td>
+                                <td>{score.Depth}</td>
+                                <td>{score.Coherence}</td>
+                                <td>{score.Language}</td>
+                                <td>{score.TechnicalAccuracy}</td>
+                                <td>{score.Creativity}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -350,4 +359,10 @@ const CandidatesPage: React.FC = () => {
   );
 };
 
-export default CandidatesPage;
+const CandidatesPageWithSuspense: React.FC = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <CandidatesPage />
+  </Suspense>
+);
+
+export default CandidatesPageWithSuspense;
