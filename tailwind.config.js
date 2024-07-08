@@ -25,6 +25,7 @@ module.exports = {
       "80p":"80%",
       "60p":"60%",
       "65p":"65%",
+      "40p":"40%"
     },
     height:{
       "18p":  "18%",
@@ -33,7 +34,16 @@ module.exports = {
       "30p":"30%",
     },
     screens:{
-      "mb":{"max":"425px"}
+      "mb":{"max":"426px"}
+    },
+    margin:{
+      "5p":"5%",
+      "10p":"10%",
+      "3p":"3%",
+      "1p":"1%"
+    },
+    fontFamily:{
+      spaceGrotesk: ['"Space Grotesk"', 'sans-serif']
     }
   },
 },
