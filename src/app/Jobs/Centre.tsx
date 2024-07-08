@@ -73,7 +73,7 @@ const Centre: React.FC<CentreProps> = (props) => {
     <>
       <div className={`w-1/2 h-auto ${styles['container']}`}>
         <h1 className="text-2xl mb-4 font-[700] mt-12 ml-2" style={{ color: '#274C77' }}>
-          Welcome, {props.company}
+          Welcome to Metashot
         </h1>
         <div>
           <Link href="/InterviewForm">
