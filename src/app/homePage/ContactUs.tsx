@@ -10,7 +10,7 @@ const ContactUs:React.FC = ()=>{
 
             </h1>
             <div className="lg:w-[25%] xl:w-[20%] ml-[2%]">
-            Connect with us: Let's Discuss Your Digital Marketing Needs
+            Connect with us: Let&apos;s Discuss Your Digital Marketing Needs
 
             </div>
 
