@@ -35,7 +35,7 @@ const ContactUs:React.FC = ()=>{
             </div>
            
            <div>
-           <form>
+           <form className="mt-3p">
           <div className="mb-4">
             <label htmlFor="name" className="block mb-2 text-sm text-gray-700">Name</label>
             <input type="text" id="name" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Name" />
