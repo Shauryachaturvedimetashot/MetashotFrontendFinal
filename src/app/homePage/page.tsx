@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Content1 from "./Content1";
 import Content2 from "./Content2";
 import ContactUs from "./ContactUs";
+import Team from "./Team";
 
 const page:React.FC = ()=>{
 
@@ -12,6 +13,7 @@ const page:React.FC = ()=>{
             <Navbar/>
             <Content1/>
             <Content2/>
+            <Team/>
             <ContactUs/>
         </div>
     )
