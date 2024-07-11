@@ -6,7 +6,7 @@ import Content2 from "./Content2";
 import ContactUs from "./ContactUs";
 import Team from "./Team";
 
-const page:React.FC = ()=>{
+const Hpage:React.FC = ()=>{
 
     return(
         <div>
@@ -20,4 +20,4 @@ const page:React.FC = ()=>{
 
 }
 
-export default page
+export default Hpage
