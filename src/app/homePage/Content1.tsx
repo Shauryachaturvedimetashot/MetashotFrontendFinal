@@ -16,7 +16,7 @@ const Content1:React.FC =()=>{
         </div>
         <div className="w-full md:w-1/2 h-1/5 flex justify-center ">
         <div className="pl-20">
-        <Image src="/Illustration.jpg" alt="Illustration" width={400} height={400} layout="responsive" className=""/>
+        <Image src="/Illustration.jpg" alt="Illustration" width={400} height={400} layout="" className=""/>
 
         </div>
         
