@@ -36,6 +36,14 @@ interface Report {
   Scores: Score[];
 }
 
+//Processed Report
+interface ProcessedReport {
+  Topic: string;
+  Technical: string;
+  NonTechnical: string;
+  TotalScore: string;
+}
+
 const mockReport: Report[] = [
   {
     Topic: "Security",
@@ -123,12 +131,65 @@ const mockReport: Report[] = [
   },
 ];
 
+// Normalize Scores
+const normalizeScore = (score: number, maxScore: number): number => {
+  return (score / maxScore) * 20;
+}
+
+//Average the arrays
+const calculateAverage = (scores: number[]): number => {
+  const total = scores.reduce((sum, score) => sum + score, 0);
+  return total / scores.length;
+}
+
+//Process Mock Report
+const processReport = (report: Report[]): ProcessedReport[] => {
+  return report.map((topicReport) => {
+    const scores = topicReport.Scores[0];
+    const technicalScores = [
+      normalizeScore(parseInt(scores.Relevance), 10),
+      normalizeScore(parseInt(scores.Clarity), 15),
+      normalizeScore(parseInt(scores.Depth), 25),
+      normalizeScore(parseInt(scores.Coherence), 10),
+      normalizeScore(parseInt(scores.TechnicalAccuracy), 45),
+    ];
+    const nonTechnicalScores = [
+      normalizeScore(parseInt(scores.Language), 10),
+      normalizeScore(parseInt(scores.Creativity), 15),
+      normalizeScore(parseInt(scores.Coherence), 10),
+    ];
+
+    const technicalAverage = calculateAverage(technicalScores);
+    const nonTechnicalAverage = calculateAverage(nonTechnicalScores);
+    const totalScore = calculateAverage([
+      technicalAverage,
+      nonTechnicalAverage,
+    ]);
+
+    return {
+      Topic: topicReport.Topic,
+      Technical: technicalAverage.toFixed(2),
+      NonTechnical: nonTechnicalAverage.toFixed(2),
+      TotalScore: totalScore.toFixed(2),
+    };
+  });
+}
+
+const processedReport = processReport(mockReport)
+
+
+
+
+
+
 const CandidatesPage: React.FC = () => {
   const [scheduledInterviews, setScheduledInterviews] = useState<ScheduledInterview[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [candidatesPerPage] = useState(8);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCandidateReport, setSelectedCandidateReport] = useState<Report[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(true);
+
+  // Replacing this with process Report function
+  const [selectedCandidateReport, setSelectedCandidateReport] = useState<ProcessedReport[]>([]);
   const searchParams = useSearchParams();
   const interviewId = searchParams.get("interview");
 
@@ -155,7 +216,7 @@ const CandidatesPage: React.FC = () => {
     fetchScheduledInterviews();
   }, [interviewId]);
 
-  const handleViewScores = (report: Report[]) => {
+  const handleViewScores = (report: ProcessedReport[]) => {
     setSelectedCandidateReport(report);
     setIsModalVisible(true);
   };
@@ -209,13 +270,27 @@ const CandidatesPage: React.FC = () => {
   
   
 
-  const candidates = scheduledInterviews.flatMap((interview) =>
-    interview.candidates.map((candidate) => ({
-      email: candidate,
-      start: interview.start,
-      end: interview.end,
-    }))
-  );
+  // const candidates = scheduledInterviews.flatMap((interview) =>
+  //   interview.candidates.map((candidate) => ({
+  //     email: candidate,
+  //     start: interview.start,
+  //     end: interview.end,
+  //   }))
+  // );
+
+  const candidates = [
+    {
+      email: "test1@test.com",
+      start: "2022-11-11",
+      end: "2022-11-11",
+    },
+    {
+      email: "test2@test.com",
+      start: "2022-11-11",
+      end:"2022-11-11"
+      }
+    
+  ]
 
   const totalPages = Math.ceil(candidates.length / candidatesPerPage);
   const indexOfLastCandidate = currentPage * candidatesPerPage;
@@ -263,19 +338,21 @@ const CandidatesPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentCandidates.length > 0 ? (
+                  {currentCandidates.length >= 0 ? (
                     currentCandidates.map((candidate) => (
                       <tr key={candidate.email}>
                         <td>{candidate.email}</td>
                         <td>
-                          <button onClick={() => handleViewScores(mockReport)}>
+                          <button onClick={() => handleViewScores(processedReport)}>
                             View Scores
                           </button>
                         </td>
                         <td>--</td>
                         <td>--</td>
-                        <td>{new Date(candidate.start).toLocaleString()}</td>
-                        <td>{new Date(candidate.end).toLocaleString()}</td>
+                        {/* <td>{new Date(candidate.start).toLocaleString()}</td> */}
+                        <td>{candidate.start}</td>
+                        {/* <td>{new Date(candidate.end).toLocaleString()}</td> */}
+                        <td> {candidate.end}</td>
                         <td>
                           <button
                             onClick={() => handleDeleteCandidate(candidate.email)}
@@ -306,7 +383,7 @@ const CandidatesPage: React.FC = () => {
               </button>
             </div>
 
-            {isModalVisible && (
+            {/* {isModalVisible && (
               <div className={styles.modalOverlay} onClick={handleClickOutside}>
                 <div className={styles.modalContent}>
                   <button
@@ -351,7 +428,47 @@ const CandidatesPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
+
+{isModalVisible && (
+        <div
+          className={`${styles.modalOverlay} fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
+          onClick={handleClickOutside}
+        >
+          <div className="bg-white p-6 rounded-lg w-2/3 h-3/4 overflow-auto text-black">
+            <h2 className="text-xl font-semibold mb-4">Candidate Scores</h2>
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b">Topic</th>
+                  <th className="py-2 px-4 border-b">Technical Score</th>
+                  <th className="py-2 px-4 border-b">Non-Technical Score</th>
+                  <th className="py-2 px-4 border-b">Total Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedCandidateReport.map((report, index) => (
+                  <tr key={index}>
+                    <td className="py-2 px-4 border-b">{report.Topic}</td>
+                    <td className="py-2 px-4 border-b">{report.Technical}</td>
+                    <td className="py-2 px-4 border-b">{report.NonTechnical}</td>
+                    <td className="py-2 px-4 border-b">{report.TotalScore}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+              onClick={() => setIsModalVisible(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+
+            
           </div>
         </div>
       </div>

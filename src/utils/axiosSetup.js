@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 const apiClient = axios.create({
-  baseURL: 'https://metashotbackend.azurewebsites.net', // base URL for api
+  baseURL: 'https://metashot-backend.azurewebsites.net', // base URL for api
   headers: {
     'Content-Type': 'application/json',
   },
