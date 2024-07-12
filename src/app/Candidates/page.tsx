@@ -39,9 +39,9 @@ interface Report {
 //Processed Report
 interface ProcessedReport {
   Topic: string;
-  Technical: string;
-  NonTechnical: string;
-  TotalScore: string;
+  Technical: number;
+  NonTechnical: number;
+  TotalScore: number;
 }
 
 const mockReport: Report[] = [
@@ -143,8 +143,8 @@ const calculateAverage = (scores: number[]): number => {
 }
 
 //Process Mock Report
-const processReport = (report: Report[]): ProcessedReport[] => {
-  return report.map((topicReport) => {
+const processReport = (report: Report[]): { overall: { Technical: number, NonTechnical: number }, topics: ProcessedReport[] } => {
+  const processedTopics = report.map((topicReport) => {
     const scores = topicReport.Scores[0];
     const technicalScores = [
       normalizeScore(parseInt(scores.Relevance), 10),
@@ -168,14 +168,25 @@ const processReport = (report: Report[]): ProcessedReport[] => {
 
     return {
       Topic: topicReport.Topic,
-      Technical: technicalAverage.toFixed(2),
-      NonTechnical: nonTechnicalAverage.toFixed(2),
-      TotalScore: totalScore.toFixed(2),
+      Technical: technicalAverage,
+      NonTechnical: nonTechnicalAverage,
+      TotalScore: totalScore,
     };
   });
+
+  const overallTechnical = calculateAverage(processedTopics.map(topic => topic.Technical));
+  const overallNonTechnical = calculateAverage(processedTopics.map(topic => topic.NonTechnical));
+
+  return {
+    overall: {
+      Technical: overallTechnical,
+      NonTechnical: overallNonTechnical,
+    },
+    topics: processedTopics,
+  };
 }
 
-const processedReport = processReport(mockReport)
+// const processedReport = processReport(mockReport)
 
 
 
@@ -190,6 +201,8 @@ const CandidatesPage: React.FC = () => {
 
   // Replacing this with process Report function
   const [selectedCandidateReport, setSelectedCandidateReport] = useState<ProcessedReport[]>([]);
+
+  const [overallScores, setOverallScores] = useState<{ Technical: number, NonTechnical: number } | null>(null);
   const searchParams = useSearchParams();
   const interviewId = searchParams.get("interview");
 
@@ -216,8 +229,10 @@ const CandidatesPage: React.FC = () => {
     fetchScheduledInterviews();
   }, [interviewId]);
 
-  const handleViewScores = (report: ProcessedReport[]) => {
-    setSelectedCandidateReport(report);
+  const handleViewScores = (report: Report[]) => {
+    const processedReport = processReport(report)
+    setSelectedCandidateReport(processedReport.topics);
+    setOverallScores(processedReport.overall)
     setIsModalVisible(true);
   };
 
@@ -343,7 +358,7 @@ const CandidatesPage: React.FC = () => {
                       <tr key={candidate.email}>
                         <td>{candidate.email}</td>
                         <td>
-                          <button onClick={() => handleViewScores(processedReport)}>
+                          <button onClick={() => handleViewScores(mockReport)}>
                             View Scores
                           </button>
                         </td>
@@ -431,41 +446,56 @@ const CandidatesPage: React.FC = () => {
             )} */}
 
 {isModalVisible && (
-        <div
-          className={`${styles.modalOverlay} fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
-          onClick={handleClickOutside}
-        >
-          <div className="bg-white p-6 rounded-lg w-2/3 h-3/4 overflow-auto text-black">
-            <h2 className="text-xl font-semibold mb-4">Candidate Scores</h2>
-            <table className="min-w-full bg-white border border-gray-200">
-              <thead>
-                <tr>
-                  <th className="py-2 px-4 border-b">Topic</th>
-                  <th className="py-2 px-4 border-b">Technical Score</th>
-                  <th className="py-2 px-4 border-b">Non-Technical Score</th>
-                  <th className="py-2 px-4 border-b">Total Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedCandidateReport.map((report, index) => (
-                  <tr key={index}>
-                    <td className="py-2 px-4 border-b">{report.Topic}</td>
-                    <td className="py-2 px-4 border-b">{report.Technical}</td>
-                    <td className="py-2 px-4 border-b">{report.NonTechnical}</td>
-                    <td className="py-2 px-4 border-b">{report.TotalScore}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-              onClick={() => setIsModalVisible(false)}
-            >
-              Close
-            </button>
+  <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50" onClick={handleClickOutside}>
+    <div className="bg-[#EAFBEE] p-8  shadow-md w-full max-w-lg relative text-black font-spaceGrotesk rounded-md ">
+      <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onClick={() => setIsModalVisible(false)}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Candidate Scores</h2>
+      <div className="mb-4">
+        {overallScores && (
+          <div className="mb-6 text-center">
+            <h3 className="text-xl font-semibold mb-2">Overall Scores</h3>
+            <div className="flex justify-around mb-4">
+              <div>
+                <h4 className="text-lg font-medium">Technical</h4>
+                <p className="font-semibold">{overallScores.Technical.toFixed(2)}</p>
+              </div>
+              <div>
+                <h4 className="text-lg font-medium">Non-Technical</h4>
+                <p className="font-semibold">{overallScores.NonTechnical.toFixed(2)}</p>
+              </div>
+            </div>
           </div>
+        )}
+         <div className="overflow-auto">
+          <table className="min-w-full divide-y divide-gray-300">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-4 py-2 text-left text-s  text-black uppercase tracking-wider border-r border-gray-300 font-bold">Topic</th>
+                <th className="px-4 py-2 text-left text-s font-bold text-black uppercase tracking-wider">Total Score</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-300">
+              {selectedCandidateReport.map((topicReport, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-2 border-r border-gray-300">{topicReport.Topic}</td>
+                  <td className="px-4 py-2">{topicReport.TotalScore.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
+      </div>
+      <div className="flex justify-center items-center ">
+        <button className="w-[30%]  bg-green-500 p-1 rounded-md font-semibold">
+          Detailed Report
+        </button></div>
+    </div>
+  </div>
+)}
 
 
             
