@@ -32,7 +32,7 @@ const Settings_content: React.FC = () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await axios.get('https://metashotbackend.azurewebsites.net/interview/getAll', {
+      const response = await axios.get('https://metashot-backend.azurewebsites.net/interview/getAll', {
         headers: headers,
       });
       setInterviews(response.data);
@@ -65,7 +65,7 @@ const Settings_content: React.FC = () => {
       };
 
       // Call API to delete selected interviews with Authorization header
-      const response = await axios.post('https://metashotbackend.azurewebsites.net/interview/delete', {
+      const response = await axios.post('https://metashot-backend.azurewebsites.net/interview/delete', {
         interviewIds: selectedInterviews
       }, {
         headers: headers,
