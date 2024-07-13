@@ -138,7 +138,10 @@ function CandidateScreen() {
       interview: interviewId,
       start: startDate.toISOString(),
       end: endDate.toISOString(),
-      candidates: candidates.map((candidate) => candidate.mail),
+      candidates: candidates.map((candidate) => ({
+        email:candidate.mail,
+        name: candidate.name
+      })),
       customMessage,
       jobDescription,
     };
