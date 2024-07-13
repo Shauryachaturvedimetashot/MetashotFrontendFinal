@@ -16,7 +16,7 @@ const ScheduledInterviews = () => {
         const interviewId = typeof window !== "undefined" ? window.location.search.split("=")[1] : null; // Extract interview ID from URL query
 
         if (interviewId) {
-          const response = await axios.get(`https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interviewId}`, {
+          const response = await axios.get(`https://metashot-backend.azurewebsites.net/interview/schedule?interview=${interviewId}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setScheduledInterviews(response.data);

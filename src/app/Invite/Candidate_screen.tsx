@@ -151,7 +151,7 @@ function CandidateScreen() {
       }
 
       const response = await axios.post(
-        "https://metashotbackend.azurewebsites.net/interview/schedule",
+        "https://metashot-backend.azurewebsites.net/interview/schedule",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -23,7 +23,7 @@ const Interviews: React.FC = () => {
   const fetchInterviews = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("https://metashotbackend.azurewebsites.net/interview/getAll", {
+      const response = await axios.get("https://metashot-backend.azurewebsites.net/interview/getAll", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setInterviews(response.data);
@@ -50,7 +50,7 @@ const Interviews: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `https://metashotbackend.azurewebsites.net/interview/changeStatus`,
+        `https://metashot-backend.azurewebsites.net/interview/changeStatus`,
         { interviewId, status: currentStatus === "active" ? "deactive" : "active" },
         {
           headers: { Authorization: `Bearer ${token}` }
