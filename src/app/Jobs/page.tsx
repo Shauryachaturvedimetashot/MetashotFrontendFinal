@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 const Home:React.FC=()=> {
   return (
     <>
-    <Navbar user_name="Iman" company="Metashot"/>
+    <Navbar />
     <div className="flex ">
       <Sidebarn/>
       

@@ -179,7 +179,7 @@ const AskQuestions = () => {
 
   return (
     <div className="min-h-screen bg-green-100">
-      <Navbarn company="Metashot" user_name="XYZ" />
+      <Navbarn />
       <div className="flex">
         <Sidebarn />
         <div className="flex-1 p-4">

@@ -74,7 +74,7 @@ const Interviews: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <NavbarN company="Metashot" user_name="Metashot" />
+      <NavbarN />
       <div className={styles.mainContent}>
         <SidebarN />
         <div className={styles.content}>

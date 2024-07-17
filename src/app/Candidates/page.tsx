@@ -203,7 +203,7 @@ const CandidatesPage: React.FC = () => {
   const [selectedCandidateReport, setSelectedCandidateReport] = useState<ProcessedReport[]>([]);
 
   const [overallScores, setOverallScores] = useState<{ Technical: number, NonTechnical: number } | null>(null);
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams(); 
   const interviewId = searchParams.get("interview");
 
   useEffect(() => {
@@ -285,27 +285,27 @@ const CandidatesPage: React.FC = () => {
   
   
 
-  // const candidates = scheduledInterviews.flatMap((interview) =>
-  //   interview.candidates.map((candidate) => ({
-  //     email: candidate,
-  //     start: interview.start,
-  //     end: interview.end,
-  //   }))
-  // );
+  const candidates = scheduledInterviews.flatMap((interview) =>
+    interview.candidates.map((candidate) => ({
+      email: candidate,
+      start: interview.start,
+      end: interview.end,
+    }))
+  );
 
-  const candidates = [
-    {
-      email: "test1@test.com",
-      start: "2022-11-11",
-      end: "2022-11-11",
-    },
-    {
-      email: "test2@test.com",
-      start: "2022-11-11",
-      end:"2022-11-11"
-      }
+  // const candidates = [
+  //   {
+  //     email: "test1@test.com",
+  //     start: "2022-11-11",
+  //     end: "2022-11-11",
+  //   },
+  //   {
+  //     email: "test2@test.com",
+  //     start: "2022-11-11",
+  //     end:"2022-11-11"
+  //     }
     
-  ]
+  // ]
 
   const totalPages = Math.ceil(candidates.length / candidatesPerPage);
   const indexOfLastCandidate = currentPage * candidatesPerPage;
@@ -327,7 +327,7 @@ const CandidatesPage: React.FC = () => {
   return (
     <div className="flex flex-col w-screen h-screen">
       <div className="flex flex-row">
-      <Navbar user_name="Metashot" company="Metashot" />
+      <Navbar />
       </div>
       <div className="flex flex-row">
         <div className="w-1/5">
