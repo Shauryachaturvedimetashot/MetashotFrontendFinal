@@ -212,7 +212,7 @@ const CandidatesPage: React.FC = () => {
         const token = localStorage.getItem("token");
         if (interviewId && token) {
           const response = await axios.get(
-            `https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interviewId}`,
+            `https://metashot-backend.azurewebsites.net/interview/schedule?interview=${interviewId}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -248,7 +248,7 @@ const CandidatesPage: React.FC = () => {
           const { _id: interviewScheduleId } = scheduledInterview;
 
           await axios.put(
-            "https://metashotbackend.azurewebsites.net/interview/schedule/candidates",
+            "https://metashot-backend.azurewebsites.net/interview/schedule/candidates",
             {
               interviewScheduleId,
               candidate: email,
@@ -259,7 +259,7 @@ const CandidatesPage: React.FC = () => {
           );
 
           const response = await axios.get(
-            `https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interviewId}`,
+            `https://metashot-backend.azurewebsites.net/interview/schedule?interview=${interviewId}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

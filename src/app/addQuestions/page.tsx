@@ -104,7 +104,7 @@ const AskQuestions = () => {
       const formData = JSON.parse(localStorage.getItem("formData") || "{}");
       const jobRole = formData.jobPosition || "Job Role Not Defined"; // Fallback if jobPosition is not set
 
-      const response = await axios.post("https://metashotbackend.azurewebsites.net/ai/generateQuestion", {
+      const response = await axios.post("https://metashot-backend.azurewebsites.net/ai/generateQuestion", {
         jobRole,
         topic: selectedCategory,
       });
@@ -157,7 +157,7 @@ const AskQuestions = () => {
         "Content-Type": "application/json",
       };
 
-      const response = await axios.post("https://metashotbackend.azurewebsites.net/interview/create", payload, { headers });
+      const response = await axios.post("https://metashot-backend.azurewebsites.net/interview/create", payload, { headers });
 
       if (response.status === 200) {
         console.log("Interview created successfully:", response.data);
