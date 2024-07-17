@@ -22,7 +22,7 @@ const Centre: React.FC<CentreProps> = (props) => {
   useEffect(() => {
     const fetchInterviews = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://metashotbackend.azurewebsites.net/interview/getAll', {
+      const response = await fetch('https://metashot-backend.azurewebsites.net/interview/getAll', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -30,7 +30,7 @@ const Centre: React.FC<CentreProps> = (props) => {
       const data = await response.json();
 
       const enrichedInterviews = await Promise.all(data.map(async (interview: any) => {
-        const scheduleResponse = await fetch(`https://metashotbackend.azurewebsites.net/interview/schedule?interview=${interview._id}`, {
+        const scheduleResponse = await fetch(`https://metashot-backend.azurewebsites.net/interview/schedule?interview=${interview._id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
