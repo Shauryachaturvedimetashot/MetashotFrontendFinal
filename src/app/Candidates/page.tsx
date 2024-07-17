@@ -197,7 +197,7 @@ const CandidatesPage: React.FC = () => {
   const [scheduledInterviews, setScheduledInterviews] = useState<ScheduledInterview[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [candidatesPerPage] = useState(8);
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // Replacing this with process Report function
   const [selectedCandidateReport, setSelectedCandidateReport] = useState<ProcessedReport[]>([]);
