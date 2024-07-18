@@ -4,6 +4,7 @@ import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../../Components/Modal';
 import styles from './Settings.module.css';
 import axios from 'axios';
+import apiClient from '@/src/utils/axiosSetup';
 
 const Settings_content: React.FC = () => {
   const [exportCandidateList, setExportCandidateList] = useState<boolean>(false);
@@ -19,7 +20,29 @@ const Settings_content: React.FC = () => {
 
   useEffect(() => {
     fetchInterviews();
+    fetchUserDetails()
   }, []);
+
+
+  // Fetch Names API
+
+  const fetchUserDetails = async()=>{
+    
+    try{
+      const response = await apiClient.get('/user/settings')
+      setName(response.data.name||"")
+      setCompanyName(response.data.companyName || "")
+      setCompanyDetails(response.data.companyDetails || "")
+      setEmail(response.data.email || "")
+
+
+
+    }
+    catch(err:any){
+      console.log(err)
+
+    }
+  }
 
   // Fetch interviews from API
   const fetchInterviews = async () => {
