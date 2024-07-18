@@ -45,7 +45,7 @@ const Centre: React.FC<CentreProps> = (props) => {
           candidates: scheduleData.reduce((acc: number, schedule: any) => acc + schedule.candidates.length, 0),
           from: new Date(interview.createdAt).toLocaleDateString(),
           to: new Date(toTime).toLocaleDateString(),
-          status: interview.status === 'active' ? 'Active' : 'Deactive' // Use the status field from the response
+          status: interview.status === 'active' ? 'Active' : 'Inactive' // Use the status field from the response
         };
       }));
 
