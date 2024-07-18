@@ -22,8 +22,23 @@ const Navbar: React.FC = () => {
   useEffect(()=>{
     const getUserDetails = async()=>{
       try{
-        const response = await apiClient.get('/user/me');
-        setCompany(response.data.name)
+
+        // Tp avoid reloading of company name in each page , we can store it in a local storage , and check , if is stored.
+
+        const storedCompany = localStorage.getItem('companyName')
+        if(storedCompany){
+          setCompany(storedCompany)
+
+        }
+
+        else{
+          const response = await apiClient.get('/user/me');
+          const companyName = response.data.name
+          setCompany(companyName)
+          localStorage.setItem('companyName',companyName)
+
+        }
+        
         
       }
       catch(err:any){
