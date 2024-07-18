@@ -9,7 +9,7 @@ import Team from "./Team";
 const Hpage:React.FC = ()=>{
 
     return(
-        <div>
+        <div className="bg-white">
             <Navbar/>
             <Content1/>
             <Content2/>
