@@ -11,7 +11,7 @@ interface Interview {
   candidates: number;
   from: string;
   to: string;
-  status: 'Active' | 'Deactive'; // Updated to include 'Deactive'
+  status: 'Active' | 'Inactive'; // Updated to include 'Deactive'
 }
 
 const Centre: React.FC<CentreProps> = (props) => {
