@@ -33,13 +33,15 @@ const Settings_content: React.FC = () => {
     try{
       const name1 = localStorage.getItem('name')
       // const name1 = "Raees"
-      const companyName1 =localStorage.getItem('companyName')
-      const email1 = localStorage.getItem('email')
-      // const email1 = "raees@123"
+      // const companyName1 =localStorage.getItem('companyName')
+      const companyName1 = "meta"
+      // const email1 = localStorage.getItem('email')
+      const email1 = "raees@123"
       const companyDetails1 = localStorage.getItem('companyDetails')
 
 
-      if(name1 && email1){
+      
+      if(companyName1 && email1){
         setName(name1)
         setCompanyName(companyName1)
         setEmail(email1)
