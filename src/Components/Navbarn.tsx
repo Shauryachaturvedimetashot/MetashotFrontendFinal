@@ -63,9 +63,9 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={`bg-white py-4 px-6 flex justify-between items-center navbar ${styles['navbar']}`}>
-     <div className="text-1xl font-bold ml-6 flex flex-row items-center justify-center">
+     <div className="text-1xl font-bold ml-3 flex flex-row items-center justify-center">
       <Image src="/metashot_logo copy.png" alt="MetaShot Logo" width={40} height={40} />
-        <div className="text-1xl font-bold ml-2">
+        <div className="text-lg font-bold ml-2">
           <Link href="/">MetaShot</Link>
         </div>
       </div>
