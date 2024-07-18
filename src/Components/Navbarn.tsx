@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
      <div className="text-1xl font-bold ml-3 flex flex-row items-center justify-center">
       <Image src="/metashot_logo copy.png" alt="MetaShot Logo" width={40} height={40} />
         <div className="text-lg font-bold ml-2">
-          <Link href="/">MetaShot</Link>
+          <Link href="/Jobs">MetaShot</Link>
         </div>
       </div>
       <div className="flex items-center space-x-10 navcolor">
