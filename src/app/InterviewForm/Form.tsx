@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, useEffect } from "react";
 import Link from "next/link";
+import Head from "next/head";
 
 interface FormProps {
   interviewName: string;
@@ -55,6 +56,10 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
 
   return (
     <div className="p-4 h-full flex flex-col overflow-hidden">
+      <Head>
+        <title>Metashot</title>
+      </Head>
+      
       <h1 className="text-2xl font-semibold mb-4 text-center text-black">{interviewName}</h1>
       <form className="flex flex-col flex-1 overflow-y-auto" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="jobPosition" className="text-black mb-2">

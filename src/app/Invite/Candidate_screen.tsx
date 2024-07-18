@@ -77,6 +77,11 @@ function CandidateScreen() {
 
   const handleAddCandidate = (): void => {
     if (validateForm()) {
+      if (formNumber.trim().length !== 10) {
+        setError("Phone number must be 10 digits");
+        setFormNumber("");
+        return;
+      }
       const newCandidate: Candidate = {
         name: formName.trim(),
         mail: formMail.trim(),
