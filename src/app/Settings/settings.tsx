@@ -33,10 +33,10 @@ const Settings_content: React.FC = () => {
     try{
       const name1 = localStorage.getItem('name')
       // const name1 = "Raees"
-      // const companyName1 =localStorage.getItem('companyName')
-      const companyName1 = "meta"
-      // const email1 = localStorage.getItem('email')
-      const email1 = "raees@123"
+      const companyName1 =localStorage.getItem('companyName')
+      // const companyName1 = "meta"
+      const email1 = localStorage.getItem('email')
+      // const email1 = "raees@123"
       const companyDetails1 = localStorage.getItem('companyDetails')
 
 
