@@ -168,8 +168,9 @@ const Settings_content: React.FC = () => {
             <div className='flex items-center justify-end h-6 ml-5 font-bold w-36'>
               Name
             </div>
-            <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} />
+            <div className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']}`}>
+              {/* <input type="text" className={`p-2 border rounded-md ${styles['box']}`}/> */}
+              {name}
             </div>
           </div>
           
@@ -178,8 +179,9 @@ const Settings_content: React.FC = () => {
             <div className='flex items-center justify-end h-6 ml-5 font-bold w-36'>
               Company Name
             </div>
-            <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="text" className={`p-2 border rounded-md ${styles['box']}`}  />
+            <div className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']}`}>
+              {/* <input type="text" className={`p-2 border rounded-md ${styles['box']}`}  /> */}
+              {companyName}
             </div>
           </div>
           
@@ -188,8 +190,9 @@ const Settings_content: React.FC = () => {
             <div className='flex items-center justify-end h-6 ml-5 font-bold w-36'>
               Company Details
             </div>
-            <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} />
+            <div className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']}`}>
+              {/* <input type="text" className={`p-2 border rounded-md ${styles['box']}`} /> */}
+              {companyDetails}
             </div>
           </div>
           
@@ -198,8 +201,9 @@ const Settings_content: React.FC = () => {
             <div className='flex items-center justify-end h-6 ml-5 font-bold w-36'>
               Email
             </div>
-            <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="email" className={`p-2 border rounded-md ${styles['box']}`} />
+            <div className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']}`}>
+              {/* <input type="email" className={`p-2 border rounded-md ${styles['box']}`} /> */}
+              {email}
             </div>
           </div>
           
