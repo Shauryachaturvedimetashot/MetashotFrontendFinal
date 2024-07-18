@@ -6,11 +6,21 @@ import { faHourglassStart, faHourglassEnd } from "@fortawesome/free-solid-svg-ic
 import Link from "next/link";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import styles from "./Invite.module.css"
+import styles from "./Invite.module.css";
+
 interface Candidate {
   name: string;
   mail: string;
   number: string;
+}
+
+interface Interview {
+  _id: string;
+  jobPosition: string;
+  yearsOfExperience: string;
+  jobDescription: string;
+  technicalSkills: string[];
+  questions: { skill: string; questions: string[] }[];
 }
 
 function CandidateScreen() {
@@ -144,8 +154,8 @@ function CandidateScreen() {
       start: startDate.toISOString(),
       end: endDate.toISOString(),
       candidates: candidates.map((candidate) => ({
-        email:candidate.mail,
-        name: candidate.name
+        email: candidate.mail,
+        name: candidate.name,
       })),
       customMessage,
       jobDescription,
@@ -177,9 +187,45 @@ function CandidateScreen() {
     }
   };
 
+  const fetchInterviews = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Authorization token is missing");
+        return;
+      }
+
+      const response = await axios.get(
+        "https://metashot-backend.azurewebsites.net/interview/getAll",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 200) {
+        const interviews: Interview[] = response.data;
+        const interview = interviews.find((int) => int._id === interviewId);
+        if (interview) {
+          setJobDescription(interview.jobDescription);
+        }
+      } else {
+        setError("Failed to fetch interviews");
+      }
+    } catch (error) {
+      console.error("Error fetching interviews:", error);
+      setError("An error occurred while fetching interviews");
+    }
+  };
+
   useEffect(() => {
     validateDates();
   }, [startDate, endDate, startTime, endTime]);
+
+  useEffect(() => {
+    if (showJobDescriptionForm) {
+      fetchInterviews();
+    }
+  }, [showJobDescriptionForm]);
 
   return (
     <>
@@ -415,12 +461,7 @@ function CandidateScreen() {
               >
                 Finish
               </button>
-              <button
-                className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                onClick={() => setShowJobDescriptionForm(false)}
-              >
-                Save Job Description
-              </button>
+              
             </div>
           </div>
         </div>
