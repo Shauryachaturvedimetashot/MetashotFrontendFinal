@@ -10,10 +10,10 @@ const Settings_content: React.FC = () => {
   const [exportCandidateList, setExportCandidateList] = useState<boolean>(false);
   const [removeListings, setRemoveListings] = useState<boolean>(false);
   const [deleteData, setDeleteData] = useState<boolean>(false);
-  const [name, setName] = useState<string>('Peter Griffin');
-  const [companyName, setCompanyName] = useState<string>('Peterdactyl2015');
-  const [companyDetails, setCompanyDetails] = useState<string>('Peterdactyl2015');
-  const [email, setEmail] = useState<string>('hello@drop.io');
+  const [name, setName] = useState<string | null>("");
+  const [companyName, setCompanyName] = useState<string | null>('');
+  const [companyDetails, setCompanyDetails] = useState<string | null>('');
+  const [email, setEmail] = useState<string | null>('');
   const [interviews, setInterviews] = useState<any[]>([]);
   const [selectedInterviews, setSelectedInterviews] = useState<string[]>([]);
   const [showModal2, setShowModal2] = useState<boolean>(false);
@@ -23,17 +23,44 @@ const Settings_content: React.FC = () => {
     fetchUserDetails()
   }, []);
 
+  // Creating Local Storage for details
+  
 
   // Fetch Names API
 
   const fetchUserDetails = async()=>{
     
     try{
-      const response = await apiClient.get('/user/settings')
-      setName(response.data.name||"")
-      setCompanyName(response.data.companyName || "")
-      setCompanyDetails(response.data.companyDetails || "")
-      setEmail(response.data.email || "")
+      const name1 = localStorage.getItem('name')
+      const companyName1 =localStorage.getItem('companyName')
+      const email1 = localStorage.getItem('email')
+      const companyDetails1 = localStorage.getItem('compayDetails')
+
+
+      if(name1 || companyName1 || email1 || companyDetails1){
+        setName(name1)
+        setCompanyName(companyName1)
+        setEmail(email1)
+        setCompanyDetails(companyDetails1)
+      }
+      else{
+
+        const response = await apiClient.get('/user/settings')
+        const name1 = response.data.name
+        const companyName1 = response.data.companyName
+        const email1 = response.data.email
+        const companyDetails1 = response.data.companyDetails
+        setName(name1||"")
+        setCompanyName(companyName1 || "")
+        setCompanyDetails(companyDetails1 || "")
+        setEmail(email1 || "")
+        localStorage.setItem('name',name1)
+        localStorage.setItem('companyName',companyName1)
+        localStorage.setItem('email',email1)
+        localStorage.setItem('compayDetails',companyDetails1)
+
+      }
+      
 
 
 
@@ -142,7 +169,7 @@ const Settings_content: React.FC = () => {
               Name
             </div>
             <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={name} onChange={handleChange(setName)} />
+              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} />
             </div>
           </div>
           
@@ -152,7 +179,7 @@ const Settings_content: React.FC = () => {
               Company Name
             </div>
             <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={companyName} onChange={handleChange(setCompanyName)} />
+              <input type="text" className={`p-2 border rounded-md ${styles['box']}`}  />
             </div>
           </div>
           
@@ -162,7 +189,7 @@ const Settings_content: React.FC = () => {
               Company Details
             </div>
             <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} value={companyDetails} onChange={handleChange(setCompanyDetails)} />
+              <input type="text" className={`p-2 border rounded-md ${styles['box']}`} />
             </div>
           </div>
           
@@ -172,7 +199,7 @@ const Settings_content: React.FC = () => {
               Email
             </div>
             <div className='flex items-center justify-start h-6 ml-10 w-72'>
-              <input type="email" className={`p-2 border rounded-md ${styles['box']}`} value={email} onChange={handleChange(setEmail)} />
+              <input type="email" className={`p-2 border rounded-md ${styles['box']}`} />
             </div>
           </div>
           
