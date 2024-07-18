@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import Link from "next/link";
 
 interface FormProps {
@@ -12,6 +12,7 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
   const [yearsOfExperience, setYearsOfExperience] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [technicalSkills, setTechnicalSkills] = useState<string[]>([]);
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
   const handleJobPositionInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -42,6 +43,15 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
     localStorage.setItem("skills", JSON.stringify(technicalSkills)); // Store technical skills in localStorage
     window.location.href = "/addQuestions";
   };
+
+  useEffect(() => {
+    const isComplete =
+      jobPosition !== "" &&
+      yearsOfExperience !== "" &&
+      jobDescription !== "" &&
+      technicalSkills.length >= 2;
+    setIsFormComplete(isComplete);
+  }, [jobPosition, yearsOfExperience, jobDescription, technicalSkills]);
 
   return (
     <div className="p-4 h-full flex flex-col overflow-hidden">
@@ -96,6 +106,7 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
         <button
           className="bg-green-600 text-black text-bold px-3 py-2 rounded hover:bg-green-400 w-full mt-2 cursor-pointer text-center"
           onClick={handleSubmit}
+          disabled={!isFormComplete}
         >
           Go to Add Questions
         </button>
