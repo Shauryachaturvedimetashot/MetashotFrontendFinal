@@ -159,6 +159,7 @@ function CandidateScreen() {
       })),
       customMessage,
       jobDescription,
+      companyName:"Metashot"
     };
 
     try {
