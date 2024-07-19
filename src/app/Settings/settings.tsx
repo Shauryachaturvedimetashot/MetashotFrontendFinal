@@ -188,8 +188,8 @@ const Settings_content: React.FC = () => {
       localStorage.setItem('name',response.data.nameNew)
       localStorage.setItem('companyDetails',response.data.companyDetailsNew)
 
-      setName(response.data.nameNew)
-      setCompanyDetails(response.data.companyDetailsNew)
+      setNewName(response.data.nameNew)
+      setNewCompanyDetails(response.data.companyDetailsNew)
       setShowSaveButton(false)
     }
     catch(err:any){
