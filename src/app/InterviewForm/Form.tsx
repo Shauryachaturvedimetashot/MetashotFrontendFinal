@@ -34,6 +34,17 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
   };
 
   const handleSubmit = () => {
+    const isComplete =
+      jobPosition !== "" &&
+      yearsOfExperience !== "" &&
+      jobDescription !== "" &&
+      technicalSkills.length >= 2;
+
+    if (!isComplete) {
+      alert("Fill out all the form details correctly");
+      return;
+    }
+
     const formData = {
       jobPosition,
       yearsOfExperience,
@@ -111,7 +122,6 @@ const Form: React.FC<FormProps> = ({ interviewName, onJobPositionChange }) => {
         <button
           className="bg-green-600 text-black text-bold px-3 py-2 rounded hover:bg-green-400 w-full mt-2 cursor-pointer text-center"
           onClick={handleSubmit}
-          disabled={!isFormComplete}
         >
           Go to Add Questions
         </button>
