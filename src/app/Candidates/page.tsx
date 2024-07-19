@@ -316,35 +316,37 @@ const CandidatesPage: React.FC = () => {
         <div className="flex-1 overflow-auto">
           <div className={styles.content}>
             <div className={styles.header}>
-              <h1 className={styles.title}>Candidates List</h1>
+              <h1 className={`{styles.title} text-black font-bold text-lg`}>Candidates List</h1>
             </div>
-            <table className={styles.table}>
+            <table className={`{styles.table} text-black text-left`}>
               <thead>
                 <tr>
-                  <th>Email</th>
-                  <th>Name</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
-                  <th>Actions</th>
+                  
+                  <th className="w-[10%]">Name</th>
+                  <th className="w-[10%]">Email</th>
+                  <th className="w-[10%]">Start Date</th>
+                  <th className="w-[10%]">End Date</th>
+                  <th className="w-[10%]">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {currentCandidates.map((candidate) => (
                   <tr key={candidate.email}>
+                    
+                    <td className="name-cell overflow-x-hidden">{candidate.name}</td>
                     <td>{candidate.email}</td>
-                    <td>{candidate.name}</td>
-                    <td>{candidate.start}</td>
-                    <td>{candidate.end}</td>
+                    <td>{new Date(candidate.start).toLocaleDateString()}</td>
+<td>{new Date(candidate.end).toLocaleDateString()}</td>
                     <td>
                       <button
                         onClick={() => handleViewScores(mockReport)}
-                        className={styles.viewScoresButton}
+                        className="text-blue-700"
                       >
                         View Scores
                       </button>
                       <button
                         onClick={() => handleDeleteCandidate(candidate.email)}
-                        className={styles.deleteButton}
+                        className="pl-[3%] text-red-700 "
                       >
                         Delete
                       </button>
@@ -367,22 +369,24 @@ const CandidatesPage: React.FC = () => {
       </div>
       {isModalVisible && (
         <div className={styles.modalOverlay} onClick={handleClickOutside}>
-          <div className={styles.modal}>
-            <h2 className={styles.modalTitle}>Candidate Scores</h2>
+          <div className=" w-[40%] bg-[#EAFBEE] p-3 rounded-lg text-black">
+            
             {overallScores && (
               <div>
-                <h3>Overall Scores</h3>
+                <p className="text-right font-semibold text-xs">**Scores are out of 20**</p>
+                <div className="flex flex-row justify-evenly text-lg font-bold pt-[3%] pb-[3%]">
                 <p>Technical: {overallScores.Technical.toFixed(2)}</p>
                 <p>Non-Technical: {overallScores.NonTechnical.toFixed(2)}</p>
+                </div>
               </div>
             )}
-            <table className={styles.scoresTable}>
+            <table className={`{styles.scoresTable} text-left`}>
               <thead>
                 <tr>
-                  <th>Topic</th>
-                  <th>Technical</th>
-                  <th>Non-Technical</th>
-                  <th>Total Score</th>
+                  <th className="w-[25%]">Topic</th>
+                  <th className="w-[15%]">Technical</th>
+                  <th className="w-[20%]">Non-Technical</th>
+                  <th className="w-[20%]">Total Score</th>
                 </tr>
               </thead>
               <tbody>
