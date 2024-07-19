@@ -18,6 +18,13 @@ const Settings_content: React.FC = () => {
   const [selectedInterviews, setSelectedInterviews] = useState<string[]>([]);
   const [showModal2, setShowModal2] = useState<boolean>(false);
 
+
+  // Adding hooks for storing name and compan details
+
+  const [newName, setNewName] = useState<string>('');
+  const [newCompanyDetails, setNewCompanyDetails] = useState<string>('');
+  const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
+
   useEffect(() => {
     fetchInterviews();
     fetchUserDetails()
@@ -40,12 +47,19 @@ const Settings_content: React.FC = () => {
       const companyDetails1 = localStorage.getItem('companyDetails')
 
 
-      
+      if(name1){
+        setNewName(name1)
+        
+      }
+      if(companyDetails1){
+        setNewCompanyDetails(companyDetails1)
+      }
       if(companyName1 && email1){
         setName(name1)
         setCompanyName(companyName1)
         setEmail(email1)
         setCompanyDetails(companyDetails1)
+        
       }
       else{
 
@@ -58,10 +72,13 @@ const Settings_content: React.FC = () => {
         setCompanyName(companyName1 || "")
         setCompanyDetails(companyDetails1 || "")
         setEmail(email1 || "")
+
+        setNewName(name || ' ');
+        setNewCompanyDetails(companyDetails || ' ')
         localStorage.setItem('name',name1)
         localStorage.setItem('companyName',companyName1)
         localStorage.setItem('email',email1)
-        localStorage.setItem('compayDetails',companyDetails1)
+        localStorage .setItem('compayDetails',companyDetails1)
 
       }
       
@@ -148,6 +165,44 @@ const Settings_content: React.FC = () => {
     setter(event.target.value);
   };
 
+
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewName(event.target.value);
+    setShowSaveButton(true);
+  };
+
+  const handleCompanyDetailsChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewCompanyDetails(event.target.value);
+    setShowSaveButton(true);
+  };
+
+
+  const handleSave = async()=>{
+
+    try{
+      const response = await apiClient.post('/user/settings/update',{
+        nameNew:newName,
+        companyDetailsNew:newCompanyDetails
+      })
+
+      localStorage.setItem('name',response.data.nameNew)
+      localStorage.setItem('companyDetails',response.data.companyDetailsNew)
+
+      setName(response.data.nameNew)
+      setCompanyDetails(response.data.companyDetailsNew)
+      setShowSaveButton(false)
+    }
+    catch(err:any){
+      console.log(err)
+
+    }
+
+
+
+
+
+  }
+
   return (
     <>
       <div className={`flex flex-col mt-8 rounded-xl text-xs shadow-md ${styles['container']} text-black`}>
@@ -172,9 +227,17 @@ const Settings_content: React.FC = () => {
             <div className='flex items-center justify-end h-6 ml-5 font-bold w-36'>
               Name
             </div>
-            <div className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']}`}>
+            <div>
               {/* <input type="text" className={`p-2 border rounded-md ${styles['box']}`}/> */}
-              {name}
+              {/* {name} */}
+              <input
+                type="text"
+                // className={`p-2 border rounded-md ${styles['box']}`}
+                className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']} bg-inherit`}
+                value={newName}
+                onChange={handleNameChange}
+                placeholder={name || "Enter your name"}
+              />
             </div>
           </div>
           
@@ -194,9 +257,16 @@ const Settings_content: React.FC = () => {
             <div className='flex items-center justify-end h-6 ml-5 font-bold w-36'>
               Company Details
             </div>
-            <div className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']}`}>
+            <div >
               {/* <input type="text" className={`p-2 border rounded-md ${styles['box']}`} /> */}
-              {companyDetails}
+              {/* {companyDetails} */}
+              <input
+                type="text"
+                className={`flex items-center justify-start h-6 ml-10 w-72 p-2 border rounded-md ${styles['box']} bg-inherit`}
+                value={newCompanyDetails}
+                onChange={handleCompanyDetailsChange}
+                placeholder={companyDetails || "Enter company details"}
+              />
             </div>
           </div>
           
@@ -215,6 +285,16 @@ const Settings_content: React.FC = () => {
           <div className={`${styles['email']} ${styles['left']}`}>
             <small className="text-red-500">Email not verified. <a href="#" className="text-blue-500 underline">Verify now</a></small>
           </div>
+          {showSaveButton && (
+            <div className='flex justify-end mt-2 mb-4 mr-5'>
+              <button
+                className='px-4 py-2 text-white bg-green-500 rounded-md'
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            </div>
+          )}
           
           {/* Export Candidate List Toggle */}
           <div className={`flex mt-5 mb-2 ${styles['inputBar']}`}>
