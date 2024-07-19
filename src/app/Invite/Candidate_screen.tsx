@@ -348,7 +348,7 @@ function CandidateScreen() {
                     onChange={(e) => setFormName(e.target.value)}
                     className="w-full px-3 py-1 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
                   />
-                  {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+                  
                 </div>
                 <div>
                   <label className="block mb-1 text-sm font-medium">Email</label>
@@ -358,7 +358,7 @@ function CandidateScreen() {
                     onChange={(e) => setFormMail(e.target.value)}
                     className="w-full px-3 py-1 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
                   />
-                  {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+                  
                 </div>
                 <div>
                   <label className="block mb-1 text-sm font-medium">Phone Number</label>
