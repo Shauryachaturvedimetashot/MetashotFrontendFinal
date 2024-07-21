@@ -56,6 +56,9 @@ const Navbar: React.FC = () => {
     // Remove token from local storage
     localStorage.removeItem('token');
     localStorage.removeItem('companyName')
+    localStorage.removeItem('name')
+    localStorage.removeItem('email')
+    localStorage.removeItem('companyDetails')
     
     // Redirect to /SignUp page
     window.location.href = '/SignUp';
