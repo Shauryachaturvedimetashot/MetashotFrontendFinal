@@ -27,8 +27,11 @@ const Settings_content: React.FC = () => {
 
   useEffect(() => {
     fetchInterviews();
+    
+  },[]);
+  useEffect(()=>{
     fetchUserDetails()
-  }, []);
+  })
 
   // Creating Local Storage for details
   
