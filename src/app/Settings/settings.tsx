@@ -54,31 +54,30 @@ const Settings_content: React.FC = () => {
       if(companyDetails1){
         setNewCompanyDetails(companyDetails1)
       }
-      if(companyName1 && email1){
-        setName(name1)
+      if(companyName1){
         setCompanyName(companyName1)
-        setEmail(email1)
-        setCompanyDetails(companyDetails1)
-        
       }
-      else{
+      if(email1){
+        setEmail(email1)
+      }
+      if(!name1 || !companyName1 || !email1 || !companyDetails1){
 
         const response = await apiClient.get('/user/settings')
-        const name1 = response.data.name
-        const companyName1 = response.data.companyName
-        const email1 = response.data.email
-        const companyDetails1 = response.data.companyDetails
-        setName(name1||"")
-        setCompanyName(companyName1 || "")
-        setCompanyDetails(companyDetails1 || "")
-        setEmail(email1 || "")
+        const name = response.data.name ||""
+        const companyName = response.data.companyName||''
+        const email = response.data.email||""
+        const companyDetails = response.data.companyDetails||""
+        setName(name)
+        setCompanyName(companyName)
+        setCompanyDetails(companyDetails)
+        setEmail(email)
 
-        setNewName(name || ' ');
+        setNewName(name || "");
         setNewCompanyDetails(companyDetails || ' ')
-        localStorage.setItem('name',name1)
-        localStorage.setItem('companyName',companyName1)
-        localStorage.setItem('email',email1)
-        localStorage .setItem('compayDetails',companyDetails1)
+        localStorage.setItem('name',name)
+        localStorage.setItem('companyName',companyName)
+        localStorage.setItem('email',email)
+        localStorage .setItem('companyDetails',companyDetails)
 
       }
       
