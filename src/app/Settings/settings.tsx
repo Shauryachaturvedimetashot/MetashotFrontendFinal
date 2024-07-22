@@ -186,11 +186,11 @@ const Settings_content: React.FC = () => {
         companyDetailsNew:newCompanyDetails
       })
 
-      localStorage.setItem('name',response.data.nameNew)
-      localStorage.setItem('companyDetails',response.data.companyDetailsNew)
+      localStorage.setItem('name',newName)
+      localStorage.setItem('companyDetails',newCompanyDetails)
 
-      setNewName(response.data.nameNew)
-      setNewCompanyDetails(response.data.companyDetailsNew)
+      setNewName(newName)
+      setNewCompanyDetails(newCompanyDetails)
       setShowSaveButton(false)
       // setSaveTrigger(prev=>prev+1)
     }
