@@ -1,5 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSmile} from "@fortawesome/free-solid-svg-icons";
+
+
 const ContactUs:React.FC = ()=>{
     
     return(
@@ -24,13 +28,11 @@ const ContactUs:React.FC = ()=>{
 
             
         <div className="flex flex-col mb-4 text-lg mt-[5%] w-1/2">
-            <div>
-            <label className=" mr-4">
-            <input type="radio" name="contact" className="mr-2" /> Say Hi
-           </label>
-           <label className="">
-            <input type="radio" name="contact" className="mr-2" /> Get a Quote
-           </label>
+            <div className="font-[600] text-xl">
+           Don't be shy , say hi!!!
+           <span>
+           <FontAwesomeIcon icon={faSmile} className="fas fa-check mr-5 ml-1" style={{ color:"black" }} />
+           </span>
                 
             </div>
            
