@@ -1,10 +1,42 @@
-import React from "react";
+import React,{useState} from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSmile} from "@fortawesome/free-solid-svg-icons";
-
+import apiClient from "@/src/utils/axiosSetup";
 
 const ContactUs:React.FC = ()=>{
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+
+    try{
+      const response = await apiClient.post('/user/contact', { name, email, message })
+      setSuccessMessage("Your message has been sent successfully!");
+      setName("");
+      setEmail("");
+      setMessage("")
+    }
+    catch(err:any){
+      setErrorMessage("An error occurred while sending your message. Please try again.")
+    }
+    finally{
+      setIsSubmitting(false)
+    }
+
+  }
+
+
+
     
     return(
 <div className=" bg-white font-spaceGrotesk  text-black pt-12 pb-14" >
@@ -39,19 +71,27 @@ const ContactUs:React.FC = ()=>{
            <div>
            <form className="mt-3p">
           <div className="mb-4">
-            <label htmlFor="name" className="block mb-2 text-sm text-gray-700">Name</label>
-            <input type="text" id="name" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Name" />
+            <label htmlFor="name" className="block mb-2 text-sm text-gray-700">Name*</label>
+            <input type="text" id="name" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Name" required onChange={(e)=>setName(e.target.value)}/>
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="block mb-2 text-sm text-gray-700">Email*</label>
-            <input type="email" id="email" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" required />
+            <input type="email" id="email" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" required onChange={(e)=>setEmail(e.target.value)}/>
           </div>
           <div className="mb-4">
             <label htmlFor="message" className="block mb-2 text-sm text-gray-700">Message*</label>
-            <textarea id="message" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Message" rows={4} required></textarea>
+            <textarea id="message" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Message" rows={4} onChange={(e) => setMessage(e.target.value)} required></textarea>
           </div>
-          <button type="submit" className="w-full bg-green-700 text-white p-2 rounded-md">Send Message</button>
+          <button
+                    type="submit"
+                    className="w-full bg-green-700 text-white p-2 rounded-md"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </button>
         </form>
+        {errorMessage && <p className="mt-4 text-red-600">{errorMessage}</p>}
+        {successMessage && <p className="mt-4 text-green-600">{successMessage}</p>}
            </div>
          </div>
         
