@@ -24,13 +24,13 @@ const Settings_content: React.FC = () => {
   const [newName, setNewName] = useState<string>('');
   const [newCompanyDetails, setNewCompanyDetails] = useState<string>('');
   const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
-  const [saveTrigger,setSaveTrigger] = useState<number>(0)
+  // const [saveTrigger,setSaveTrigger] = useState<number>(0)
 
 
   useEffect(() => {
     fetchInterviews();
     fetchUserDetails()
-  }, [saveTrigger]);
+  }, []);
 
   // Creating Local Storage for details
   
@@ -192,7 +192,7 @@ const Settings_content: React.FC = () => {
       setNewName(response.data.nameNew)
       setNewCompanyDetails(response.data.companyDetailsNew)
       setShowSaveButton(false)
-      setSaveTrigger(prev=>prev+1)
+      // setSaveTrigger(prev=>prev+1)
     }
     catch(err:any){
       console.log(err)

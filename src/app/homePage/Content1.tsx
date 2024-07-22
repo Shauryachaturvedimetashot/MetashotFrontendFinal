@@ -26,11 +26,12 @@ const Content1:React.FC =()=>{
         Hiring shouldn’t be tiring, hire effortlessly with Shot
       </div>
     </main>
-
+``
 
 {/* // Creating the Four cards */}
-<section className="container mx-auto px-4 pt-10 pb-3 bg-white font-spaceGrotesk">
-      <div className="flex flex-wrap -mx-4 justify-center">
+<section className="container mx-auto pt-10 pb-3 bg-white font-spaceGrotesk">
+  
+      <div className="flex flex-wrap justify-center">
         <div className="flex flex-row justify-center mb:flex-col mb:justify-center mb:w-full mb:text-xs">
         <div className="w-40p sm:w-full lg:w-40p px-4 mb-8 mb:w-full ">
           <div className="bg-[#EAFBEE] p-6  shadow-md h-full border border-green-500 rounded-2xl">
@@ -68,7 +69,7 @@ const Content1:React.FC =()=>{
               Engage in live, dynamic video interviews tailored to various screening needs, including technical evaluations and coding tests.
             </p>
             <div className="w-1/2 flex justify-center">
-            <Image src="/Illustration2.png" alt="Illustration2" width={110} height={110} className="" />
+            <Image src="/pic3.png" alt="Illustration2" width={110} height={110} className="" />
             </div>
             </div>
           </div>
@@ -81,7 +82,7 @@ const Content1:React.FC =()=>{
               Receive detailed reports after each interview, customized to your hiring criteria for confident decisions.
             </p>
             <div className="w-1/2 flex justify-center">
-            <Image src="/Illustration1.png" alt="Illustration1" width={130} height={130} className="" />
+            <Image src="/pic4.png" alt="Illustration1" width={130} height={130} className="" />
             </div>
             </div>
           </div>
@@ -89,9 +90,9 @@ const Content1:React.FC =()=>{
         </div>
       </div>
     </section>
-    <section className="container mx-auto px-4 pb-3 pt-3 bg-white font-spaceGrotesk text-black ">
-    <div className="container mx-auto px-4 py-16">
-      <div className="bg-green-700 rounded-lg flex flex-col md:flex-row justify-around items-center py-12 px-8">
+    <section className="container mx-auto px-4 pt-3 bg-white font-spaceGrotesk text-black lg:w-[82%] mb:w-full">
+    <div className="container mx-auto px-4 py-8 font-[600]">
+      <div className="bg-[#3D8A3C] rounded-lg flex flex-col md:flex-row justify-around items-center py-12 px-8">
         <div className="flex-1 flex flex-col items-center text-white text-center mb-8 md:mb-0">
           <p>Personalized, conversational interviews</p>
         </div>

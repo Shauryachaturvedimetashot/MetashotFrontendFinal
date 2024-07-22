@@ -34,8 +34,8 @@ const Content2:React.FC = () =>{
 
     return(
         <>
-            <div className="flex items-center justify-center bg-white">
-      <div className="container mx-auto p-4 text-black font-spaceGrotesk bg-white flex flex-col items-center justify-center">
+        <div className="flex items-center justify-center bg-white">
+      <div className="container mx-auto p-4  text-black font-spaceGrotesk bg-white flex flex-col items-center justify-center">
         {steps.map((step, index) => (
           <div key={index} className="border rounded-3xl my-2 w-80p h-3/4 bg-[#EAFBEE]  border-black">
             <div className="flex justify-start items-center p-4 cursor-pointer" onClick={() => toggleStep(index)}>
@@ -82,8 +82,8 @@ const Content2:React.FC = () =>{
         </div>
 
       </div> */}
-     <div className="flex items-center justify-center bg-white pb-16">
-      <div className="bg-[#3D8A3C] w-[80%] h-auto rounded-3xl">
+     <div className="flex items-center justify-center bg-white pb-4 pt-[2.2%]">
+      <div className="bg-[#3D8A3C] lg:w-[80%] h-auto rounded-3xl">
         <div className="flex flex-col lg:flex-row justify-start h-full">
           <div className="w-full lg:w-[60%] flex items-center p-4">
             <div className="text-left w-full ml-0 lg:ml-5 text-black font-bold">

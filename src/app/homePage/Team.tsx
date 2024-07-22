@@ -48,10 +48,10 @@ const teamMembers = [
 
 const Team:React.FC = ()=>{
     return (
-        <div className="bg-white py-16 px-4 font-spaceGrotesk">
+        <div className="bg-white py-16  font-spaceGrotesk">
       <div className="text-center mb-12 flex flex-row ml-5p">
         <h2 className="text-4xl font-bold text-black">Team</h2>
-        <p className="text-black pl-[1%] w-[30%] text-sm text-left">
+        <p className="text-black pl-[2%] w-[30%] text-sm text-left">
           Meet the skilled and experienced team behind our successful digital marketing strategies
         </p>
       </div>
