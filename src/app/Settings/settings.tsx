@@ -75,7 +75,7 @@ const Settings_content: React.FC = () => {
         setEmail(email)
 
         setNewName(name || "");
-        setNewCompanyDetails(companyDetails || ' ')
+        setNewCompanyDetails(companyDetails || '')
         localStorage.setItem('name',name)
         localStorage.setItem('companyName',companyName)
         localStorage.setItem('email',email)
