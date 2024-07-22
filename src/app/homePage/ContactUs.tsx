@@ -9,7 +9,7 @@ const ContactUs:React.FC = ()=>{
     return(
 <div className=" bg-white font-spaceGrotesk  text-black pt-12 pb-14" >
         <div className="flex flex-row justify-start">
-        <h1 className="ml-5p text-4xl bg-white font-bold">
+        <h1 className="ml-[10%] text-4xl bg-white font-bold">
             Contact Us
 
             </h1>

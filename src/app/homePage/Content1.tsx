@@ -4,7 +4,7 @@ import Image from "next/image";
 const Content1:React.FC =()=>{
     return(
       <>
-        <main className="container mx-auto px-4 py-16 bg-white font-spaceGrotesk">
+        <main className="container mx-auto  py-16 bg-white font-spaceGrotesk">
       <div className="flex flex-wrap md:flex-nowrap justify-between">
         <div className="w-full md:w-1/2 pr-0 ml-5p md:pr-8 mb-8 md:mb-0">
           <h1 className="text-4xl font-bold mb-4 text-black">Meet Shot - Your </h1>
