@@ -34,7 +34,8 @@ module.exports = {
       "30p":"30%",
     },
     screens:{
-      "mb":{"max":"426px"}
+      "mb":{"max":"426px"},
+      "lgsc":{"min":"1025px"}
     },
     margin:{
       "5p":"5%",
