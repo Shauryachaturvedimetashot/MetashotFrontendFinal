@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const Content1:React.FC =()=>{
+const Content1:React.FC<{onBookDemoClick:()=>void}> =({onBookDemoClick})=>{
     return(
       <>
         <main className="container mx-auto  py-16 bg-white font-spaceGrotesk">
@@ -12,7 +12,7 @@ const Content1:React.FC =()=>{
           <p className="text-lg text-gray-700 mb-8">
             Streamline your hiring process with intelligent scheduling, interactive interviews, and comprehensive insights.
           </p>
-          <button className="bg-[#3D8A3C] text-white px-6 py-3 rounded-md hover:bg-green-500">Book a Demo</button>
+          <button className="bg-[#3D8A3C] text-white px-6 py-3 rounded-md hover:bg-green-500" onClick={onBookDemoClick}>Book a Demo</button>
         </div>
         <div className="w-full md:w-1/2 h-1/5 flex justify-center ">
         <div className="pl-20">
