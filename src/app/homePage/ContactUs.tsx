@@ -69,7 +69,7 @@ const ContactUs:React.FC = ()=>{
             </div>
            
            <div>
-           <form className="mt-3p">
+           <form className="mt-3p"  onSubmit={(e)=>handleSubmit}>
           <div className="mb-4">
             <label htmlFor="name" className="block mb-2 text-sm text-gray-700">Name*</label>
             <input type="text" id="name" className="w-full p-2 border border-gray-300 rounded-md" placeholder="Name" required onChange={(e)=>setName(e.target.value)}/>
@@ -86,6 +86,7 @@ const ContactUs:React.FC = ()=>{
                     type="submit"
                     className="w-full bg-green-700 text-white p-2 rounded-md"
                     disabled={isSubmitting}
+                   
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
