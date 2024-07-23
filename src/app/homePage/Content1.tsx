@@ -23,7 +23,7 @@ const Content1:React.FC<{onBookDemoClick:()=>void}> =({onBookDemoClick})=>{
         </div>
       </div>
       <div className="mt-12 text-center  text-gray-800 text-2xl font-[600] ">
-        Hiring shouldn’t be tiring, hire effortlessly with Shot
+        {/* Hiring shouldn’t be tiring, hire effortlessly with Shot */}
       </div>
     </main>
 ``
