@@ -61,7 +61,7 @@ const ContactUs:React.FC = ()=>{
             
         <div className="flex flex-col mb-4 text-lg mt-[5%] w-1/2">
             <div className="font-[600] text-xl">
-           Don't be shy , say hi!!!
+           Don&apos;t be shy , say hi!!!
            <span>
            <FontAwesomeIcon icon={faSmile} className="fas fa-check mr-5 ml-1" style={{ color:"black" }} />
            </span>
