@@ -284,9 +284,9 @@ const Settings_content: React.FC = () => {
           </div>
           
           {/* Email Verification Status */}
-          <div className={`${styles['email']} ${styles['left']}`}>
+          {/* <div className={`${styles['email']} ${styles['left']}`}>
             <small className="text-red-500">Email not verified. <a href="#" className="text-blue-500 underline">Verify now</a></small>
-          </div>
+          </div> */}
           {showSaveButton && (
             <div className='flex justify-end mt-2 mb-4 mr-5'>
               <button
@@ -351,9 +351,9 @@ const Settings_content: React.FC = () => {
           
           {/* Logout and Delete Account */}
           <div className={`flex flex-col ml-52 w-40 ${styles['left']}`}>
-            <div className='font-bold' style={{ color: '#AFAFAF' }}>
+            {/* <div className='font-bold' style={{ color: '#AFAFAF' }}>
               LOGOUT
-            </div>
+            </div> */}
             <div className='font-bold' style={{ color: '#AFAFAF' }}>
               DELETE ACCOUNT
             </div>

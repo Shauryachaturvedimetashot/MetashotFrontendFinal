@@ -24,11 +24,11 @@ const Sidebarn: React.FC = () => {
               <FontAwesomeIcon icon={faHandshake} className="fas fa-check mr-5" style={{ color: "black" }} />Jobs
             </button>
           </Link>
-          <Link href="/messages">
+          {/* <Link href="/messages">
             <button className={`py-4 pl-12 btnN rounded-r-[16px] mb-2 hover:text-lg ${styles['sidebar-button']} ${styles['btnN']}`}>
               <FontAwesomeIcon icon={faEnvelope} className="fas fa-check mr-5" style={{ color: "black" }} />Messages
             </button>
-          </Link>
+          </Link> */}
           <Link href="/Settings">
             <button className={`py-4 pl-12 btnN rounded-r-[16px] mb-2 hover:text-lg ${styles['sidebar-button']} ${styles['btnN']}`}>
               <FontAwesomeIcon icon={faGear} className="fas fa-check mr-5" style={{ color: "black" }} />Settings
