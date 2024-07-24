@@ -5,6 +5,7 @@ import Content1 from "./Content1";
 import Content2 from "./Content2";
 import ContactUs from "./ContactUs";
 import Team from "./Team";
+import Footer from "@/src/Components/Footer";
 
 const Hpage:React.FC = ()=>{
     const contactRef = useRef<HTMLDivElement>(null)
@@ -24,6 +25,7 @@ const Hpage:React.FC = ()=>{
             <ContactUs/>
 
             </div>
+            <Footer/>
             
         </div>
     )
