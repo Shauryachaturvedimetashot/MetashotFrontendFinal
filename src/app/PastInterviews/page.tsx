@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
@@ -14,6 +14,8 @@ interface Interview {
   technicalSkills: string[];
   createdAt: string;
   status: string;
+  from?: string; // Add optional from field
+  to?: string; // Add optional to field
 }
 
 const Interviews: React.FC = () => {
@@ -26,7 +28,24 @@ const Interviews: React.FC = () => {
       const response = await axios.get("https://metashot-backend.azurewebsites.net/interview/getAll", {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setInterviews(response.data);
+      const interviews = response.data;
+
+      const enrichedInterviews = await Promise.all(interviews.map(async (interview: any) => {
+        const scheduleResponse = await axios.get(`https://metashot-backend.azurewebsites.net/interview/schedule?interview=${interview._id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const scheduleData = scheduleResponse.data;
+        const recentSchedule = scheduleData.sort((a: any, b: any) => new Date(b.end).getTime() - new Date(a.end).getTime())[0];
+        const toTime = recentSchedule ? recentSchedule.end : interview.updatedAt;
+
+        return {
+          ...interview,
+          from: new Date(interview.createdAt).toLocaleDateString(),
+          to: new Date(toTime).toLocaleDateString()
+        };
+      }));
+
+      setInterviews(enrichedInterviews);
     } catch (error) {
       console.error("Error fetching interviews:", error);
     }
@@ -125,6 +144,8 @@ const Interviews: React.FC = () => {
             <p><strong>Experience Required:</strong> {selectedInterview.yearsOfExperience} years</p>
             <p><strong>Skills Required:</strong> {selectedInterview.technicalSkills.join(", ")}</p>
             <p><strong>Date Created:</strong> {new Date(selectedInterview.createdAt).toLocaleString()}</p>
+            <p><strong>From:</strong> {selectedInterview.from}</p>
+            <p><strong>To:</strong> {selectedInterview.to}</p>
             <div className={styles.buttonGroup}>
               <Link href={`/Invite?interview=${selectedInterview._id}`} legacyBehavior>
                 <a className={styles.addCandidatesButton}>Add New Candidates</a>
