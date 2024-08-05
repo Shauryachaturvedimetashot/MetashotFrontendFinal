@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     });
     response.cookies.set("token", token, { httpOnly: true,expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) });
     return response;
-  } catch (error) {
+  } catch (error:any) {
     console.log(error.message);
     return NextResponse.json(
       {
