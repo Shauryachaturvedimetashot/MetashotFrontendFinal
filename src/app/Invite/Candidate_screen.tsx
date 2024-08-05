@@ -244,7 +244,7 @@ function CandidateScreen() {
                   selected={startDate}
                   dateFormat={"EEE/d-MMM"}
                   onChange={(date) => setStartDate(date)}
-                  className="text-center rounded-md invite_time"
+                  className="text-center rounded-md invite_time hover:cursor-pointer"
                 />
               </div>
               <div className="text-black">
@@ -256,7 +256,7 @@ function CandidateScreen() {
                   timeIntervals={15}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
-                  className="text-center rounded-md bg-[#c5d8c5]"
+                  className="text-center rounded-md bg-[#c5d8c5] hover:cursor-pointer"
                 />
               </div>
             </div>
@@ -270,7 +270,7 @@ function CandidateScreen() {
                   selected={endDate}
                   dateFormat={"EEE/d-MMM"}
                   onChange={(date) => setEndDate(date)}
-                  className="text-center rounded-md bg-[#c5d8c5]"
+                  className="text-center rounded-md bg-[#c5d8c5] hover:cursor-pointer"
                 />
               </div>
               <div>
@@ -282,7 +282,7 @@ function CandidateScreen() {
                   timeIntervals={15}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
-                  className="text-center rounded-md invite_time"
+                  className="text-center rounded-md invite_time hover:cursor-pointer"
                 />
               </div>
             </div>

@@ -3,11 +3,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import apiClient from "../../utils/axiosSetup"; // Importing axios setup
+import axios from "axios";
 
 const LoginSignUpPage = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const [secret, setSecret] = useState(true);
+
+  const toggleSecret = () => {
+    setSecret(!secret);
+  };
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -49,6 +55,9 @@ const LoginSignUpPage = () => {
         // Assuming the token is returned in the response
         const token = res.data.token;
         localStorage.setItem('token', token);
+        const response =  await axios.post("/api/users/setAuth", { token });
+        console.log(response.data);
+        
         router.push("/Jobs");
       }
     } catch (err) {
@@ -58,8 +67,8 @@ const LoginSignUpPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-green-700">
-      <div className="flex-1 flex flex-col justify-center items-center p-8">
+    <div className="flex min-h-screen bg-gray-200">
+      <div className="hidden lg:flex-1 lg:flex flex-col justify-center items-center p-8">
         <img
           src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="Descriptive Alt Text"
@@ -67,8 +76,9 @@ const LoginSignUpPage = () => {
           style={{ maxHeight: "80vh", objectFit: "cover" }}
         />
       </div>
-      <div className="flex flex-col justify-center items-center p-8" style={{ flex: "0 0 auto", width: "400px", marginRight: "10px" }}>
-        <div className="bg-white p-8 rounded-lg shadow-md w-full h-full flex flex-col justify-between">
+      {/* SignUp/Login Component */}
+      <div className="flex-1 lg:flex-grow-0 min-w-96 h- flex-col justify-center items-center p-8" >
+        <div className="bg-white bg-glassmorphic-gradient bg-opacity-10 backdrop-blur-lg  p-8 rounded-lg shadow-xl w-full h-full flex flex-col flex-1 justify-between">
           <h1 className="text-3xl text-center font-semibold mb-8 text-black">{isSignUp ? "SignUp" : "Login"}</h1>
           <form onSubmit={handleSubmit} className="flex flex-col">
             <input
@@ -78,7 +88,7 @@ const LoginSignUpPage = () => {
               required
             />
             <input
-              type="password"
+              type={secret?"password":"text"}
               className="w-full border border-gray-300 text-black bg-white rounded px-3 py-2 mb-4 focus:outline-none focus:border-blue-400"
               placeholder="Password"
               required
@@ -124,7 +134,7 @@ const LoginSignUpPage = () => {
             )}
             <button
               type="submit"
-              className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800"
+              className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-800"
             >
               {isSignUp ? "SignUp" : "Login"}
             </button>
