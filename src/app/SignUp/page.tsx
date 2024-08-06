@@ -127,7 +127,7 @@ const LoginSignUpPage = () => {
             )}
             {!isSignUp && (
               <div className="flex justify-end mb-4">
-                <Link href="/forgot-password" className="text-blue-500 hover:underline">
+                <Link href="/reset-password" className="text-blue-500 hover:underline">
                   Forgot password?
                 </Link>
               </div>
