@@ -29,10 +29,10 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-yellow-100">
-            <div className="max-w-md w-full space-y-8 p-10 bg-yellow-200 rounded-xl shadow-lg">
+        <div className="min-h-screen flex items-center justify-center bg-[#f0f4f8]">
+            <div className="max-w-md w-full space-y-8 p-10 bg-[#f7fafc] rounded-xl shadow-lg">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-[#622A0F]">
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-[#2d3748]">
                         Forgot Your Password?
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#622A0F] focus:border-[#622A0F] focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-[#cbd5e0] placeholder-[#a0aec0] text-[#2d3748] focus:outline-none focus:ring-[#4a5568] focus:border-[#4a5568] focus:z-10 sm:text-sm"
                                 placeholder="Email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -58,7 +58,7 @@ const ForgotPassword = () => {
                     </div>
 
                     {message && (
-                        <div className="text-sm text-center font-medium text-[#622A0F]">
+                        <div className="text-sm text-center font-medium text-[#2d3748]">
                             {message}
                         </div>
                     )}
@@ -67,14 +67,14 @@ const ForgotPassword = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#9e4e26e4] hover:bg-[#622A0F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#9e4e26e4]"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4a5568]"
                         >
                             {isLoading ? 'Sending...' : 'Send Reset Link'}
                         </button>
                     </div>
                 </form>
                 <div className="text-center">
-                    <a href="/login" className="font-medium text-[#9e4e26e4] hover:text-[#622A0F]">
+                    <a href="/SignUp" className="font-medium text-[#2d3748] hover:text-green-600">
                         Back to Login
                     </a>
                 </div>

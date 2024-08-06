@@ -43,10 +43,10 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-yellow-100">
-            <div className="max-w-md w-full space-y-8 p-10 bg-yellow-200 rounded-xl shadow-lg">
+        <div className="min-h-screen flex items-center justify-center bg-[#f0f4f8]">
+            <div className="max-w-md w-full space-y-8 p-10 bg-[#f7fafc] bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg border border-[#e2e8f0]">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-[#9e4e26e4]">
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-[#2d3748]">
                         Reset Your Password
                     </h2>
                 </div>
@@ -59,7 +59,7 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
                                 name="password"
                                 type="password"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#622A0F] focus:border-[#622A0F] focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-[#cbd5e0] placeholder-[#a0aec0] text-[#2d3748] rounded-t-md focus:outline-none focus:ring-[#4a5568] focus:border-[#4a5568] focus:z-10 sm:text-sm bg-[#f7fafc] bg-opacity-70"
                                 placeholder="New Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -72,7 +72,7 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
                                 name="confirm-password"
                                 type="password"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#622A0F] focus:border-[#622A0F] focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-[#cbd5e0] placeholder-[#a0aec0] text-[#2d3748] rounded-b-md focus:outline-none focus:ring-[#4a5568] focus:border-[#4a5568] focus:z-10 sm:text-sm bg-[#f7fafc] bg-opacity-70"
                                 placeholder="Confirm New Password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -81,7 +81,7 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
                     </div>
 
                     {message && (
-                        <div className="text-sm text-center font-medium text-[#622A0F]">
+                        <div className="text-sm text-center font-medium text-[#4a5568]">
                             {message}
                         </div>
                     )}
@@ -90,7 +90,7 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#a55730] hover:bg-[#622A0F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a55730]"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4a5568] transition-colors duration-200"
                         >
                             {isLoading ? 'Processing...' : 'Reset Password'}
                         </button>
