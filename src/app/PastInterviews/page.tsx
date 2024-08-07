@@ -6,6 +6,7 @@ import NavbarN from "../../Components/Navbarn";
 import SidebarN from "../../Components/SidebarN";
 import styles from "./PastInterviews.module.css";
 import { IoMdCloudDownload } from "react-icons/io";
+import apiClient from "@/src/utils/axiosSetup";
 interface Interview {
   _id: string;
   jobPosition: string;
@@ -115,8 +116,8 @@ const Interviews: React.FC = () => {
   const handleSubmit = async (interviewId: string) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:8000/interview/download?interviewId=${interviewId}`,
+      const response = await apiClient.get(
+        `/interview/download?interviewId=${interviewId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           responseType: 'blob'
