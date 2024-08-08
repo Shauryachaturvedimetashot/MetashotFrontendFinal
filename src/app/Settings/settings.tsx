@@ -5,7 +5,7 @@ import Modal from "../../Components/Modal";
 import styles from "./Settings.module.css";
 import axios from "axios";
 import apiClient from "@/src/utils/axiosSetup";
-
+import {useRouter} from "next/navigation";
 const Settings_content: React.FC = () => {
   const [exportCandidateList, setExportCandidateList] =
     useState<boolean>(false);
@@ -19,7 +19,7 @@ const Settings_content: React.FC = () => {
   const [selectedInterviews, setSelectedInterviews] = useState<string[]>([]);
   const [showModal2, setShowModal2] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
-
+  const router = useRouter();
   // Adding hooks for storing name and compan details
 
   const [newName, setNewName] = useState<string>("");
@@ -237,7 +237,24 @@ const Settings_content: React.FC = () => {
       alert('Failed to upload file.');
     }
   };
-
+  const handleDeleteAccount = async () => {
+    const token = localStorage.getItem('token');
+  try{
+    const response = await apiClient.post('/user/deleteAll',{email:email},{
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    // const response =  await axios.post('http://localhost:8000/user/deleteAll',{email:email},{
+    //   headers: { Authorization: `Bearer ${token}` },
+    // });
+    if(response.status === 200){
+      alert('Account Deleted Successfully');
+      localStorage.clear();
+      router.push("/SignUp");
+    }
+  }catch(err:any){
+    console.log(err);
+  };
+  }
   return (
     <>
       <div
@@ -419,8 +436,16 @@ const Settings_content: React.FC = () => {
             {/* <div className='font-bold' style={{ color: '#AFAFAF' }}>
               LOGOUT
             </div> */}
-            <div className="font-bold" style={{ color: "#AFAFAF" }}>
-              DELETE ACCOUNT
+            <div className="font-bold" >
+              <button
+              className={`${deleteData ? "bg-red-500 cursor-pointer" : "bg-gray-500 cursor-default"} text-white p-2 rounded-md`}
+              disabled={!deleteData}
+              onClick={() => {
+                handleDeleteAccount();
+              }}
+              >
+                DELETE ACCOUNT
+              </button>
             </div>
           </div>
         </div>

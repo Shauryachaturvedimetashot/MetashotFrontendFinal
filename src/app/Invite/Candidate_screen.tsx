@@ -169,8 +169,15 @@ function CandidateScreen() {
         return;
       }
 
+      // const response = await axios.post(
+      //   "https://metashot-backend.azurewebsites.net/interview/schedule",
+      //   payload,
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
       const response = await axios.post(
-        "https://metashot-backend.azurewebsites.net/interview/schedule",
+        "http://localhost:8000/interview/schedule",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
