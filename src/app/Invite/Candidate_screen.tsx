@@ -169,20 +169,20 @@ function CandidateScreen() {
         return;
       }
 
-      // const response = await axios.post(
-      //   "https://metashot-backend.azurewebsites.net/interview/schedule",
-      //   payload,
-      //   {
-      //     headers: { Authorization: `Bearer ${token}` },
-      //   }
-      // );
       const response = await axios.post(
-        "http://localhost:8000/interview/schedule",
+        "https://metashot-backend.azurewebsites.net/interview/schedule",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      // const response = await axios.post(
+      //   "http://localhost:8000/interview/schedule",
+      //   payload,
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
 
       if (response.status === 200) {
         setRedirect(true);
