@@ -1,3 +1,4 @@
+
 {
   "name": "login-signup-frontend",
   "version": "0.1.0",
@@ -15,11 +16,12 @@
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "mongoose": "^8.4.1",
-    "next": "^14.2.5",
+    "next": "^14.2.3",
     "next-auth": "^4.24.7",
     "react": "^18.3.1",
     "react-datepicker": "^6.9.0",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -34,3 +36,4 @@
   },
   "license": "MIT"
 }
+

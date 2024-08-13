@@ -45,7 +45,19 @@ module.exports = {
     },
     fontFamily:{
       spaceGrotesk: ['"Space Grotesk"', 'sans-serif']
-    }
+    },
+    backgroundImage: {
+      'glassmorphic-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%)',
+    },
+    backdropFilter: {
+      'none': 'none',
+      'blur': 'blur(20px)',
+    },
+  },
+},
+variants: {
+  extend: {
+    backdropFilter: ['responsive'],
   },
 },
   plugins: [],

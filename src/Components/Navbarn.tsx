@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import styles from './Sidebar.module.css';
 import apiClient from "../utils/axiosSetup";
+import axios from "axios";
 
 
 // interface NavbarProps {
@@ -52,10 +53,12 @@ const Navbar: React.FC = () => {
     setDropdownOpen(!DropdownOpen);
   };
 
-  const handleLogout = () => {
+  const  handleLogout = async () => {
     // Remove token from local storage
     localStorage.removeItem('token');
     localStorage.clear()
+    const response =  await axios.get("/api/users/logout");
+    console.log(response.data);
     
     // Redirect to /SignUp page
     window.location.href = '/SignUp';
